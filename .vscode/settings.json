@@ -1,0 +1,27 @@
+{
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.enableImportCompletion": true,
+  "omnisharp.organizeImportsOnFormat": true,
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true
+  },
+  "files.watcherExclude": {
+    "**/bin/**": true,
+    "**/obj/**": true
+  },
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "dotnet.defaultSolution": "DMS.sln"
+}
+
+
+
+
+

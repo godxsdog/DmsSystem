@@ -97,6 +97,43 @@ DI 的核心思想是：**一個物件不應該自己建立它所需要的依賴
 
 ## 6. 如何在本機執行？
 
+### 使用 Visual Studio Code
+
+1.  **環境需求**: 
+    * .NET 8 SDK ([下載連結](https://dotnet.microsoft.com/download/dotnet/8.0))
+    * Visual Studio Code
+    * C# Dev Kit 擴充功能 (VS Code 會自動提示安裝)
+
+2.  **安裝擴充功能**:
+    * 開啟 VS Code 後，會自動提示安裝推薦的擴充功能
+    * 或手動安裝：`ms-dotnettools.csdevkit`、`ms-dotnettools.csharp`
+
+3.  **還原套件**:
+    ```bash
+    dotnet restore
+    ```
+
+4.  **設定連線**: 修改 `DmsSystem.Api/appsettings.Development.json` 中的 `ConnectionStrings:DefaultConnection`。
+
+5.  **執行專案**:
+    * 按 `F5` 開始偵錯，或
+    * 使用命令面板 (`Cmd+Shift+P` / `Ctrl+Shift+P`) 選擇 "Debug: Start Debugging"
+    * 選擇 ".NET Core Launch (API)" 配置
+    * API 會自動啟動並開啟 Swagger UI (http://localhost:5137/swagger)
+
+6.  **其他可用任務** (命令面板 -> "Tasks: Run Task"):
+    * `build`: 建置專案
+    * `watch`: 監看模式執行 (自動重新載入)
+    * `clean`: 清理建置檔案
+    * `restore`: 還原 NuGet 套件
+
+7.  **(首次執行)** 信任本機 HTTPS 開發憑證:
+    ```bash
+    dotnet dev-certs https --trust
+    ```
+
+### 使用 Visual Studio 2022
+
 1.  **環境**: .NET 8 SDK, VS 2022 (含 ASP.NET 和 .NET 桌面開發 worklaods)。
 2.  **取得程式碼**: Git Clone。
 3.  **還原套件**: 開啟方案檔 `.sln`，VS 自動還原或手動重建。
