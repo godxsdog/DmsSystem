@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Api", "DmsSystem.Api\DmsSystem.Api.csproj", "{288384D8-8C67-49E9-B1EE-134D19F1E784}"
+	ProjectSection(ProjectDependencies) = postProject
+		{86FA68FB-FE0E-448C-AF3A-4665531F160E} = {86FA68FB-FE0E-448C-AF3A-4665531F160E}
+		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8} = {DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Domain", "DmsSystem.Domain\DmsSystem.Domain.csproj", "{8737ABD2-92DF-4AC9-AD6F-00B56DE1B188}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Application", "DmsSystem.Application\DmsSystem.Application.csproj", "{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8737ABD2-92DF-4AC9-AD6F-00B56DE1B188} = {8737ABD2-92DF-4AC9-AD6F-00B56DE1B188}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Infrastructure", "DmsSystem.Infrastructure\DmsSystem.Infrastructure.csproj", "{86FA68FB-FE0E-448C-AF3A-4665531F160E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8737ABD2-92DF-4AC9-AD6F-00B56DE1B188} = {8737ABD2-92DF-4AC9-AD6F-00B56DE1B188}
+		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8} = {DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.WinFormsClient", "DmsSystem.WinFormsClient\DmsSystem.WinFormsClient.csproj", "{16CF0DD7-729B-46BA-B4A6-6E738715C660}"
+	ProjectSection(ProjectDependencies) = postProject
+		{86FA68FB-FE0E-448C-AF3A-4665531F160E} = {86FA68FB-FE0E-448C-AF3A-4665531F160E}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{288384D8-8C67-49E9-B1EE-134D19F1E784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288384D8-8C67-49E9-B1EE-134D19F1E784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288384D8-8C67-49E9-B1EE-134D19F1E784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288384D8-8C67-49E9-B1EE-134D19F1E784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8737ABD2-92DF-4AC9-AD6F-00B56DE1B188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8737ABD2-92DF-4AC9-AD6F-00B56DE1B188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8737ABD2-92DF-4AC9-AD6F-00B56DE1B188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8737ABD2-92DF-4AC9-AD6F-00B56DE1B188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86FA68FB-FE0E-448C-AF3A-4665531F160E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86FA68FB-FE0E-448C-AF3A-4665531F160E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86FA68FB-FE0E-448C-AF3A-4665531F160E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86FA68FB-FE0E-448C-AF3A-4665531F160E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E31D59BA-374F-4460-84F7-A0D59F1DCF3D}
+	EndGlobalSection
+EndGlobal
