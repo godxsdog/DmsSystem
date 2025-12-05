@@ -13,17 +13,17 @@ namespace DmsSystem.Infrastructure.FileParsing;
 /// </summary>
 public class ShmtSource1FileParser : IFileParser<ShmtSource1>
 {
-    public async Task<List<ShmtSource1>> ParseAsync(Stream fileStream, string fileName)
+    public Task<List<ShmtSource1>> ParseAsync(Stream fileStream, string fileName)
     {
         string fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
 
         if (fileExtension == ".xlsx")
         {
-            return ParseXlsxStream(fileStream);
+            return Task.FromResult(ParseXlsxStream(fileStream));
         }
         else if (fileExtension == ".csv")
         {
-            return ParseCsvStream(fileStream);
+            return Task.FromResult(ParseCsvStream(fileStream));
         }
         else
         {
