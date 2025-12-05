@@ -65,6 +65,7 @@ try
     builder.Services.AddScoped<ICompanyInfoUploadService, CompanyInfoUploadService>();
     builder.Services.AddScoped<IShareholderMeetingDetailService, ShareholderMeetingDetailService>();
     builder.Services.AddScoped<IStockBalanceUploadService, StockBalanceUploadService>();
+    builder.Services.AddScoped<IReportService, ReportService>();
 
     // 檔案產生器
     builder.Services.AddScoped<IExcelGenerator, NpoiExcelGenerator>();

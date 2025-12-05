@@ -1,4 +1,4 @@
-﻿using DmsSystem.Infrastructure.Services; // 引用 IReportService
+﻿using DmsSystem.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -22,22 +22,25 @@ namespace DmsSystem.Api.Controllers
         {
             try
             {
-                byte[] fileBytes = await _reportService.GenerateShareholderReportExcelAsync();
+                // 取得報表資料
+                var data = await _reportService.GetShareholderReportDataAsync();
 
-                if (fileBytes == null || fileBytes.Length == 0)
+                if (data == null || data.Count == 0)
                 {
                     return NotFound("查無資料可匯出。");
                 }
+
+                // 產生 Excel 檔案
+                var memoryStream = _reportService.GenerateShareholderReportExcel(data);
 
                 string fileName = $"ShareholderReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
                 string mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
                 // 回傳檔案
-                return File(fileBytes, mimeType, fileName);
+                return File(memoryStream.ToArray(), mimeType, fileName);
             }
             catch (Exception ex)
             {
-                // 應加入 Log
                 return StatusCode(500, $"產生 Excel 報表時發生內部錯誤: {ex.Message}");
             }
         }
