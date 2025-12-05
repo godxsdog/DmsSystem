@@ -1,154 +1,203 @@
-# DmsSystem 架構指南
+# DMS 系統
 
-## 1. 專案目標
+股東會資料管理系統（DMS System）是一個基於 .NET 8.0 和 React 的現代化應用程式。
 
-本專案 (`DmsSystem`) 旨在建立一個現代化的後端服務系統，用於處理股東會相關的資料作業，例如從外部檔案匯入資料到資料庫。前端介面目前規劃為 Windows Forms 應用程式 (`DmsSystem.WinFormsClient`)。
+## 📚 文件導覽
 
-本文件將詳細說明此專案採用的架構設計、核心概念以及各個部分如何協同工作。
+### 快速開始
+
+- **[📖 文件目錄](./docs/README.md)** - 所有技術文件的完整索引
+- **[🚀 快速開始](./docs/00-快速開始.md)** - 5 分鐘快速啟動指南
+
+### 環境設定
+
+根據您的環境選擇對應的手冊：
+
+- **Mac 本地開發測試環境（Docker SQL Server）** → [Mac 開發環境完整手冊](./docs/MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)
+- **Windows 正式環境（正式區 SQL Server）** → [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
+
+### 核心文件（通用）
+
+所有技術文件位於 [`docs/`](./docs/) 資料夾，包含：
+
+1. **[架構指南](./docs/01-架構指南.md)** - 完整的系統架構說明
+2. **[資料庫配置](./docs/02-資料庫配置.md)** - 資料庫設定指南
+3. **[測試指南](./docs/04-測試指南.md)** - 測試相關說明
+4. **[專案完成總結](./docs/05-專案完成總結.md)** - 開發完成情況
+5. **[架構分析與優勢](./docs/07-架構分析與優勢.md)** - 架構設計分析
+6. **[使用者手冊](./docs/08-使用者手冊.md)** - 完整的使用說明（包含資料流程）
+7. **[執行狀態報告](./docs/09-執行狀態報告.md)** - 系統執行狀態檢查
+8. **[系統測試報告](./docs/10-系統測試報告.md)** - 系統測試報告
+
+### 環境專用文件
+
+- **Mac 本地開發測試環境**：位於 [`docs/MAC-DEVELOPMENT-ONLY/`](./docs/MAC-DEVELOPMENT-ONLY/)
+  - 使用 Docker SQL Server 進行本地測試（因為無法連線到正式區 SQL Server）
+  - 個人開發和測試使用
+  
+- **Windows 正式環境**：位於 [`docs/WINDOWS-DEVELOPMENT/`](./docs/WINDOWS-DEVELOPMENT/)
+  - 連接正式區 SQL Server（已建立）
+  - 正式環境執行和測試
+
+### 開發流程
+
+1. **Mac 本地開發**：在 Mac 環境使用 Docker SQL Server 進行開發和測試
+2. **提交程式碼**：測試完成後，將程式碼提交到 Git
+3. **Windows 正式環境**：在 Windows 環境拉取程式碼，連接正式區 SQL Server 進行正式測試
+
+### 如何使用文件
+
+#### Mac 開發者（本地測試）
+
+1. 閱讀 [快速開始](./docs/00-快速開始.md) 快速啟動系統
+2. 閱讀 [Mac 開發環境完整手冊](./docs/MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md) 設定本地環境
+3. 使用 Docker SQL Server 進行測試
+4. 測試完成後，參考 [環境切換指南](./docs/WINDOWS-DEVELOPMENT/03-環境切換指南.md) 切換到 Windows
+
+#### Windows 開發者（正式環境）
+
+1. 閱讀 [快速開始](./docs/00-快速開始.md) 快速啟動系統
+2. 閱讀 [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md) 設定正式環境
+3. 從 Git 拉取 Mac 環境測試完成的程式碼
+4. 連接正式區 SQL Server 進行正式環境測試
+
+#### 了解系統架構
+
+1. 閱讀 [架構指南](./docs/01-架構指南.md) 了解整體設計
+2. 閱讀 [架構分析與優勢](./docs/02-架構分析與優勢.md) 了解設計優勢
+
+#### 設定資料庫
+
+1. 閱讀 [資料庫配置](./docs/02-資料庫配置.md) 了解如何設定連接
+2. **Mac 環境**：參考 [Docker SQL Server 設定](./docs/MAC-DEVELOPMENT-ONLY/03-Docker-SQL-Server設定.md)（本地測試用）
+3. **Windows 環境**：參考 [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)（正式區 SQL Server）
+
+#### 資料庫遷移（Mac → Windows）
+
+閱讀 [資料庫遷移指南](./docs/WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md) 了解如何從 Mac Docker 資料庫遷移到正式區 SQL Server
+
+#### 執行測試
+
+閱讀 [測試指南](./docs/04-測試指南.md) 了解如何執行測試
+
+#### 遇到問題
+
+1. 根據環境選擇對應手冊的「錯誤診斷」章節
+2. 執行錯誤報告產生器：
+   - Mac：`./scripts/generate-error-report.sh`
+   - Windows：執行 `generate-error-report.bat`（需建立）
+3. 查看 [執行狀態報告](./docs/07-執行狀態報告.md)
+
+## 🏗️ 專案結構
+
+```
+DmsSystem/
+├── docs/                    # 📚 所有技術文件
+│   ├── 00-快速開始.md      # 通用：快速啟動
+│   ├── 01-架構指南.md      # 通用：架構說明
+│   ├── 02-資料庫配置.md    # 通用：資料庫配置
+│   ├── 04-測試指南.md      # 通用：測試說明
+│   ├── 05-專案完成總結.md  # 通用：專案總結
+│   ├── 07-架構分析與優勢.md # 通用：架構分析
+│   ├── 08-使用者手冊.md    # 通用：使用說明
+│   ├── 09-執行狀態報告.md  # 通用：狀態檢查
+│   ├── 10-系統測試報告.md  # 通用：測試報告
+│   │
+│   ├── MAC-DEVELOPMENT-ONLY/  # Mac 本地開發測試（Docker SQL Server）
+│   │   ├── 01-Mac開發環境完整手冊.md
+│   │   ├── 02-測試資料載入.md
+│   │   └── 03-Docker-SQL-Server設定.md
+│   │
+│   └── WINDOWS-DEVELOPMENT/   # Windows 正式環境（正式區 SQL Server）
+│       ├── 01-Windows開發環境完整手冊.md
+│       ├── 02-Git版本控制指南.md
+│       ├── 03-環境切換指南.md
+│       └── 04-資料庫遷移指南.md
+│
+├── scripts/                 # 🔧 工具腳本
+│   ├── init-db.sql         # 資料庫初始化
+│   ├── seed-test-data.sql  # 測試資料（Mac 本地測試用）
+│   ├── start-sqlserver.sh  # 啟動 SQL Server（Mac Docker）
+│   ├── stop-sqlserver.sh   # 停止 SQL Server（Mac Docker）
+│   ├── load-test-data.sh   # 載入測試資料（Mac Docker）
+│   └── generate-error-report.sh  # 錯誤報告產生器
+│
+├── DmsSystem.Domain/        # 領域實體層
+├── DmsSystem.Application/  # 應用程式層
+├── DmsSystem.Infrastructure/ # 基礎設施層
+├── DmsSystem.Api/          # API 表現層
+├── DmsSystem.Tests/        # 測試專案
+├── react-client/           # React 前端（網頁應用程式）
+└── README.md              # 本文件
+```
+
+## 🚀 快速啟動
+
+### Mac 環境（本地測試，Docker SQL Server）
+
+```bash
+# 1. 啟動 Docker SQL Server
+docker-compose up -d
+
+# 2. 啟動後端 API
+cd DmsSystem.Api
+dotnet run
+
+# 3. 啟動前端（新終端視窗）
+cd react-client
+npm install  # 首次執行
+npm run dev
+```
+
+### Windows 環境（正式環境，正式區 SQL Server）
+
+1. 確認正式區 SQL Server 已運行
+2. 設定連接字串（`appsettings.Production.json`）
+3. 啟動 API：`dotnet run`
+4. 啟動前端：`npm run dev`
+
+**詳細步驟請參考：** 
+- Mac： [Mac 開發環境完整手冊](./docs/MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)
+- Windows： [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
+
+## 📋 功能清單
+
+- ✅ 股東會資料上傳（Excel/CSV）
+- ✅ 公司資訊上傳
+- ✅ 股票餘額上傳
+- ✅ 資料查詢與顯示（React 網頁前端）
+- ✅ 報表產生
+
+## 🛠️ 技術棧
+
+- **後端**：.NET 8.0, ASP.NET Core, Entity Framework Core
+- **前端**：React, TypeScript, Vite（網頁應用程式）
+- **資料庫**：SQL Server
+  - **Mac 本地測試**：Docker SQL Server
+  - **Windows 正式環境**：正式區 SQL Server
+- **架構**：洋蔥式架構（Onion Architecture）
+
+## 📖 更多資訊
+
+- 完整文件：請查看 [`docs/`](./docs/) 資料夾
+- API 文件：啟動 API 後訪問 http://localhost:5137/swagger
+- 前端應用：啟動前端後訪問 http://localhost:5173
+
+## ⚠️ 重要說明
+
+### 前端技術
+
+**系統現在以 React 網頁應用程式為主**，不再支援 Windows Forms 桌面應用程式。
+
+- **React 前端**：提供現代化的網頁介面，支援檔案上傳、資料檢視等功能
+- **API 整合**：前端透過 RESTful API 與後端通訊
+- **跨平台**：可在任何支援現代瀏覽器的平台上使用
+
+### 環境區分
+
+- **Mac 環境**：使用 Docker SQL Server 進行本地測試（無法連線到正式區 SQL Server）
+- **Windows 環境**：連接正式區 SQL Server 進行正式測試
 
 ---
 
-## 2. 專案架構：洋蔥式架構 (Onion Architecture)
-
-為了確保程式碼的**清晰度、可測試性**與**長期可維護性**，我們採用了嚴格的洋蔥式分層架構。
-
-### 各層職責
-
-您可以將整個系統想像成好幾層同心圓，越往內層越核心、越穩定：
-
-1.  **`DmsSystem.Domain` (核心領域層 - 最內層)**
-    * **內容**: 只包含最純粹的業務物件定義 (Entities)，例如 `Contract.cs`, `ShmtSource1.cs` 等。這些通常由 EF Core 自動產生，代表了資料庫的結構。
-    * **職責**: 定義系統的核心「名詞」。
-    * **規則**: **絕對不參考**任何其他專案。
-
-2.  **`DmsSystem.Application` (應用程式層 - 次內層)**
-    * **內容**: 定義系統需要完成的「業務功能」(Interfaces)，例如 `IContractRepository.cs`, `IShareholderMeetingDetailService.cs`。**【建議】** 也應包含業務邏輯的**實作** (`...Service.cs`)。未來可能還會包含 DTOs 和 Validation Rules。
-    * **職責**: 定義系統的核心「動詞」、業務流程的「合約」以及**編排業務邏輯**。
-    * **規則**: 只參考 `Domain` 專案。
-
-3.  **`DmsSystem.Infrastructure` (基礎設施層 - 次外層)**
-    * **內容**: 包含所有與「外部世界」溝通的具體**實作**程式碼。例如 `ContractRepository.cs`, `DmsDbContext.cs`。包含 NPOI/CsvHelper 的檔案解析邏輯**目前**也在此層。
-    * **職責**: **實作** `Application` 層定義的「資料存取合約」(Repositories) 或其他基礎設施介面（如檔案讀寫），負責處理「如何」連接資料庫、「如何」讀寫檔案等技術細節。
-    * **規則**: 參考 `Application` 專案。
-
-4.  **`DmsSystem.Api` (表現層 / API - 最外層)**
-    * **內容**: ASP.NET Core Web API 專案，包含 `Controllers` 和 `Program.cs`。
-    * **職責**: 作為系統的統一入口，接收 HTTP 請求，委派給 `Application` 層的服務，回傳結果。
-    * **規則**: 參考 `Application` 和 `Infrastructure`。
-
-5.  **`DmsSystem.WinFormsClient` (客戶端層 - 獨立)**
-    * **內容**: Windows Forms 應用程式，包含 UI 介面 (`Form1.cs`) 和呼叫 API 的邏輯 (`ApiClient.cs`)。
-    * **職責**: 提供使用者操作介面，透過 HTTP 與 `DmsSystem.Api` 互動。
-    * **規則**: 參考 `Domain`，**不直接參考** `Application` 或 `Infrastructure`。
-
-### 依賴關係黃金法則
-
-**所有參考方向永遠指向內層** (`Api` -> `Application` -> `Domain`)。`Infrastructure` 也參考 `Application` 來實作其介面。
-
----
-
-## 3. 核心概念：依賴注入 (Dependency Injection - DI)
-
-這是將所有層**「黏合」**在一起的關鍵機制。
-
-### 為什麼需要 DI？
-
-DI 的核心思想是：**一個物件不應該自己建立它所需要的依賴物件，而應該由外部提供 (注入) 給它。** 這實現了**鬆散耦合**，使得：
-* **易於替換**: 可以輕易更換某個功能的實作（例如換資料庫），而不影響呼叫它的程式碼。
-* **易於測試**: 可以注入「假的」依賴項來進行單元測試。
-
-### DI 在 DmsSystem 中的運作
-
-1.  **服務註冊 (在 `Api/Program.cs`)**:
-    * `builder.Services.AddDbContext<DmsDbContext>(...)`: 告訴 DI 容器如何建立 `DbContext`。
-    * `builder.Services.AddScoped<IShmtSource1Repository, ShmtSource1Repository>();`: 建立**介面**與**實作**的對應關係。
-    * `builder.Services.AddScoped<IShareholderMeetingDetailService, ShareholderMeetingDetailService>();`: 同上。
-
-2.  **依賴解析 (在 Controller/Service 的建構函式)**:
-    * 當需要建立 `ShareholderMeetingsController` 時，DI 容器看到它需要 `IShareholderMeetingDetailService`。
-    * 容器查找註冊表，找到對應的 `ShareholderMeetingDetailService` 實作。
-    * 容器看到 `ShareholderMeetingDetailService` 需要 `IShmtSource1Repository`。
-    * 容器查找註冊表，找到對應的 `ShmtSource1Repository` 實作。
-    * 容器看到 `ShmtSource1Repository` 需要 `DmsDbContext`。
-    * 容器建立 `DmsDbContext`，注入 `ShmtSource1Repository`，再注入 `ShareholderMeetingDetailService`，最後注入 `ShareholderMeetingsController`。
-
----
-
-## 4. DAO vs. Repository 釐清
-
-* **DAO**: 更貼近**資料庫表格**的抽象，專注於基礎 CRUD。
-* **Repository**: 更貼近**領域模型**的抽象，模擬「物件集合」，作為**應用層**與**資料映射層**的中介。
-* **在本專案中**: `Infrastructure/Repositories` (如 `ShmtSource1Repository.cs`) 功能上類似 DAO，但其目的是作為 `Application` 層 `IRepository` **介面的具體實作**，遵循 Repository Pattern 的精神來**解耦**應用邏輯與資料存取細節。
-
----
-
-## 5. Service 位置的討論與【建議調整】
-
-* **目前狀況**: Service 的**實作** (`CompanyInfoUploadService.cs` 等) 位於 `Infrastructure` 層。這導致「Infrastructure (Service) 呼叫 Infrastructure (Repository)」的現象。
-* **理想架構**: Service 的**實作**應位於 **`Application` 層**，負責編排業務邏輯，並依賴 `Application` 層定義的 `IRepository` 介面。`Infrastructure` 層則專注實作 `IRepository`。
-* **【建議調整步驟】**:
-    1.  將 `Infrastructure/Services` 資料夾內的 **Service 實作類別** (`.cs` 檔案) **移動**到 `Application` 專案下新建的 `Services` 資料夾。
-    2.  修正這些檔案的 `namespace`。
-    3.  確保專案參考關係正確。
-    4.  確保 `NPOI`, `CsvHelper` 等 NuGet 套件**只安裝在 `Infrastructure` 層**。
-        * *(進階)* 若 `Application` Service 需檔案解析功能，應透過**新介面**(在 `Application` 定義)和**實作**(在 `Infrastructure` 提供)來注入。*(若覺複雜可暫緩此步)*
-
----
-
-## 6. 如何在本機執行？
-
-### 使用 Visual Studio Code
-
-1.  **環境需求**: 
-    * .NET 8 SDK ([下載連結](https://dotnet.microsoft.com/download/dotnet/8.0))
-    * Visual Studio Code
-    * C# Dev Kit 擴充功能 (VS Code 會自動提示安裝)
-
-2.  **安裝擴充功能**:
-    * 開啟 VS Code 後，會自動提示安裝推薦的擴充功能
-    * 或手動安裝：`ms-dotnettools.csdevkit`、`ms-dotnettools.csharp`
-
-3.  **還原套件**:
-    ```bash
-    dotnet restore
-    ```
-
-4.  **設定連線**: 修改 `DmsSystem.Api/appsettings.Development.json` 中的 `ConnectionStrings:DefaultConnection`。
-
-5.  **執行專案**:
-    * 按 `F5` 開始偵錯，或
-    * 使用命令面板 (`Cmd+Shift+P` / `Ctrl+Shift+P`) 選擇 "Debug: Start Debugging"
-    * 選擇 ".NET Core Launch (API)" 配置
-    * API 會自動啟動並開啟 Swagger UI (http://localhost:5137/swagger)
-
-6.  **其他可用任務** (命令面板 -> "Tasks: Run Task"):
-    * `build`: 建置專案
-    * `watch`: 監看模式執行 (自動重新載入)
-    * `clean`: 清理建置檔案
-    * `restore`: 還原 NuGet 套件
-
-7.  **(首次執行)** 信任本機 HTTPS 開發憑證:
-    ```bash
-    dotnet dev-certs https --trust
-    ```
-
-### 使用 Visual Studio 2022
-
-1.  **環境**: .NET 8 SDK, VS 2022 (含 ASP.NET 和 .NET 桌面開發 worklaods)。
-2.  **取得程式碼**: Git Clone。
-3.  **還原套件**: 開啟方案檔 `.sln`，VS 自動還原或手動重建。
-4.  **設定連線**: 修改 `Api/appsettings.Development.json` 中的 `ConnectionStrings:DefaultConnection`。
-5.  **設定多重啟動**: 將 `Api` 和 `WinFormsClient` 設為啟動專案。
-6.  **執行**: 按 F5。
-7.  **(首次執行)** 信任本機 HTTPS 開發憑證 (`dotnet dev-certs https --trust`)。
-
----
-
-## 7. 重要觀念與下一步 (架構師建議)
-
-* **DTOs**: 避免直接暴露 Domain Entities。
-* **輸入驗證**: 使用 FluentValidation。
-* **全域錯誤處理**: 建立 Middleware。
-* **結構化日誌**: 引入 Serilog。
-* **自動化測試**: 撰寫單元/整合測試。
-* **非同步 (`async/await`)**: 貫徹所有 I/O 操作。
+**開始使用：** 請先閱讀 [快速開始指南](./docs/00-快速開始.md) 或根據您的環境選擇對應的手冊。

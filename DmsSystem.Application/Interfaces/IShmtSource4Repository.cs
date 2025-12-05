@@ -9,7 +9,7 @@ namespace DmsSystem.Application.Interfaces
     /// </summary>
     public interface IShmtSource4Repository
     {
-        // 定義一個可以一次新增多筆資料的方法
         Task AddRangeAsync(IEnumerable<ShmtSource4> entities);
+        Task<IEnumerable<ShmtSource4>> GetAllAsync();
     }
 }

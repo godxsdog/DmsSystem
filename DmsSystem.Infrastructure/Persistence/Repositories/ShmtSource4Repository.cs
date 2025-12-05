@@ -2,6 +2,7 @@
 using DmsSystem.Domain.Entities;
 using DmsSystem.Infrastructure.Persistence.Contexts;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DmsSystem.Infrastructure.Persistence.Repositories
@@ -20,6 +21,11 @@ namespace DmsSystem.Infrastructure.Persistence.Repositories
             // 使用 EF Core 的 AddRangeAsync 來提高批次新增的效率
             await _context.ShmtSource4s.AddRangeAsync(entities);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ShmtSource4>> GetAllAsync()
+        {
+            return await Task.FromResult(_context.ShmtSource4s.ToList());
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿// 檔案: DmsSystem.Api\Controllers\StockBalanceController.cs
-using DmsSystem.Application.Interfaces;
+﻿using DmsSystem.Application.Interfaces;
+using DmsSystem.Api.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace DmsSystem.Api.Controllers
 {
@@ -11,25 +10,33 @@ namespace DmsSystem.Api.Controllers
     public class StockBalanceController : ControllerBase
     {
         private readonly IStockBalanceUploadService _uploadService;
-        public StockBalanceController(IStockBalanceUploadService uploadService)
+        private readonly IValidator<IFormFile> _fileValidator;
+
+        public StockBalanceController(
+            IStockBalanceUploadService uploadService,
+            IValidator<IFormFile> fileValidator)
         {
             _uploadService = uploadService;
+            _fileValidator = fileValidator;
         }
 
         [HttpPost("upload")]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            if (file == null || file.Length == 0) return BadRequest("未上傳檔案。");
-
-            using (var stream = new MemoryStream())
+            // 使用 FluentValidation 驗證檔案
+            var validationResult = await _fileValidator.ValidateAsync(file);
+            if (!validationResult.IsValid)
             {
-                await file.CopyToAsync(stream);
-                stream.Position = 0;
-                var result = await _uploadService.ProcessUploadAsync(stream, file.FileName);
-
-                if (result.Success) return Ok(result);
-                else return BadRequest(result); // 回傳包含失敗訊息的 400 錯誤
+                return BadRequest(new { errors = validationResult.Errors.Select(e => e.ErrorMessage) });
             }
+
+            using var stream = new MemoryStream();
+            await file.CopyToAsync(stream);
+            stream.Position = 0;
+            var result = await _uploadService.ProcessUploadAsync(stream, file.FileName);
+
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
         }
     }
 }
