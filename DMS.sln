@@ -36,6 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-clien
 		react-client\tsconfig.json = react-client\tsconfig.json
 		react-client\vite.config.ts = react-client\vite.config.ts
 		react-client\index.html = react-client\index.html
+		react-client\src\App.tsx = react-client\src\App.tsx
+		react-client\src\main.tsx = react-client\src\main.tsx
+		react-client\src\api\client.ts = react-client\src\api\client.ts
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
@@ -63,9 +66,21 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FEATURES", "FEATURES", "{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}"
 	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\README.md = docs\FEATURES\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DIVIDEND", "DIVIDEND", "{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8}"
+	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\DIVIDEND\README.md = docs\FEATURES\DIVIDEND\README.md
 		docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md = docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SHAREHOLDER-MEETING", "SHAREHOLDER-MEETING", "{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9}"
+	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\SHAREHOLDER-MEETING\README.md = docs\FEATURES\SHAREHOLDER-MEETING\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "INVESTMENT", "INVESTMENT", "{B3FE74E1-B743-11D0-AE1A-00A0C90FFFCA}"
+	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\INVESTMENT\README.md = docs\FEATURES\INVESTMENT\README.md
 	EndProjectSection
 EndProject
@@ -102,6 +117,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
 		{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
+		{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
+		{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
+		{B3FE74E1-B743-11D0-AE1A-00A0C90FFFCA} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E31D59BA-374F-4460-84F7-A0D59F1DCF3D}
