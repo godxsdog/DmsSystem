@@ -363,6 +363,44 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 
 ---
 
+## 📦 Solution 文件管理原則
+
+### DMS.sln 必須包含所有專案
+
+**原則**：`DMS.sln` 必須包含專案中的所有 .NET 專案和重要檔案，確保在 Visual Studio 2022 中可以正確讀取和開啟。
+
+**必須包含的專案**：
+1. ✅ `DmsSystem.Domain` - 領域實體層
+2. ✅ `DmsSystem.Application` - 應用程式層
+3. ✅ `DmsSystem.Infrastructure` - 基礎設施層
+4. ✅ `DmsSystem.Api` - API 表現層
+5. ✅ `DmsSystem.Tests` - 測試專案
+
+**Solution Items 資料夾**：
+- **Solution Items**：包含 README.md、AI_CONTEXT.md、CHANGELOG.md、.gitignore、docker-compose.yml 等重要檔案
+- **Frontend**：包含 React 前端專案的重要檔案（package.json、README.md、tsconfig.json、vite.config.ts）
+- **Scripts**：包含資料庫腳本和工具腳本
+
+**React 前端專案**：
+- React 專案（`react-client/`）無法直接作為 .NET 專案加入 solution
+- 但可以透過 Solution Items 資料夾在 VS2022 中查看和編輯前端檔案
+- 前端專案需使用 VS Code 或終端機進行開發和執行
+
+**檢查方式**：
+```bash
+# 檢查 solution 包含的專案
+dotnet sln list
+
+# 應該看到所有 5 個 .NET 專案
+```
+
+**更新原則**：
+- 每次新增 .NET 專案時，必須使用 `dotnet sln add` 加入 solution
+- 或手動編輯 `DMS.sln` 加入專案定義
+- 確保所有專案都有正確的 GUID 和建置設定
+
+---
+
 ## 🔄 更新記錄
 
 ### 2024-12-05
@@ -370,6 +408,8 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 - 重新整理文件結構，明確區分 Mac 和 Windows 環境
 - 建立資料庫遷移指南
 - 新增測試案例
+- 修復 DMS.sln 缺少 DmsSystem.Tests 專案的問題
+- 更新 DMS.sln 加入 Solution Items 和 Frontend 資料夾，確保 VS2022 可以讀取所有檔案
 
 ---
 
@@ -379,7 +419,8 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 2. **檢查「專案結構」**：如有新增或移除專案/資料夾
 3. **檢查「環境設定」**：如有環境變更
 4. **檢查「文件命名規則」**：如有文件結構變更
-5. **提交到 Git**：確保變更同步
+5. **檢查「Solution 文件管理原則」**：如有新增專案，確保加入 solution
+6. **提交到 Git**：確保變更同步
 
 ---
 
