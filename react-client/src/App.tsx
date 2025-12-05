@@ -36,37 +36,40 @@ function App() {
       </header>
       <main className="app-main">
         {currentView === 'upload' && (
-          <div className="upload-sections">
-          <FileUpload
-            endpoint="/api/ShareholderMeetings/upload-shmtsource1"
-            title="股東會明細上傳"
-            description="上傳股東會明細資料（支援 .xlsx 和 .csv 格式）"
-            onUploadSuccess={(message) => addNotification('success', message)}
-            onUploadError={(error) => addNotification('error', error)}
-          />
-          <FileUpload
-            endpoint="/api/CompanyInfo/upload-shmtsource4"
-            title="公司資訊上傳"
-            description="上傳公司基本資訊（支援 .xlsx 和 .csv 格式）"
-            onUploadSuccess={(message) => addNotification('success', message)}
-            onUploadError={(error) => addNotification('error', error)}
-          />
-          <FileUpload
-            endpoint="/api/StockBalance/upload"
-            title="股票餘額上傳"
-            description="上傳股票餘額資料（支援 .csv 格式）"
-            onUploadSuccess={(message) => addNotification('success', message)}
-            onUploadError={(error) => addNotification('error', error)}
-          />
-        </div>
-        {notifications.length > 0 && (
-          <div className="notifications">
-            {notifications.map((notif, index) => (
-              <div key={index} className={`notification ${notif.type}`}>
-                {notif.message}
+          <>
+            <div className="upload-sections">
+              <FileUpload
+                endpoint="/api/ShareholderMeetings/upload-shmtsource1"
+                title="股東會明細上傳"
+                description="上傳股東會明細資料（支援 .xlsx 和 .csv 格式）"
+                onUploadSuccess={(message) => addNotification('success', message)}
+                onUploadError={(error) => addNotification('error', error)}
+              />
+              <FileUpload
+                endpoint="/api/CompanyInfo/upload-shmtsource4"
+                title="公司資訊上傳"
+                description="上傳公司基本資訊（支援 .xlsx 和 .csv 格式）"
+                onUploadSuccess={(message) => addNotification('success', message)}
+                onUploadError={(error) => addNotification('error', error)}
+              />
+              <FileUpload
+                endpoint="/api/StockBalance/upload"
+                title="股票餘額上傳"
+                description="上傳股票餘額資料（支援 .csv 格式）"
+                onUploadSuccess={(message) => addNotification('success', message)}
+                onUploadError={(error) => addNotification('error', error)}
+              />
+            </div>
+            {notifications.length > 0 && (
+              <div className="notifications">
+                {notifications.map((notif, index) => (
+                  <div key={index} className={`notification ${notif.type}`}>
+                    {notif.message}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
         {currentView === 'data' && <DataView />}
       </main>

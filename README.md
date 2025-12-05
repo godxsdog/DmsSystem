@@ -64,7 +64,7 @@
 #### 了解系統架構
 
 1. 閱讀 [架構指南](./docs/01-架構指南.md) 了解整體設計
-2. 閱讀 [架構分析與優勢](./docs/07-架構分析與優勢.md) 了解設計優勢
+2. 閱讀 [架構分析與優勢](./docs/02-架構分析與優勢.md) 了解設計優勢
 
 #### 設定資料庫
 
@@ -86,7 +86,7 @@
 2. 執行錯誤報告產生器：
    - Mac：`./scripts/generate-error-report.sh`
    - Windows：執行 `generate-error-report.bat`（需建立）
-3. 查看 [執行狀態報告](./docs/09-執行狀態報告.md)
+3. 查看 [執行狀態報告](./docs/07-執行狀態報告.md)
 
 ## 🏗️ 專案結構
 
@@ -127,7 +127,7 @@ DmsSystem/
 ├── DmsSystem.Infrastructure/ # 基礎設施層
 ├── DmsSystem.Api/          # API 表現層
 ├── DmsSystem.Tests/        # 測試專案
-├── react-client/           # React 前端
+├── react-client/           # React 前端（網頁應用程式）
 └── README.md              # 本文件
 ```
 
@@ -143,7 +143,7 @@ docker-compose up -d
 cd DmsSystem.Api
 dotnet run
 
-# 3. 啟動前端
+# 3. 啟動前端（新終端視窗）
 cd react-client
 npm install  # 首次執行
 npm run dev
@@ -165,13 +165,13 @@ npm run dev
 - ✅ 股東會資料上傳（Excel/CSV）
 - ✅ 公司資訊上傳
 - ✅ 股票餘額上傳
-- ✅ 資料查詢與顯示
+- ✅ 資料查詢與顯示（React 網頁前端）
 - ✅ 報表產生
 
 ## 🛠️ 技術棧
 
 - **後端**：.NET 8.0, ASP.NET Core, Entity Framework Core
-- **前端**：React, TypeScript, Vite
+- **前端**：React, TypeScript, Vite（網頁應用程式）
 - **資料庫**：SQL Server
   - **Mac 本地測試**：Docker SQL Server
   - **Windows 正式環境**：正式區 SQL Server
@@ -181,6 +181,22 @@ npm run dev
 
 - 完整文件：請查看 [`docs/`](./docs/) 資料夾
 - API 文件：啟動 API 後訪問 http://localhost:5137/swagger
+- 前端應用：啟動前端後訪問 http://localhost:5173
+
+## ⚠️ 重要說明
+
+### 前端技術
+
+**系統現在以 React 網頁應用程式為主**，不再支援 Windows Forms 桌面應用程式。
+
+- **React 前端**：提供現代化的網頁介面，支援檔案上傳、資料檢視等功能
+- **API 整合**：前端透過 RESTful API 與後端通訊
+- **跨平台**：可在任何支援現代瀏覽器的平台上使用
+
+### 環境區分
+
+- **Mac 環境**：使用 Docker SQL Server 進行本地測試（無法連線到正式區 SQL Server）
+- **Windows 環境**：連接正式區 SQL Server 進行正式測試
 
 ---
 
