@@ -27,6 +27,7 @@
 
 **文件**：
 - [配息功能開發指南](./DEVELOPMENT/配息功能開發指南.md) - 完整的開發指南，包含 .NET 實作規劃和前端頁面規劃
+- [EF Scaffold 一鍵重生指令](./DEVELOPMENT/EF-Scaffold-指令.md) - 重生 DbContext/實體的官方指令（同步 AI_CONTEXT 原則）
 
 ---
 
@@ -80,6 +81,7 @@
 - `BA/`（空白，待補）
 - `DEVELOPMENT/`
   - `配息功能開發指南.md`
+  - `EF-Scaffold-指令.md`
 - `DATABASE/`（空白，待補）
 - `TEST/`（空白，待補）
 
