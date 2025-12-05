@@ -1,4 +1,4 @@
-using DmsSystem.Application.Validators;
+using DmsSystem.Api.Validators;
 using FluentValidation.TestHelper;
 using Microsoft.AspNetCore.Http;
 using Moq;

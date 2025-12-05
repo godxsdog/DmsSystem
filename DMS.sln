@@ -41,21 +41,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-clien
 		react-client\src\api\client.ts = react-client\src\api\client.ts
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README.md = docs\README.md
+		docs\00-快速開始.md = docs\00-快速開始.md
+		docs\01-架構指南.md = docs\01-架構指南.md
+		docs\02-架構分析與優勢.md = docs\02-架構分析與優勢.md
+		docs\03-資料庫配置.md = docs\03-資料庫配置.md
+		docs\04-測試指南.md = docs\04-測試指南.md
+		docs\05-專案完成總結.md = docs\05-專案完成總結.md
+		docs\06-執行狀態報告.md = docs\06-執行狀態報告.md
+		docs\07-系統測試報告.md = docs\07-系統測試報告.md
+		docs\10-架構修正說明.md = docs\10-架構修正說明.md
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		AI_CONTEXT.md = AI_CONTEXT.md
-		CHANGELOG.md = CHANGELOG.md
-		.gitignore = .gitignore
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
-	ProjectSection(SolutionItems) = preProject
-		scripts\init-db.sql = scripts\init-db.sql
-		scripts\seed-test-data.sql = scripts\seed-test-data.sql
-		scripts\setup-database.sh = scripts\setup-database.sh
-		scripts\generate-error-report.sh = scripts\generate-error-report.sh
 	EndProjectSection
 EndProject
 Global
@@ -87,8 +90,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E31D59BA-374F-4460-84F7-A0D59F1DCF3D}
