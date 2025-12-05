@@ -1,0 +1,59 @@
+# 快速開始指南
+
+## 🚀 5 分鐘快速啟動
+
+### 1. 啟動資料庫
+
+```bash
+cd DmsSystem
+docker-compose up -d
+```
+
+等待約 30-60 秒讓 SQL Server 啟動完成。
+
+### 2. 載入測試資料
+
+```bash
+# 複製測試資料腳本到容器
+docker cp scripts/seed-test-data.sql dms-sqlserver:/tmp/seed-test-data.sql
+
+# 執行腳本
+docker exec -i dms-sqlserver /opt/mssql-tools/bin/sqlcmd \
+  -S localhost \
+  -U sa \
+  -P 'DmsSystem@2024' \
+  -d DMS \
+  -i /tmp/seed-test-data.sql
+```
+
+### 3. 啟動後端 API
+
+```bash
+cd DmsSystem.Api
+dotnet run
+```
+
+API 將在 http://localhost:5137 啟動
+
+### 4. 啟動前端（新終端視窗）
+
+```bash
+cd react-client
+npm install
+npm run dev
+```
+
+前端將在 http://localhost:5173 啟動
+
+### 5. 查看結果
+
+1. 打開瀏覽器訪問 http://localhost:5173
+2. 點擊「資料檢視」標籤
+3. 查看已載入的測試資料
+
+## 📝 詳細說明
+
+- 完整文件請參考 [`docs/`](./docs/) 資料夾
+- 資料庫配置請參考 [資料庫配置指南](./docs/02-資料庫配置.md)
+- 測試資料載入請參考 [測試資料載入指南](./docs/03-測試資料載入.md)
+

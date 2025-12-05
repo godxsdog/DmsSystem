@@ -18,5 +18,7 @@ namespace DmsSystem.Application.Interfaces
         void Update(StockBalance entity);
         // 將所有變更一次性儲存到資料庫
         Task<int> SaveChangesAsync();
+        // 取得所有股票餘額資料
+        Task<IEnumerable<StockBalance>> GetAllAsync();
     }
 }

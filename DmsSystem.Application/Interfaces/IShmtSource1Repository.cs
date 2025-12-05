@@ -10,5 +10,6 @@ namespace DmsSystem.Application.Interfaces
     public interface IShmtSource1Repository
     {
         Task AddRangeAsync(IEnumerable<ShmtSource1> entities);
+        Task<IEnumerable<ShmtSource1>> GetAllAsync();
     }
 }

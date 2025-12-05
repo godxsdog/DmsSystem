@@ -1,7 +1,7 @@
 ﻿using DmsSystem.Application.Interfaces;
+using DmsSystem.Api.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace DmsSystem.Api.Controllers
 {
@@ -13,10 +13,14 @@ namespace DmsSystem.Api.Controllers
     public class ShareholderMeetingsController : ControllerBase
     {
         private readonly IShareholderMeetingDetailService _detailService;
+        private readonly IValidator<IFormFile> _fileValidator;
 
-        public ShareholderMeetingsController(IShareholderMeetingDetailService detailService)
+        public ShareholderMeetingsController(
+            IShareholderMeetingDetailService detailService,
+            IValidator<IFormFile> fileValidator)
         {
             _detailService = detailService;
+            _fileValidator = fileValidator;
         }
 
         /// <summary>
@@ -25,25 +29,25 @@ namespace DmsSystem.Api.Controllers
         [HttpPost("upload-shmtsource1")]
         public async Task<IActionResult> UploadDetails(IFormFile file)
         {
-            if (file == null || file.Length == 0)
+            // 使用 FluentValidation 驗證檔案
+            var validationResult = await _fileValidator.ValidateAsync(file);
+            if (!validationResult.IsValid)
             {
-                return BadRequest("未上傳任何檔案。");
+                return BadRequest(new { errors = validationResult.Errors.Select(e => e.ErrorMessage) });
             }
 
-            using (var stream = new MemoryStream())
-            {
-                await file.CopyToAsync(stream);
-                stream.Position = 0;
-                var result = await _detailService.ProcessUploadAsync(stream, file.FileName);
+            using var stream = new MemoryStream();
+            await file.CopyToAsync(stream);
+            stream.Position = 0;
+            var result = await _detailService.ProcessUploadAsync(stream, file.FileName);
 
-                if (result.Success)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return StatusCode(500, result);
-                }
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(500, result);
             }
         }
     }

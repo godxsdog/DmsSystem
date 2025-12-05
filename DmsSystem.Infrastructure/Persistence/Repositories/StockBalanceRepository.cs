@@ -3,6 +3,8 @@ using DmsSystem.Domain.Entities;
 using DmsSystem.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DmsSystem.Infrastructure.Persistence.Repositories
@@ -31,6 +33,11 @@ namespace DmsSystem.Infrastructure.Persistence.Repositories
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<StockBalance>> GetAllAsync()
+        {
+            return await Task.FromResult(_context.StockBalances.ToList());
         }
     }
 }
