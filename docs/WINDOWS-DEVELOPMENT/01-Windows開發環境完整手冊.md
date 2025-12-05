@@ -7,18 +7,17 @@
 - **資料庫**：正式 SQL Server（已建立）
 - **用途**：正式環境執行、生產部署
 
-## 🔄 從 Mac 環境切換過來
+## 🚀 首次設定
 
-### 步驟 1：取得最新程式碼
+### 步驟 1：取得程式碼
 
 ```powershell
 # 開啟 PowerShell 或命令提示字元
-cd C:\Your\Project\Path\DmsSystem
+cd C:\Your\Project\Path
 
-# 拉取最新程式碼
-git pull origin main
-# 或
-git pull origin feature/architecture-refactoring-and-enhancements
+# 複製專案
+git clone <repository-url>
+cd DmsSystem
 ```
 
 ### 步驟 2：還原 NuGet 套件
@@ -32,19 +31,27 @@ git pull origin feature/architecture-refactoring-and-enhancements
 dotnet restore
 ```
 
-### 步驟 3：檢查資料庫連接字串
+### 步驟 3：設定資料庫連接字串
 
 **位置：** `DmsSystem.Api/appsettings.Production.json`
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=YOUR_PRODUCTION_SERVER;Database=DMS;User Id=YOUR_USER;Password=YOUR_PASSWORD;TrustServerCertificate=True;MultipleActiveResultSets=True"
+    "DefaultConnection": "Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正式密碼;TrustServerCertificate=True;MultipleActiveResultSets=True"
   }
 }
 ```
 
 **⚠️ 重要：** 請替換為正式環境的實際連接資訊
+
+### 步驟 4：驗證資料庫連接
+
+使用 SQL Server Management Studio (SSMS) 或命令列測試連接：
+
+```powershell
+sqlcmd -S 正式伺服器位址 -U 正式使用者 -P 正式密碼 -d DMS -Q "SELECT DB_NAME()"
+```
 
 ## 🚀 啟動系統
 
@@ -109,7 +116,7 @@ dotnet run
 - `User Id`：SQL Server 登入帳號
 - `Password`：SQL Server 登入密碼
 
-#### 方式二：使用環境變數（更安全）
+#### 方式二：使用環境變數（推薦，更安全）
 
 **PowerShell：**
 ```powershell
@@ -121,13 +128,6 @@ $env:ASPNETCORE_ENVIRONMENT="Production"
 ```cmd
 set ConnectionStrings__DefaultConnection=Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正式密碼;TrustServerCertificate=True;MultipleActiveResultSets=True
 set ASPNETCORE_ENVIRONMENT=Production
-```
-
-#### 方式三：使用 User Secrets（僅開發環境）
-
-```powershell
-cd DmsSystem.Api
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正式密碼;TrustServerCertificate=True;MultipleActiveResultSets=True"
 ```
 
 ### 前端配置（如果需要）
@@ -264,24 +264,6 @@ dotnet publish -c Release -o ./publish
 3. 建立網站，指向發佈資料夾
 4. 設定應用程式集區
 
-## 🔄 切換回 Mac 開發環境
-
-當需要回到 Mac 環境開發時：
-
-1. **提交所有變更：**
-```powershell
-git add -A
-git commit -m "feat: 描述變更內容"
-git push
-```
-
-2. **在 Mac 電腦上：**
-```bash
-git pull
-```
-
-3. **參考：** [Mac 開發環境手冊](./08-1-Mac開發環境手冊.md)
-
 ## 📋 檢查清單
 
 ### 首次設定
@@ -323,9 +305,10 @@ git pull
 
 ## 📚 相關文件
 
-- [Mac 開發環境手冊](./08-1-Mac開發環境手冊.md)
-- [架構指南](./01-架構指南.md)
-- [資料庫配置](../03-資料庫配置.md)
+- [快速開始](../00-快速開始.md) - 5 分鐘快速啟動
+- [架構指南](../01-架構指南.md) - 系統架構說明
+- [資料庫配置](../03-資料庫配置.md) - 資料庫設定
+- [Git 版本控制指南](./02-Git版本控制指南.md) - 團隊協作流程
 
 ## ⚠️ 重要提醒
 
@@ -337,4 +320,3 @@ git pull
 ---
 
 **如有問題，請產生錯誤報告並提供給開發人員。**
-

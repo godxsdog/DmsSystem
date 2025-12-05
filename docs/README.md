@@ -6,15 +6,15 @@
 
 文件分為三大類：
 1. **通用文件**：所有環境都適用（架構、測試、使用說明等）
-2. **Mac 本地開發測試環境**：個人使用，Docker SQL Server
-3. **Windows 正式環境**：團隊使用，正式區 SQL Server
+2. **Windows 正式環境**：Windows 環境，連接正式區 SQL Server
+3. **Mac 本地開發測試環境**：Mac 環境，使用 Docker SQL Server
 
 ---
 
 ## 📖 通用文件（按順序閱讀）
 
 ### 快速開始
-- **[00-快速開始](./00-快速開始.md)** - 5 分鐘快速啟動指南
+- **[00-快速開始](./00-快速開始.md)** - Windows 環境快速啟動指南
 
 ### 架構文件（獨立章節）
 - **[01-架構指南](./01-架構指南.md)** - 完整的系統架構說明
@@ -28,8 +28,7 @@
   - 技術棧優勢
 
 ### 資料庫與環境
-- **[03-資料庫配置](./03-資料庫配置.md)** - 資料庫連接和環境設定指南
-  - Mac 測試環境設定（Docker SQL Server）
+- **[03-資料庫配置](./03-資料庫配置.md)** - Windows 環境資料庫連接和環境設定指南
   - Windows 正式環境設定（正式區 SQL Server）
   - 連接字串格式
   - 環境變數配置
@@ -62,36 +61,37 @@
 
 ## 🔀 環境專用文件
 
-### Mac 本地開發測試環境
-
-> ⚠️ **注意**：Mac 環境使用 Docker SQL Server 進行本地測試，因為無法連線到正式區 SQL Server。
-
-**使用情境：**
-- 個人開發和測試
-- 使用 Docker SQL Server 本地資料庫
-- 測試完成後，程式碼會搬到 Windows 正式環境
-
-**位置：** [`MAC-DEVELOPMENT-ONLY/`](./MAC-DEVELOPMENT-ONLY/)
-
-- **[01-Mac開發環境完整手冊](./MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)** - Mac 本地開發測試完整指南
-- **[02-測試資料載入](./MAC-DEVELOPMENT-ONLY/02-測試資料載入.md)** - 如何載入測試資料到 Docker SQL Server
-- **[03-Docker SQL Server 設定](./MAC-DEVELOPMENT-ONLY/03-Docker-SQL-Server設定.md)** - Docker 容器設定和操作
-
 ### Windows 正式環境
 
-> 📋 **適用對象**：Windows 正式環境，連接正式區 SQL Server。
+> 📋 **適用對象**：Windows 環境，連接正式區 SQL Server。
 
 **使用情境：**
 - 正式環境執行和測試
 - 連接正式區 SQL Server（已建立）
-- 接收從 Mac 環境測試完成的程式碼
+- 生產部署
 
 **位置：** [`WINDOWS-DEVELOPMENT/`](./WINDOWS-DEVELOPMENT/)
 
-- **[01-Windows正式環境手冊](./WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)** - Windows 正式環境完整指南
+- **[01-Windows開發環境完整手冊](./WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)** - Windows 環境完整指南
 - **[02-Git版本控制指南](./WINDOWS-DEVELOPMENT/02-Git版本控制指南.md)** - 團隊協作的 Git 工作流程
-- **[03-環境切換指南](./WINDOWS-DEVELOPMENT/03-環境切換指南.md)** - 從 Mac 切換到 Windows 的步驟
-- **[04-資料庫遷移指南](./WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md)** - 從 Mac Docker 資料庫遷移到正式區 SQL Server
+- **[03-環境切換指南](./WINDOWS-DEVELOPMENT/03-環境切換指南.md)** - 版本控制和更新指南
+- **[04-資料庫遷移指南](./WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md)** - 資料庫備份、還原和操作指南
+
+### Mac 本地開發測試環境
+
+> ⚠️ **注意**：Mac 環境使用 Docker SQL Server 進行本地測試。
+
+**使用情境：**
+- 個人開發和測試
+- 使用 Docker SQL Server 本地資料庫
+- 本地開發環境
+
+**位置：** [`MAC-DEVELOPMENT-ONLY/`](./MAC-DEVELOPMENT-ONLY/)
+
+- **[00-快速測試指南](./MAC-DEVELOPMENT-ONLY/00-快速測試指南.md)** - ⭐ 從這裡開始測試
+- **[01-Mac開發環境完整手冊](./MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)** - Mac 環境完整指南
+- **[02-測試資料載入](./MAC-DEVELOPMENT-ONLY/02-測試資料載入.md)** - 如何載入測試資料到 Docker SQL Server
+- **[03-Docker SQL Server 設定](./MAC-DEVELOPMENT-ONLY/03-Docker-SQL-Server設定.md)** - Docker 容器設定和操作
 
 ---
 
@@ -99,10 +99,12 @@
 
 ### 首次使用系統
 
-1. **閱讀快速開始**：閱讀 [快速開始](./00-快速開始.md) - 5 分鐘啟動系統
+1. **閱讀快速開始**：
+   - **Windows 環境** → [快速開始](./00-快速開始.md)
+   - **Mac 環境** → [Mac 快速測試指南](./MAC-DEVELOPMENT-ONLY/00-快速測試指南.md)
 2. **選擇環境手冊**：
+   - **Windows 正式環境** → [Windows 開發環境完整手冊](./WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
    - **Mac 本地測試** → [Mac 開發環境完整手冊](./MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)
-   - **Windows 正式環境** → [Windows 正式環境手冊](./WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
 3. **了解架構**：閱讀 [架構指南](./01-架構指南.md) 和 [架構分析與優勢](./02-架構分析與優勢.md)
 4. **設定資料庫**：閱讀 [資料庫配置](./03-資料庫配置.md)
 
@@ -114,11 +116,7 @@
 ### 執行測試
 
 1. [測試指南](./04-測試指南.md) - 測試執行說明
-2. [系統測試報告](./08-系統測試報告.md) - 測試結果
-
-### 資料庫遷移（Mac → Windows）
-
-[資料庫遷移指南](./WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md) - 完整遷移步驟
+2. [系統測試報告](./07-系統測試報告.md) - 測試結果
 
 ---
 
@@ -126,26 +124,26 @@
 
 ```
 docs/
-├── 00-快速開始.md              # 快速啟動
+├── 00-快速開始.md              # Windows 環境快速啟動
 ├── 01-架構指南.md              # 架構說明
 ├── 02-架構分析與優勢.md        # 架構分析
-├── 03-資料庫配置.md            # 資料庫配置
+├── 03-資料庫配置.md            # Windows 環境資料庫配置
 ├── 04-測試指南.md              # 測試說明
 ├── 05-專案完成總結.md          # 專案總結
-├── 06-使用者手冊.md            # 使用說明
-├── 07-執行狀態報告.md          # 狀態檢查
-├── 08-系統測試報告.md          # 測試報告
+├── 06-執行狀態報告.md          # 狀態檢查
+├── 07-系統測試報告.md          # 測試報告
 │
-├── MAC-DEVELOPMENT-ONLY/       # Mac 本地開發測試（Docker SQL Server）
-│   ├── 01-Mac開發環境完整手冊.md
-│   ├── 02-測試資料載入.md
-│   └── 03-Docker-SQL-Server設定.md
+├── WINDOWS-DEVELOPMENT/        # Windows 正式環境（正式區 SQL Server）
+│   ├── 01-Windows開發環境完整手冊.md
+│   ├── 02-Git版本控制指南.md
+│   ├── 03-環境切換指南.md
+│   └── 04-資料庫遷移指南.md
 │
-└── WINDOWS-DEVELOPMENT/        # Windows 正式環境（正式區 SQL Server）
-    ├── 01-Windows正式環境手冊.md
-    ├── 02-Git版本控制指南.md
-    ├── 03-環境切換指南.md
-    └── 04-資料庫遷移指南.md
+└── MAC-DEVELOPMENT-ONLY/       # Mac 本地開發測試（Docker SQL Server）
+    ├── 00-快速測試指南.md
+    ├── 01-Mac開發環境完整手冊.md
+    ├── 02-測試資料載入.md
+    └── 03-Docker-SQL-Server設定.md
 ```
 
 ---
@@ -159,15 +157,15 @@ docs/
 
 ## 💡 重要說明
 
+### Windows 環境
+- **資料庫**：正式區 SQL Server（已建立）
+- **用途**：正式環境執行和生產部署
+- **連接方式**：直接連接正式區 SQL Server
+
 ### Mac 環境
 - **資料庫**：Docker SQL Server（本地測試用）
 - **用途**：個人開發和測試
-- **限制**：無法連線到正式區 SQL Server，因此使用本地 Docker
-
-### Windows 環境
-- **資料庫**：正式區 SQL Server（已建立）
-- **用途**：正式環境執行和測試
-- **流程**：接收 Mac 環境測試完成的程式碼，在正式區 SQL Server 上進行測試
+- **連接方式**：使用 Docker 容器運行本地 SQL Server
 
 ---
 
