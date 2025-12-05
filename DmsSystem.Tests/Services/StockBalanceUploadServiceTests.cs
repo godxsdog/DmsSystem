@@ -72,7 +72,7 @@ public class StockBalanceUploadServiceTests
         _stockBalanceRepoMock.Setup(x => x.AddAsync(It.IsAny<StockBalance>()))
             .Returns(Task.CompletedTask);
         _stockBalanceRepoMock.Setup(x => x.SaveChangesAsync())
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(1);
 
         // Act
         var result = await _service.ProcessUploadAsync(stream, fileName);
@@ -133,7 +133,7 @@ public class StockBalanceUploadServiceTests
         _stockBalanceRepoMock.Setup(x => x.FindByKeyAsync("TT1", "001", It.IsAny<DateOnly>(), "1234"))
             .ReturnsAsync(existingBalance);
         _stockBalanceRepoMock.Setup(x => x.SaveChangesAsync())
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(1);
 
         // Act
         var result = await _service.ProcessUploadAsync(stream, fileName);
@@ -169,7 +169,7 @@ public class StockBalanceUploadServiceTests
         _contractRepoMock.Setup(x => x.FindByPcodeAsync("TT1"))
             .ReturnsAsync((Contract?)null);
         _stockBalanceRepoMock.Setup(x => x.SaveChangesAsync())
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(1);
 
         // Act
         var result = await _service.ProcessUploadAsync(stream, fileName);
@@ -212,7 +212,7 @@ public class StockBalanceUploadServiceTests
         _equityRepoMock.Setup(x => x.FindByIsinAsync("TW0001234567"))
             .ReturnsAsync((Equity?)null);
         _stockBalanceRepoMock.Setup(x => x.SaveChangesAsync())
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(1);
 
         // Act
         var result = await _service.ProcessUploadAsync(stream, fileName);
@@ -261,7 +261,7 @@ public class StockBalanceUploadServiceTests
         _equityRepoMock.Setup(x => x.FindByIsinAsync("TW0001234567"))
             .ReturnsAsync(equity);
         _stockBalanceRepoMock.Setup(x => x.SaveChangesAsync())
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(1);
 
         // Act
         var result = await _service.ProcessUploadAsync(stream, fileName);
@@ -337,7 +337,7 @@ public class StockBalanceUploadServiceTests
         _fileParserMock.Setup(x => x.ParseAsync(It.IsAny<Stream>(), It.IsAny<string>()))
             .ReturnsAsync(csvRecords);
         _stockBalanceRepoMock.Setup(x => x.SaveChangesAsync())
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(1);
 
         // Act
         var result = await _service.ProcessUploadAsync(stream, fileName);
