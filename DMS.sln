@@ -51,9 +51,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B
 		docs\04-測試指南.md = docs\04-測試指南.md
 		docs\05-專案完成總結.md = docs\05-專案完成總結.md
 		docs\06-使用者手冊.md = docs\06-使用者手冊.md
-		docs\06-執行狀態報告.md = docs\06-執行狀態報告.md
-		docs\07-系統測試報告.md = docs\07-系統測試報告.md
-		docs\10-架構修正說明.md = docs\10-架構修正說明.md
+		docs\07-架構修正說明.md = docs\07-架構修正說明.md
+		docs\08-執行狀態報告.md = docs\08-執行狀態報告.md
+		docs\09-系統測試報告.md = docs\09-系統測試報告.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WINDOWS-DEVELOPMENT", "WINDOWS-DEVELOPMENT", "{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6}"
