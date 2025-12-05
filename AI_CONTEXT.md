@@ -105,14 +105,14 @@ DmsSystem/
 **使用情境**：
 - 個人開發和測試
 - 使用 Docker SQL Server 本地資料庫
-- **無法連線到正式區 SQL Server**，因此使用本地 Docker
+- 完全獨立的開發環境
 
 **資料庫**：Docker SQL Server（`localhost:1433`）
 
-**測試流程**：
-1. 在 Mac 環境使用 Docker SQL Server 進行開發和測試
-2. 測試完成後，將程式碼提交到 Git
-3. 在 Windows 環境拉取程式碼，連接正式區 SQL Server 進行正式測試
+**環境特點**：
+- 使用 Docker 容器運行 SQL Server
+- 本地測試資料
+- 獨立開發環境
 
 **快速測試指南**：`docs/MAC-DEVELOPMENT-ONLY/00-快速測試指南.md`
 
@@ -121,9 +121,14 @@ DmsSystem/
 **使用情境**：
 - 正式環境執行和測試
 - 連接正式區 SQL Server（已建立）
-- 接收從 Mac 環境測試完成的程式碼
+- 生產部署
 
 **資料庫**：正式區 SQL Server（已建立）
+
+**環境特點**：
+- 直接連接公司 SQL Server
+- 正式環境資料
+- 生產部署環境
 
 ---
 
@@ -232,6 +237,8 @@ cd DmsSystem.Api && dotnet run
 cd react-client && npm run dev
 ```
 
+**文件位置**：`docs/MAC-DEVELOPMENT-ONLY/`
+
 ### Windows 環境（正式環境）
 
 **資料庫連接字串**：
@@ -242,14 +249,19 @@ Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正�
 **位置**：`DmsSystem.Api/appsettings.Production.json`
 
 **啟動方式**：
-```bash
+```powershell
 # 1. 確認正式區 SQL Server 已運行
 # 2. 啟動 API
-cd DmsSystem.Api && dotnet run
+cd DmsSystem.Api
+$env:ASPNETCORE_ENVIRONMENT="Production"
+dotnet run
 
 # 3. 啟動前端
-cd react-client && npm run dev
+cd react-client
+npm run dev
 ```
+
+**文件位置**：`docs/WINDOWS-DEVELOPMENT/`
 
 ---
 
@@ -427,6 +439,7 @@ dotnet sln list
 - 修復 DMS.sln 缺少 DmsSystem.Tests 專案的問題
 - 更新 DMS.sln 加入 Solution Items 和 react-client 資料夾，確保 VS2022 可以讀取所有檔案
 - **架構修正**：移除 Infrastructure/Services 中的舊 Service 實作，確保 Service 實作都在 Application 層
+- **文件分離**：完全分離 Mac 和 Windows 文件，建立 Windows 專用 DMS.sln，兩邊流程完全獨立
 
 ---
 
