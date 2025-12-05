@@ -33,13 +33,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-client", "{B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}"
 	ProjectSection(SolutionItems) = preProject
 		react-client\package.json = react-client\package.json
-		react-client\README.md = react-client\README.md
 		react-client\tsconfig.json = react-client\tsconfig.json
 		react-client\vite.config.ts = react-client\vite.config.ts
 		react-client\index.html = react-client\index.html
-		react-client\src\App.tsx = react-client\src\App.tsx
-		react-client\src\main.tsx = react-client\src\main.tsx
-		react-client\src\api\client.ts = react-client\src\api\client.ts
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
@@ -59,12 +55,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B
 		docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md = docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md
 		docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md = docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md
 		docs\WINDOWS-DEVELOPMENT\04-資料庫遷移指南.md = docs\WINDOWS-DEVELOPMENT\04-資料庫遷移指南.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-		AI_CONTEXT.md = AI_CONTEXT.md
 	EndProjectSection
 EndProject
 Global

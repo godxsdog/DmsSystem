@@ -1,203 +1,204 @@
-# DMS 系統
+# DMS 系統 - 股東會資料管理系統
 
-股東會資料管理系統（DMS System）是一個基於 .NET 8.0 和 React 的現代化應用程式。
+## 📋 專案概述
 
-## 📚 文件導覽
+**DMS 系統**是一個現代化的股東會資料管理系統，採用 .NET 8.0 和 React 技術棧開發。
 
-### 快速開始
+### 技術棧
 
-- **[📖 文件目錄](./docs/README.md)** - 所有技術文件的完整索引
-- **[🚀 快速開始](./docs/00-快速開始.md)** - 5 分鐘快速啟動指南
-
-### 環境設定
-
-根據您的環境選擇對應的手冊：
-
-- **Mac 本地開發測試環境（Docker SQL Server）** → [Mac 開發環境完整手冊](./docs/MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)
-- **Windows 正式環境（正式區 SQL Server）** → [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
-
-### 核心文件（通用）
-
-所有技術文件位於 [`docs/`](./docs/) 資料夾，包含：
-
-1. **[架構指南](./docs/01-架構指南.md)** - 完整的系統架構說明
-2. **[資料庫配置](./docs/02-資料庫配置.md)** - 資料庫設定指南
-3. **[測試指南](./docs/04-測試指南.md)** - 測試相關說明
-4. **[專案完成總結](./docs/05-專案完成總結.md)** - 開發完成情況
-5. **[架構分析與優勢](./docs/07-架構分析與優勢.md)** - 架構設計分析
-6. **[使用者手冊](./docs/08-使用者手冊.md)** - 完整的使用說明（包含資料流程）
-7. **[執行狀態報告](./docs/09-執行狀態報告.md)** - 系統執行狀態檢查
-8. **[系統測試報告](./docs/10-系統測試報告.md)** - 系統測試報告
-
-### 環境專用文件
-
-- **Mac 本地開發測試環境**：位於 [`docs/MAC-DEVELOPMENT-ONLY/`](./docs/MAC-DEVELOPMENT-ONLY/)
-  - 使用 Docker SQL Server 進行本地測試（因為無法連線到正式區 SQL Server）
-  - 個人開發和測試使用
-  
-- **Windows 正式環境**：位於 [`docs/WINDOWS-DEVELOPMENT/`](./docs/WINDOWS-DEVELOPMENT/)
-  - 連接正式區 SQL Server（已建立）
-  - 正式環境執行和測試
-
-### 開發流程
-
-1. **Mac 本地開發**：在 Mac 環境使用 Docker SQL Server 進行開發和測試
-2. **提交程式碼**：測試完成後，將程式碼提交到 Git
-3. **Windows 正式環境**：在 Windows 環境拉取程式碼，連接正式區 SQL Server 進行正式測試
-
-### 如何使用文件
-
-#### Mac 開發者（本地測試）
-
-1. 閱讀 [快速開始](./docs/00-快速開始.md) 快速啟動系統
-2. 閱讀 [Mac 開發環境完整手冊](./docs/MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md) 設定本地環境
-3. 使用 Docker SQL Server 進行測試
-4. 測試完成後，參考 [環境切換指南](./docs/WINDOWS-DEVELOPMENT/03-環境切換指南.md) 切換到 Windows
-
-#### Windows 開發者（正式環境）
-
-1. 閱讀 [快速開始](./docs/00-快速開始.md) 快速啟動系統
-2. 閱讀 [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md) 設定正式環境
-3. 從 Git 拉取 Mac 環境測試完成的程式碼
-4. 連接正式區 SQL Server 進行正式環境測試
-
-#### 了解系統架構
-
-1. 閱讀 [架構指南](./docs/01-架構指南.md) 了解整體設計
-2. 閱讀 [架構分析與優勢](./docs/02-架構分析與優勢.md) 了解設計優勢
-
-#### 設定資料庫
-
-1. 閱讀 [資料庫配置](./docs/02-資料庫配置.md) 了解如何設定連接
-2. **Mac 環境**：參考 [Docker SQL Server 設定](./docs/MAC-DEVELOPMENT-ONLY/03-Docker-SQL-Server設定.md)（本地測試用）
-3. **Windows 環境**：參考 [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)（正式區 SQL Server）
-
-#### 資料庫遷移（Mac → Windows）
-
-閱讀 [資料庫遷移指南](./docs/WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md) 了解如何從 Mac Docker 資料庫遷移到正式區 SQL Server
-
-#### 執行測試
-
-閱讀 [測試指南](./docs/04-測試指南.md) 了解如何執行測試
-
-#### 遇到問題
-
-1. 根據環境選擇對應手冊的「錯誤診斷」章節
-2. 執行錯誤報告產生器：
-   - Mac：`./scripts/generate-error-report.sh`
-   - Windows：執行 `generate-error-report.bat`（需建立）
-3. 查看 [執行狀態報告](./docs/07-執行狀態報告.md)
-
-## 🏗️ 專案結構
-
-```
-DmsSystem/
-├── docs/                    # 📚 所有技術文件
-│   ├── 00-快速開始.md      # 通用：快速啟動
-│   ├── 01-架構指南.md      # 通用：架構說明
-│   ├── 02-資料庫配置.md    # 通用：資料庫配置
-│   ├── 04-測試指南.md      # 通用：測試說明
-│   ├── 05-專案完成總結.md  # 通用：專案總結
-│   ├── 07-架構分析與優勢.md # 通用：架構分析
-│   ├── 08-使用者手冊.md    # 通用：使用說明
-│   ├── 09-執行狀態報告.md  # 通用：狀態檢查
-│   ├── 10-系統測試報告.md  # 通用：測試報告
-│   │
-│   ├── MAC-DEVELOPMENT-ONLY/  # Mac 本地開發測試（Docker SQL Server）
-│   │   ├── 01-Mac開發環境完整手冊.md
-│   │   ├── 02-測試資料載入.md
-│   │   └── 03-Docker-SQL-Server設定.md
-│   │
-│   └── WINDOWS-DEVELOPMENT/   # Windows 正式環境（正式區 SQL Server）
-│       ├── 01-Windows開發環境完整手冊.md
-│       ├── 02-Git版本控制指南.md
-│       ├── 03-環境切換指南.md
-│       └── 04-資料庫遷移指南.md
-│
-├── scripts/                 # 🔧 工具腳本
-│   ├── init-db.sql         # 資料庫初始化
-│   ├── seed-test-data.sql  # 測試資料（Mac 本地測試用）
-│   ├── start-sqlserver.sh  # 啟動 SQL Server（Mac Docker）
-│   ├── stop-sqlserver.sh   # 停止 SQL Server（Mac Docker）
-│   ├── load-test-data.sh   # 載入測試資料（Mac Docker）
-│   └── generate-error-report.sh  # 錯誤報告產生器
-│
-├── DmsSystem.Domain/        # 領域實體層
-├── DmsSystem.Application/  # 應用程式層
-├── DmsSystem.Infrastructure/ # 基礎設施層
-├── DmsSystem.Api/          # API 表現層
-├── DmsSystem.Tests/        # 測試專案
-├── react-client/           # React 前端（網頁應用程式）
-└── README.md              # 本文件
-```
-
-## 🚀 快速啟動
-
-### Mac 環境（本地測試，Docker SQL Server）
-
-```bash
-# 1. 啟動 Docker SQL Server
-docker-compose up -d
-
-# 2. 啟動後端 API
-cd DmsSystem.Api
-dotnet run
-
-# 3. 啟動前端（新終端視窗）
-cd react-client
-npm install  # 首次執行
-npm run dev
-```
-
-### Windows 環境（正式環境，正式區 SQL Server）
-
-1. 確認正式區 SQL Server 已運行
-2. 設定連接字串（`appsettings.Production.json`）
-3. 啟動 API：`dotnet run`
-4. 啟動前端：`npm run dev`
-
-**詳細步驟請參考：** 
-- Mac： [Mac 開發環境完整手冊](./docs/MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)
-- Windows： [Windows 正式環境手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
-
-## 📋 功能清單
-
-- ✅ 股東會資料上傳（Excel/CSV）
-- ✅ 公司資訊上傳
-- ✅ 股票餘額上傳
-- ✅ 資料查詢與顯示（React 網頁前端）
-- ✅ 報表產生
-
-## 🛠️ 技術棧
-
-- **後端**：.NET 8.0, ASP.NET Core, Entity Framework Core
-- **前端**：React, TypeScript, Vite（網頁應用程式）
-- **資料庫**：SQL Server
-  - **Mac 本地測試**：Docker SQL Server
-  - **Windows 正式環境**：正式區 SQL Server
+- **後端**：.NET 8.0, ASP.NET Core, Entity Framework Core, SQL Server
+- **前端**：React + TypeScript + Vite
 - **架構**：洋蔥式架構（Onion Architecture）
+- **測試**：xUnit, Moq, FluentValidation
 
-## 📖 更多資訊
+### 主要功能
 
-- 完整文件：請查看 [`docs/`](./docs/) 資料夾
-- API 文件：啟動 API 後訪問 http://localhost:5137/swagger
-- 前端應用：啟動前端後訪問 http://localhost:5173
-
-## ⚠️ 重要說明
-
-### 前端技術
-
-**系統現在以 React 網頁應用程式為主**，不再支援 Windows Forms 桌面應用程式。
-
-- **React 前端**：提供現代化的網頁介面，支援檔案上傳、資料檢視等功能
-- **API 整合**：前端透過 RESTful API 與後端通訊
-- **跨平台**：可在任何支援現代瀏覽器的平台上使用
-
-### 環境區分
-
-- **Mac 環境**：使用 Docker SQL Server 進行本地測試（無法連線到正式區 SQL Server）
-- **Windows 環境**：連接正式區 SQL Server 進行正式測試
+- 股東會資料上傳（Excel/CSV）
+- 公司資訊上傳
+- 股票餘額上傳
+- 資料查詢與顯示（React 網頁前端）
+- 報表產生
 
 ---
 
-**開始使用：** 請先閱讀 [快速開始指南](./docs/00-快速開始.md) 或根據您的環境選擇對應的手冊。
+## 📁 專案結構
+
+```
+DmsSystem/
+├── DmsSystem.Domain/              # 領域實體層
+├── DmsSystem.Application/         # 應用程式層
+├── DmsSystem.Infrastructure/      # 基礎設施層
+├── DmsSystem.Api/                 # API 表現層
+├── DmsSystem.Tests/               # 測試專案
+├── react-client/                  # React 前端
+├── docs/                          # 技術文件
+└── scripts/                       # 工具腳本
+```
+
+---
+
+## 🚀 快速開始
+
+### Windows 環境（正式區 SQL Server）
+
+1. **取得程式碼**
+```powershell
+git clone <repository-url>
+cd DmsSystem
+```
+
+2. **還原套件**
+```powershell
+dotnet restore
+```
+
+3. **設定資料庫連接**
+   - 編輯 `DmsSystem.Api/appsettings.Production.json`
+   - 設定正式區 SQL Server 連接字串
+
+4. **啟動系統**
+   - 開啟 `DMS.sln`（Visual Studio 2022）
+   - 設定啟動專案為 `DmsSystem.Api`
+   - 按 F5 啟動
+
+**詳細說明**：請參考 [`docs/WINDOWS-DEVELOPMENT/`](./docs/WINDOWS-DEVELOPMENT/)
+
+### Mac 環境（Docker SQL Server）
+
+1. **啟動資料庫**
+```bash
+docker-compose up -d
+```
+
+2. **啟動 API**
+```bash
+cd DmsSystem.Api
+dotnet run
+```
+
+3. **啟動前端**
+```bash
+cd react-client
+npm install
+npm run dev
+```
+
+**詳細說明**：請參考 [`docs/MAC-DEVELOPMENT-ONLY/`](./docs/MAC-DEVELOPMENT-ONLY/)
+
+---
+
+## 📚 文件目錄
+
+### 通用文件
+
+- **[快速開始](./docs/00-快速開始.md)** - Windows 環境快速啟動
+- **[架構指南](./docs/01-架構指南.md)** - 系統架構說明
+- **[架構分析與優勢](./docs/02-架構分析與優勢.md)** - 架構設計分析
+- **[資料庫配置](./docs/03-資料庫配置.md)** - 資料庫設定
+- **[測試指南](./docs/04-測試指南.md)** - 測試說明
+
+### Windows 環境文件
+
+位置：`docs/WINDOWS-DEVELOPMENT/`
+
+- [Windows 開發環境完整手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
+- [Git 版本控制指南](./docs/WINDOWS-DEVELOPMENT/02-Git版本控制指南.md)
+- [環境切換指南](./docs/WINDOWS-DEVELOPMENT/03-環境切換指南.md)
+- [資料庫遷移指南](./docs/WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md)
+
+### Mac 環境文件
+
+位置：`docs/MAC-DEVELOPMENT-ONLY/`
+
+- [快速測試指南](./docs/MAC-DEVELOPMENT-ONLY/00-快速測試指南.md)
+- [Mac 開發環境完整手冊](./docs/MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)
+- [測試資料載入](./docs/MAC-DEVELOPMENT-ONLY/02-測試資料載入.md)
+- [Docker SQL Server 設定](./docs/MAC-DEVELOPMENT-ONLY/03-Docker-SQL-Server設定.md)
+
+### 功能模組文件
+
+位置：`docs/FEATURES/`
+
+- [股東會資料管理](./docs/FEATURES/SHAREHOLDER-MEETING/)
+- [基金配息管理](./docs/FEATURES/DIVIDEND/)
+- [全委投資系統](./docs/FEATURES/INVESTMENT/)
+
+**完整文件說明**：請參考 [`docs/README.md`](./docs/README.md)
+
+---
+
+## 🏗️ 系統架構
+
+### 洋蔥式架構
+
+```
+┌─────────────────────────────────────┐
+│   DmsSystem.Api (表現層)            │  ← HTTP 請求入口
+├─────────────────────────────────────┤
+│   DmsSystem.Infrastructure          │  ← 資料存取、檔案處理實作
+├─────────────────────────────────────┤
+│   DmsSystem.Application             │  ← 業務邏輯、服務介面
+├─────────────────────────────────────┤
+│   DmsSystem.Domain                  │  ← 領域實體（Entities）
+└─────────────────────────────────────┘
+```
+
+### 各層職責
+
+- **Domain**：領域實體定義（Entities）
+- **Application**：業務邏輯和介面定義（Services, Interfaces）
+- **Infrastructure**：技術實作（Repository, FileParser, FileGenerator）
+- **Api**：HTTP 介面（Controllers, Middleware, Validators）
+
+---
+
+## 🔧 環境配置
+
+### Windows 環境
+
+- **資料庫**：正式區 SQL Server
+- **連接字串位置**：`DmsSystem.Api/appsettings.Production.json`
+- **開發工具**：Visual Studio 2022
+
+### Mac 環境
+
+- **資料庫**：Docker SQL Server（本地測試）
+- **連接字串位置**：`DmsSystem.Api/appsettings.Development.json`
+- **開發工具**：Visual Studio Code 或終端機
+
+---
+
+## 🧪 測試
+
+### 執行測試
+
+```bash
+dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
+```
+
+### 測試腳本
+
+```bash
+cd DmsSystem.Tests
+./RunTests.sh
+```
+
+---
+
+## 📖 相關資源
+
+- **API 文件**：啟動 API 後訪問 http://localhost:5137/swagger
+- **AI 快速進入文件**：[AI_CONTEXT.md](./AI_CONTEXT.md)
+- **完整文件**：[docs/README.md](./docs/README.md)
+
+---
+
+## ⚠️ 重要提醒
+
+- **Windows 環境**：連接正式區 SQL Server，用於正式環境執行和生產部署
+- **Mac 環境**：使用 Docker SQL Server，用於個人開發和測試
+- **前端技術**：系統現在以 React 網頁應用程式為主，不再支援 Windows Forms
+
+---
+
+**開始使用**：請根據您的環境選擇對應的文件開始。
