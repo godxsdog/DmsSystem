@@ -50,7 +50,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B
 		docs\06-執行狀態報告.md = docs\06-執行狀態報告.md
 		docs\07-系統測試報告.md = docs\07-系統測試報告.md
 		docs\10-架構修正說明.md = docs\10-架構修正說明.md
-		docs\WINDOWS-DEVELOPMENT\README.md = docs\WINDOWS-DEVELOPMENT\README.md
 		docs\WINDOWS-DEVELOPMENT\01-Windows開發環境完整手冊.md = docs\WINDOWS-DEVELOPMENT\01-Windows開發環境完整手冊.md
 		docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md = docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md
 		docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md = docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md
