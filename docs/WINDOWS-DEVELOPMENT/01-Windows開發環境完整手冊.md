@@ -12,10 +12,6 @@
 ### 步驟 1：取得程式碼
 
 ```powershell
-# 開啟 PowerShell 或命令提示字元
-cd C:\Your\Project\Path
-
-# 複製專案
 git clone <repository-url>
 cd DmsSystem
 ```
@@ -31,27 +27,19 @@ cd DmsSystem
 dotnet restore
 ```
 
-### 步驟 3：設定資料庫連接字串
+### 步驟 3：設定資料庫連接
 
-**位置：** `DmsSystem.Api/appsettings.Production.json`
+**詳細說明**：請參考 [資料庫配置指南](../03-資料庫配置.md)
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正式密碼;TrustServerCertificate=True;MultipleActiveResultSets=True"
-  }
-}
-```
-
-**⚠️ 重要：** 請替換為正式環境的實際連接資訊
+**快速設定**：
+- 編輯 `DmsSystem.Api/appsettings.Production.json`
+- 設定正式區 SQL Server 連接字串
 
 ### 步驟 4：驗證資料庫連接
 
-使用 SQL Server Management Studio (SSMS) 或命令列測試連接：
+使用 SQL Server Management Studio (SSMS) 或命令列測試連接。
 
-```powershell
-sqlcmd -S 正式伺服器位址 -U 正式使用者 -P 正式密碼 -d DMS -Q "SELECT DB_NAME()"
-```
+**詳細說明**：請參考 [資料庫配置指南](../03-資料庫配置.md) 的「驗證連接」章節
 
 ## 🚀 啟動系統
 
@@ -77,13 +65,8 @@ sqlcmd -S 正式伺服器位址 -U 正式使用者 -P 正式密碼 -d DMS -Q "SE
 ### 方法二：使用命令列
 
 ```powershell
-# 切換到 API 專案目錄
 cd DmsSystem.Api
-
-# 設定環境為 Production
 $env:ASPNETCORE_ENVIRONMENT="Production"
-
-# 啟動 API
 dotnet run
 ```
 
@@ -91,48 +74,11 @@ dotnet run
 
 ### 資料庫連接字串設定
 
-#### 方式一：修改 appsettings.Production.json
-
-**檔案位置：** `DmsSystem.Api/appsettings.Production.json`
-
-```json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "AllowedHosts": "*",
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正式密碼;TrustServerCertificate=True;MultipleActiveResultSets=True"
-  }
-}
-```
-
-**參數說明：**
-- `Server`：SQL Server 伺服器位址（IP 或網域名稱）
-- `Database`：資料庫名稱（通常是 `DMS`）
-- `User Id`：SQL Server 登入帳號
-- `Password`：SQL Server 登入密碼
-
-#### 方式二：使用環境變數（推薦，更安全）
-
-**PowerShell：**
-```powershell
-$env:ConnectionStrings__DefaultConnection="Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正式密碼;TrustServerCertificate=True;MultipleActiveResultSets=True"
-$env:ASPNETCORE_ENVIRONMENT="Production"
-```
-
-**命令提示字元（CMD）：**
-```cmd
-set ConnectionStrings__DefaultConnection=Server=正式伺服器位址;Database=DMS;User Id=正式使用者;Password=正式密碼;TrustServerCertificate=True;MultipleActiveResultSets=True
-set ASPNETCORE_ENVIRONMENT=Production
-```
+**詳細說明**：請參考 [資料庫配置指南](../03-資料庫配置.md)
 
 ### 前端配置（如果需要）
 
-**位置：** `react-client/.env.production`
+**位置**：`react-client/.env.production`
 
 ```
 VITE_API_BASE_URL=http://正式API位址:5137
@@ -199,12 +145,7 @@ A network-related or instance-specific error occurred while establishing a conne
 **解決步驟：**
 1. 確認 SQL Server 服務正在運行
 2. 確認防火牆允許連接
-3. 測試連接：
-```powershell
-# 使用 sqlcmd 測試（如果已安裝）
-sqlcmd -S 正式伺服器位址 -U 正式使用者 -P 正式密碼 -Q "SELECT 1"
-```
-
+3. 測試連接（參考 [資料庫配置指南](../03-資料庫配置.md)）
 4. 檢查連接字串格式是否正確
 5. 確認使用者帳號有足夠權限
 
@@ -217,7 +158,6 @@ Could not load file or assembly
 
 **解決步驟：**
 ```powershell
-# 清理並重新建置
 dotnet clean
 dotnet restore
 dotnet build
@@ -234,6 +174,8 @@ dotnet build
 1. 確認 `appsettings.Production.json` 存在
 2. 確認連接字串格式正確
 3. 或使用環境變數設定
+
+**詳細說明**：請參考 [資料庫配置指南](../03-資料庫配置.md)
 
 ## 🏗️ 建置與部署
 
@@ -271,7 +213,7 @@ dotnet publish -c Release -o ./publish
 - [ ] 已安裝 .NET 8 SDK
 - [ ] 已取得最新程式碼
 - [ ] 已還原 NuGet 套件
-- [ ] 已設定資料庫連接字串
+- [ ] 已設定資料庫連接字串（參考 [資料庫配置指南](../03-資料庫配置.md)）
 - [ ] 已測試資料庫連接
 
 ### 每次啟動
@@ -307,7 +249,7 @@ dotnet publish -c Release -o ./publish
 
 - [快速開始](../00-快速開始.md) - 5 分鐘快速啟動
 - [架構指南](../01-架構指南.md) - 系統架構說明
-- [資料庫配置](../03-資料庫配置.md) - 資料庫設定
+- [資料庫配置](../03-資料庫配置.md) - 資料庫設定（**重要**：資料庫配置請參考此文件）
 - [Git 版本控制指南](./02-Git版本控制指南.md) - 團隊協作流程
 
 ## ⚠️ 重要提醒
