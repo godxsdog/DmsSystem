@@ -46,6 +46,8 @@ DmsSystem/
 │   │   └── Repositories/         # Repository 實作
 │   ├── FileParsing/               # 檔案解析實作（Excel、CSV）
 │   └── FileGeneration/           # 檔案產生器實作
+│   ⚠️ **注意**：Infrastructure 層不應包含 Services 資料夾
+│   ⚠️ Service 實作應在 Application 層，不在 Infrastructure 層
 │
 ├── DmsSystem.Api/                 # API 表現層（最外層）
 │   ├── Controllers/               # API 控制器
@@ -318,9 +320,23 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 
 **Service 實作位於 Application 層**：
 - `DmsSystem.Application/Services/`
+- ✅ `CompanyInfoUploadService`
+- ✅ `ShareholderMeetingDetailService`
+- ✅ `StockBalanceUploadService`
+- ✅ `ReportService`
+
+**⚠️ 重要**：Service 實作**不應**在 Infrastructure 層
+- ❌ `DmsSystem.Infrastructure/Services/` - 已移除，不應存在
 
 **Repository 實作位於 Infrastructure 層**：
 - `DmsSystem.Infrastructure/Persistence/Repositories/`
+
+**Infrastructure 層職責**：
+- ✅ Repository 實作
+- ✅ FileParser 實作
+- ✅ FileGenerator 實作
+- ✅ DbContext
+- ❌ **不應包含**：業務邏輯 Service
 
 ---
 
@@ -409,7 +425,8 @@ dotnet sln list
 - 建立資料庫遷移指南
 - 新增測試案例
 - 修復 DMS.sln 缺少 DmsSystem.Tests 專案的問題
-- 更新 DMS.sln 加入 Solution Items 和 Frontend 資料夾，確保 VS2022 可以讀取所有檔案
+- 更新 DMS.sln 加入 Solution Items 和 react-client 資料夾，確保 VS2022 可以讀取所有檔案
+- **架構修正**：移除 Infrastructure/Services 中的舊 Service 實作，確保 Service 實作都在 Application 層
 
 ---
 
