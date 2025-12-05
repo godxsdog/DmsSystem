@@ -17,6 +17,6 @@ namespace DmsSystem.Application.Interfaces
         /// <summary>
         /// (新增功能) 根據 PowerBuilder 程式中的 PCODE 轉換邏輯來查找合約。
         /// </summary>
-        Task<Contract> FindByPcodeAsync(string pcode);
+        Task<Contract?> FindByPcodeAsync(string pcode);
     }
 }
