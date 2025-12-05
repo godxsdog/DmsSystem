@@ -29,6 +29,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Tests", "DmsSyste
 		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8} = {DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-client", "{B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}"
+	ProjectSection(SolutionItems) = preProject
+		react-client\package.json = react-client\package.json
+		react-client\README.md = react-client\README.md
+		react-client\tsconfig.json = react-client\tsconfig.json
+		react-client\vite.config.ts = react-client\vite.config.ts
+		react-client\index.html = react-client\index.html
+		react-client\src\App.tsx = react-client\src\App.tsx
+		react-client\src\main.tsx = react-client\src\main.tsx
+		react-client\src\api\client.ts = react-client\src\api\client.ts
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -38,19 +50,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}"
-	ProjectSection(SolutionItems) = preProject
-		react-client\package.json = react-client\package.json
-		react-client\README.md = react-client\README.md
-		react-client\tsconfig.json = react-client\tsconfig.json
-		react-client\vite.config.ts = react-client\vite.config.ts
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\init-db.sql = scripts\init-db.sql
 		scripts\seed-test-data.sql = scripts\seed-test-data.sql
 		scripts\setup-database.sh = scripts\setup-database.sh
+		scripts\generate-error-report.sh = scripts\generate-error-report.sh
 	EndProjectSection
 EndProject
 Global
@@ -84,8 +89,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4} = {A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}
-		{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5} = {A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E31D59BA-374F-4460-84F7-A0D59F1DCF3D}
