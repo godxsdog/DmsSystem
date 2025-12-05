@@ -50,10 +50,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B
 		docs\06-執行狀態報告.md = docs\06-執行狀態報告.md
 		docs\07-系統測試報告.md = docs\07-系統測試報告.md
 		docs\10-架構修正說明.md = docs\10-架構修正說明.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WINDOWS-DEVELOPMENT", "WINDOWS-DEVELOPMENT", "{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6}"
+	ProjectSection(SolutionItems) = preProject
 		docs\WINDOWS-DEVELOPMENT\01-Windows開發環境完整手冊.md = docs\WINDOWS-DEVELOPMENT\01-Windows開發環境完整手冊.md
 		docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md = docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md
 		docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md = docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md
 		docs\WINDOWS-DEVELOPMENT\04-資料庫遷移指南.md = docs\WINDOWS-DEVELOPMENT\04-資料庫遷移指南.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FEATURES", "FEATURES", "{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}"
+	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\README.md = docs\FEATURES\README.md
 		docs\FEATURES\DIVIDEND\README.md = docs\FEATURES\DIVIDEND\README.md
 		docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md = docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md
@@ -90,6 +98,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
+		{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E31D59BA-374F-4460-84F7-A0D59F1DCF3D}
