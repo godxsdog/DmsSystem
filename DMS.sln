@@ -22,11 +22,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Infrastructure", 
 		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8} = {DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.WinFormsClient", "DmsSystem.WinFormsClient\DmsSystem.WinFormsClient.csproj", "{16CF0DD7-729B-46BA-B4A6-6E738715C660}"
-	ProjectSection(ProjectDependencies) = postProject
-		{86FA68FB-FE0E-448C-AF3A-4665531F160E} = {86FA68FB-FE0E-448C-AF3A-4665531F160E}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +44,6 @@ Global
 		{86FA68FB-FE0E-448C-AF3A-4665531F160E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86FA68FB-FE0E-448C-AF3A-4665531F160E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86FA68FB-FE0E-448C-AF3A-4665531F160E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16CF0DD7-729B-46BA-B4A6-6E738715C660}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
