@@ -35,8 +35,8 @@ function App() {
         </nav>
       </header>
       <main className="app-main">
-        {currentView === 'upload' ? (
-        <div className="upload-sections">
+        {currentView === 'upload' && (
+          <div className="upload-sections">
           <FileUpload
             endpoint="/api/ShareholderMeetings/upload-shmtsource1"
             title="股東會明細上傳"
@@ -67,9 +67,8 @@ function App() {
               </div>
             ))}
           </div>
-        ) : (
-          <DataView />
         )}
+        {currentView === 'data' && <DataView />}
       </main>
     </div>
   );

@@ -62,20 +62,25 @@ SQL Server 本地設定指南：
 - 資料流程圖
 - 技術棧優勢
 
-### 8-1. [Mac 開發環境手冊](./08-1-Mac開發環境手冊.md)
-Mac 環境使用指南：
-- 快速啟動步驟
-- 環境配置
-- 錯誤診斷
-- 開發工具使用
+---
 
-### 8-2. [Windows 正式環境手冊](./08-2-Windows正式環境手冊.md)
-Windows 正式環境使用指南：
-- 從 Mac 環境切換
-- Visual Studio 2022 使用
-- 環境配置
-- 錯誤診斷與報告
-- 建置與部署
+## 🔀 環境專用文件
+
+### Mac 開發環境（個人使用）
+
+> ⚠️ **注意**：以下文件僅供 Mac 開發環境使用，包含測試資料和個人設定。
+
+- **[Mac 開發環境完整手冊](./MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)** - Mac 環境完整指南
+- **[測試資料載入](./MAC-DEVELOPMENT-ONLY/02-測試資料載入.md)** - 如何載入測試資料（僅 Mac）
+- **[Docker SQL Server 設定](./MAC-DEVELOPMENT-ONLY/03-Docker-SQL-Server設定.md)** - Docker 容器設定
+
+### Windows 開發環境（團隊使用）
+
+> 📋 **適用對象**：所有使用 Windows 進行開發的團隊成員
+
+- **[Windows 開發環境完整手冊](./WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)** - Windows 環境完整指南
+- **[Git 版本控制指南](./WINDOWS-DEVELOPMENT/02-Git版本控制指南.md)** - 團隊協作的 Git 工作流程
+- **[環境切換指南](./WINDOWS-DEVELOPMENT/03-環境切換指南.md)** - Mac 和 Windows 環境切換
 
 ## 🚀 快速開始
 
