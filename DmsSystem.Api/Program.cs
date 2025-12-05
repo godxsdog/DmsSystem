@@ -107,12 +107,13 @@ try
     // 全域例外處理（必須在最前面）
     app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
-    // Swagger（僅開發環境）
-    if (app.Environment.IsDevelopment())
+    // Swagger（所有環境都啟用）
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "DMS System API v1");
+        c.RoutePrefix = "swagger";
+    });
 
     // CORS（必須在 UseAuthorization 之前）
     app.UseCors("AllowReactApp");
