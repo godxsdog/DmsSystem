@@ -38,6 +38,12 @@
 - **單位數**: 1,000,000
 - **可分配收益**: 60,000 (扣除費用後)
 
+### Step 1/2 API（配息參數與目標配息率）
+- 配息參數設定（Step 1）：`POST /api/dividend-settings`，Body：`FundNo`, `DivType`, `Item01Seq`~`Item10Seq`, `CapitalType`, `EmailList`
+- 查詢配息參數：`GET /api/dividend-settings/{fundNo}/{divType}`
+- 目標配息率設定（Step 2）：`POST /api/dividend-settings/targets`，Body：`FundNo`, `DivType`, `TxDate`, `DivObj`, `DivObjAmt`
+- 查詢目標配息率（回溯最近一筆）：`GET /api/dividend-settings/targets/{fundNo}/{divType}/{effectiveDate}`
+
 ### 手動載入測試資料
 
 如果需要重新載入測試資料：

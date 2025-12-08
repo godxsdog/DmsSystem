@@ -74,6 +74,8 @@ try
     builder.Services.AddScoped<IStockBalanceUploadService, StockBalanceUploadService>();
     builder.Services.AddScoped<IReportService, ReportService>();
     builder.Services.AddScoped<IDividendService, DividendService>();
+    builder.Services.AddScoped<IFundDivSetService, FundDivSetService>();
+    builder.Services.AddScoped<IFundDivObjService, FundDivObjService>();
 
     // 檔案產生器
     builder.Services.AddScoped<IExcelGenerator, NpoiExcelGenerator>();
