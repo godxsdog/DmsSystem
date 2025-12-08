@@ -86,9 +86,9 @@ try
     // ============================================
     builder.Services.AddControllers();
 
-    // Swagger/OpenAPI
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    // Swagger/OpenAPI (已停用)
+    // builder.Services.AddEndpointsApiExplorer();
+    // builder.Services.AddSwaggerGen();
 
     // CORS 設定（供 React 前端使用）
     builder.Services.AddCors(options =>
@@ -115,13 +115,13 @@ try
     // 全域例外處理（必須在最前面）
     app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
-    // Swagger（所有環境都啟用）
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "DMS System API v1");
-        c.RoutePrefix = "swagger";
-    });
+    // Swagger（已停用）
+    // app.UseSwagger();
+    // app.UseSwaggerUI(c =>
+    // {
+    //     c.SwaggerEndpoint("/swagger/v1/swagger.json", "DMS System API v1");
+    //     c.RoutePrefix = "swagger";
+    // });
 
     // CORS（必須在 UseAuthorization 之前）
     app.UseCors("AllowReactApp");
