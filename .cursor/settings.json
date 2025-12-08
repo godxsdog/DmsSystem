@@ -6,7 +6,6 @@
                 "--directory",
                 "/Users/kaichanghuang/Documents/Phoenix Code/DmsSystem/interactive-feedback-mcp_mac",
                 "run",
-                "python",
                 "server.py"
             ],
             "timeout": 600,

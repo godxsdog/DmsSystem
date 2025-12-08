@@ -2182,6 +2182,382 @@ public partial class DmsDbContext : DbContext
                 .HasColumnName("SSNAME");
         });
 
+        modelBuilder.Entity<FundDivSet>(entity =>
+        {
+            entity.HasKey(e => new { e.FundNo, e.DivType });
+
+            entity.ToTable("FUND_DIV_SET", "MDS");
+
+            entity.Property(e => e.FundNo)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("FUND_NO");
+            entity.Property(e => e.DivType)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("DIV_TYPE");
+            entity.Property(e => e.Item01Seq).HasColumnName("ITEM01_SEQ");
+            entity.Property(e => e.Item01SeqAdj).HasColumnName("ITEM01_SEQ_ADJ");
+            entity.Property(e => e.Item01Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM01_TYPE");
+            entity.Property(e => e.Item02Seq).HasColumnName("ITEM02_SEQ");
+            entity.Property(e => e.Item02SeqAdj).HasColumnName("ITEM02_SEQ_ADJ");
+            entity.Property(e => e.Item02Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM02_TYPE");
+            entity.Property(e => e.Item03Seq).HasColumnName("ITEM03_SEQ");
+            entity.Property(e => e.Item03SeqAdj).HasColumnName("ITEM03_SEQ_ADJ");
+            entity.Property(e => e.Item03Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM03_TYPE");
+            entity.Property(e => e.Item04Seq).HasColumnName("ITEM04_SEQ");
+            entity.Property(e => e.Item04SeqAdj).HasColumnName("ITEM04_SEQ_ADJ");
+            entity.Property(e => e.Item04Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM04_TYPE");
+            entity.Property(e => e.Item05Seq).HasColumnName("ITEM05_SEQ");
+            entity.Property(e => e.Item05SeqAdj).HasColumnName("ITEM05_SEQ_ADJ");
+            entity.Property(e => e.Item05Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM05_TYPE");
+            entity.Property(e => e.Item06Seq).HasColumnName("ITEM06_SEQ");
+            entity.Property(e => e.Item06SeqAdj).HasColumnName("ITEM06_SEQ_ADJ");
+            entity.Property(e => e.Item06Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM06_TYPE");
+            entity.Property(e => e.Item07Seq).HasColumnName("ITEM07_SEQ");
+            entity.Property(e => e.Item07SeqAdj).HasColumnName("ITEM07_SEQ_ADJ");
+            entity.Property(e => e.Item07Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM07_TYPE");
+            entity.Property(e => e.Item08Seq).HasColumnName("ITEM08_SEQ");
+            entity.Property(e => e.Item08SeqAdj).HasColumnName("ITEM08_SEQ_ADJ");
+            entity.Property(e => e.Item08Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM08_TYPE");
+            entity.Property(e => e.Item09Seq).HasColumnName("ITEM09_SEQ");
+            entity.Property(e => e.Item09SeqAdj).HasColumnName("ITEM09_SEQ_ADJ");
+            entity.Property(e => e.Item09Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM09_TYPE");
+            entity.Property(e => e.Item10Seq).HasColumnName("ITEM10_SEQ");
+            entity.Property(e => e.Item10SeqAdj).HasColumnName("ITEM10_SEQ_ADJ");
+            entity.Property(e => e.Item10Type)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("ITEM10_TYPE");
+            entity.Property(e => e.CapitalType)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("CAPITAL_TYPE");
+            entity.Property(e => e.EmailList)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("EMAIL_LIST");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("CREATED_BY");
+            entity.Property(e => e.CreationDate).HasColumnName("CREATION_DATE");
+            entity.Property(e => e.RevisedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("REVISED_BY");
+            entity.Property(e => e.RevisionDate).HasColumnName("REVISION_DATE");
+            entity.Property(e => e.ReviewedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("REVIEWED_BY");
+            entity.Property(e => e.ReviewDate).HasColumnName("REVIEW_DATE");
+            entity.Property(e => e.Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STATUS");
+            entity.Property(e => e.FirstDividendDate).HasColumnName("FIRST_DIVIDEND_DATE");
+            entity.Property(e => e.FirstDividendCount).HasColumnName("FIRST_DIVIDEND_COUNT");
+        });
+
+        modelBuilder.Entity<FundDivObj>(entity =>
+        {
+            entity.HasKey(e => new { e.FundNo, e.DivType, e.TxDate });
+
+            entity.ToTable("FUND_DIV_OBJ", "MDS");
+
+            entity.Property(e => e.FundNo)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("FUND_NO");
+            entity.Property(e => e.DivType)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("DIV_TYPE");
+            entity.Property(e => e.TxDate).HasColumnName("TX_DATE");
+            entity.Property(e => e.DivObj)
+                .HasColumnType("decimal(12, 6)")
+                .HasColumnName("DIV_OBJ");
+            entity.Property(e => e.DivObjAmt)
+                .HasColumnType("decimal(12, 6)")
+                .HasColumnName("DIV_OBJ_AMT");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("CREATED_BY");
+            entity.Property(e => e.CreationDate).HasColumnName("CREATION_DATE");
+            entity.Property(e => e.RevisedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("REVISED_BY");
+            entity.Property(e => e.RevisionDate).HasColumnName("REVISION_DATE");
+            entity.Property(e => e.ReviewedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("REVIEWED_BY");
+            entity.Property(e => e.ReviewDate).HasColumnName("REVIEW_DATE");
+            entity.Property(e => e.Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STATUS");
+        });
+
+        modelBuilder.Entity<FundDiv>(entity =>
+        {
+            entity.HasKey(e => new { e.FundNo, e.DividendDate, e.DividendType });
+
+            entity.ToTable("FUND_DIV", "MDS");
+
+            entity.Property(e => e.FundNo)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("FUND_NO");
+            entity.Property(e => e.DividendYear).HasColumnName("DIVIDEND_YEAR");
+            entity.Property(e => e.DividendDate).HasColumnName("DIVIDEND_DATE");
+            entity.Property(e => e.DividendType)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("DIVIDEND_TYPE");
+            entity.Property(e => e.PayDate).HasColumnName("PAY_DATE");
+            entity.Property(e => e.PaymentDate).HasColumnName("PAYMENT_DATE");
+            entity.Property(e => e.NextDividendDate).HasColumnName("NEXT_DIVIDEND_DATE");
+            entity.Property(e => e.ReallyDivDate).HasColumnName("REALLY_DIV_DATE");
+            entity.Property(e => e.Unit)
+                .HasColumnType("decimal(20, 5)")
+                .HasColumnName("UNIT");
+            entity.Property(e => e.Nav)
+                .HasColumnType("decimal(14, 8)")
+                .HasColumnName("NAV");
+            entity.Property(e => e.PreDiv1).HasColumnName("PRE_DIV1");
+            entity.Property(e => e.PreDiv1Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV1_RATE");
+            entity.Property(e => e.PreDiv1RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV1_RATE_M");
+            entity.Property(e => e.PreDiv1Adj).HasColumnName("PRE_DIV1_ADJ");
+            entity.Property(e => e.PreDiv1B).HasColumnName("PRE_DIV1_B");
+            entity.Property(e => e.PreDiv2).HasColumnName("PRE_DIV2");
+            entity.Property(e => e.PreDiv2Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV2_RATE");
+            entity.Property(e => e.PreDiv2RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV2_RATE_M");
+            entity.Property(e => e.PreDiv2Adj).HasColumnName("PRE_DIV2_ADJ");
+            entity.Property(e => e.PreDiv3).HasColumnName("PRE_DIV3");
+            entity.Property(e => e.PreDiv3Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV3_RATE");
+            entity.Property(e => e.PreDiv3RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV3_RATE_M");
+            entity.Property(e => e.PreDiv3Adj).HasColumnName("PRE_DIV3_ADJ");
+            entity.Property(e => e.PreDiv4).HasColumnName("PRE_DIV4");
+            entity.Property(e => e.PreDiv4Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV4_RATE");
+            entity.Property(e => e.PreDiv4RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV4_RATE_M");
+            entity.Property(e => e.PreDiv4Adj).HasColumnName("PRE_DIV4_ADJ");
+            entity.Property(e => e.PreDiv5).HasColumnName("PRE_DIV5");
+            entity.Property(e => e.PreDiv5Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV5_RATE");
+            entity.Property(e => e.PreDiv5RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("PRE_DIV5_RATE_M");
+            entity.Property(e => e.PreDiv5Adj).HasColumnName("PRE_DIV5_ADJ");
+            entity.Property(e => e.Div1).HasColumnName("DIV1");
+            entity.Property(e => e.Div1Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV1_RATE");
+            entity.Property(e => e.Div1RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV1_RATE_M");
+            entity.Property(e => e.Div1B).HasColumnName("DIV1_B");
+            entity.Property(e => e.Div2).HasColumnName("DIV2");
+            entity.Property(e => e.Div2Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV2_RATE");
+            entity.Property(e => e.Div2RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV2_RATE_M");
+            entity.Property(e => e.Div2Adj).HasColumnName("DIV2_ADJ");
+            entity.Property(e => e.Div3).HasColumnName("DIV3");
+            entity.Property(e => e.Div3Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV3_RATE");
+            entity.Property(e => e.Div3RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV3_RATE_M");
+            entity.Property(e => e.Div3Adj).HasColumnName("DIV3_ADJ");
+            entity.Property(e => e.Div4).HasColumnName("DIV4");
+            entity.Property(e => e.Div4Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV4_RATE");
+            entity.Property(e => e.Div4RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV4_RATE_M");
+            entity.Property(e => e.Div4Adj).HasColumnName("DIV4_ADJ");
+            entity.Property(e => e.Div5).HasColumnName("DIV5");
+            entity.Property(e => e.Div5Rate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV5_RATE");
+            entity.Property(e => e.Div5RateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV5_RATE_M");
+            entity.Property(e => e.Div5Adj).HasColumnName("DIV5_ADJ");
+            entity.Property(e => e.Fee).HasColumnName("FEE");
+            entity.Property(e => e.FeeRate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("FEE_RATE");
+            entity.Property(e => e.FeeRateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("FEE_RATE_M");
+            entity.Property(e => e.DivTot).HasColumnName("DIV_TOT");
+            entity.Property(e => e.DivRate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV_RATE");
+            entity.Property(e => e.DivRateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV_RATE_M");
+            entity.Property(e => e.DivRateO)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("DIV_RATE_O");
+            entity.Property(e => e.Capital).HasColumnName("CAPITAL");
+            entity.Property(e => e.CapitalRate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("CAPITAL_RATE");
+            entity.Property(e => e.CapitalRateM)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("CAPITAL_RATE_M");
+            entity.Property(e => e.CapitalAdj).HasColumnName("CAPITAL_ADJ");
+            entity.Property(e => e.DivObj)
+                .HasColumnType("decimal(12, 6)")
+                .HasColumnName("DIV_OBJ");
+            entity.Property(e => e.DivPre)
+                .HasColumnType("decimal(12, 6)")
+                .HasColumnName("DIV_PRE");
+            entity.Property(e => e.Step1CreEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP1_CRE_EMP");
+            entity.Property(e => e.Step1CreTime).HasColumnName("STEP1_CRE_TIME");
+            entity.Property(e => e.Step1CofEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP1_COF_EMP");
+            entity.Property(e => e.Step1CofTime).HasColumnName("STEP1_COF_TIME");
+            entity.Property(e => e.Step1Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STEP1_STATUS");
+            entity.Property(e => e.Step2CreEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP2_CRE_EMP");
+            entity.Property(e => e.Step2CreTime).HasColumnName("STEP2_CRE_TIME");
+            entity.Property(e => e.Step2CofEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP2_COF_EMP");
+            entity.Property(e => e.Step2CofTime).HasColumnName("STEP2_COF_TIME");
+            entity.Property(e => e.Step2Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STEP2_STATUS");
+            entity.Property(e => e.Step3CreEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP3_CRE_EMP");
+            entity.Property(e => e.Step3CreTime).HasColumnName("STEP3_CRE_TIME");
+            entity.Property(e => e.Step3CofEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP3_COF_EMP");
+            entity.Property(e => e.Step3CofTime).HasColumnName("STEP3_COF_TIME");
+            entity.Property(e => e.Step3Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STEP3_STATUS");
+            entity.Property(e => e.Step4CreEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP4_CRE_EMP");
+            entity.Property(e => e.Step4CreTime).HasColumnName("STEP4_CRE_TIME");
+            entity.Property(e => e.Step4CofEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP4_COF_EMP");
+            entity.Property(e => e.Step4CofTime).HasColumnName("STEP4_COF_TIME");
+            entity.Property(e => e.Step4Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STEP4_STATUS");
+            entity.Property(e => e.Step5CreEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP5_CRE_EMP");
+            entity.Property(e => e.Step5CreTime).HasColumnName("STEP5_CRE_TIME");
+            entity.Property(e => e.Step5CofEmp)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STEP5_COF_EMP");
+            entity.Property(e => e.Step5CofTime).HasColumnName("STEP5_COF_TIME");
+            entity.Property(e => e.Step5Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STEP5_STATUS");
+            entity.Property(e => e.IRate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("I_RATE");
+            entity.Property(e => e.CRate)
+                .HasColumnType("decimal(12, 10)")
+                .HasColumnName("C_RATE");
+            entity.Property(e => e.Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STATUS");
+            entity.Property(e => e.StatusC)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("STATUS_C");
+            entity.Property(e => e.UpdUser)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("UPD_USER");
+            entity.Property(e => e.UpdDate).HasColumnName("UPD_DATE");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 
