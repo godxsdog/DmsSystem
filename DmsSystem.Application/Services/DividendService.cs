@@ -265,29 +265,33 @@ OUTPUT $action;";
             decimal divRate = unit.Value > 0 ? Math.Round(divTot / unit.Value, 6) : 0m;
 
             // 7. 根據配息頻率計算年化配息率
+            decimal navValue = nav!.Value;
             decimal rate = dividendType switch
             {
-                "M" => divRate * 12 / nav.Value,
-                "Q" => divRate * 4 / nav.Value,
-                "S" => divRate * 2 / nav.Value,
-                "Y" => divRate / nav.Value,
+                "M" => divRate * 12 / navValue,
+                "Q" => divRate * 4 / navValue,
+                "S" => divRate * 2 / navValue,
+                "Y" => divRate / navValue,
                 _ => throw new ArgumentException($"不支援的配息頻率: {dividendType}")
             };
 
             // 8. 計算上期配息率
             decimal divPre = 0m;
-            if (previousDiv != null && previousDiv.NAV != null && (decimal)previousDiv.NAV > 0)
+            if (previousDiv != null && previousDiv.NAV != null)
             {
                 decimal prevNav = (decimal)previousDiv.NAV;
-                decimal prevDivRateM = (decimal?)(previousDiv.DIV_RATE_M) ?? 0m;
-                divPre = dividendType switch
+                if (prevNav > 0)
                 {
-                    "M" => prevNav > 0 ? Math.Round(prevDivRateM * 12 / prevNav, 4) : 0m,
-                    "Q" => prevNav > 0 ? Math.Round(prevDivRateM * 4 / prevNav, 4) : 0m,
-                    "S" => prevNav > 0 ? Math.Round(prevDivRateM * 2 / prevNav, 4) : 0m,
-                    "Y" => prevNav > 0 ? Math.Round(prevDivRateM / prevNav, 4) : 0m,
-                    _ => 0m
-                };
+                    decimal prevDivRateM = (decimal?)(previousDiv.DIV_RATE_M) ?? 0m;
+                    divPre = dividendType switch
+                    {
+                        "M" => Math.Round(prevDivRateM * 12 / prevNav, 4),
+                        "Q" => Math.Round(prevDivRateM * 4 / prevNav, 4),
+                        "S" => Math.Round(prevDivRateM * 2 / prevNav, 4),
+                        "Y" => Math.Round(prevDivRateM / prevNav, 4),
+                        _ => 0m
+                    };
+                }
             }
 
             // 9. 計算目標配息率與每單位配息金額
