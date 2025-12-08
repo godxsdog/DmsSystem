@@ -6,8 +6,6 @@ using CsvHelper.Configuration;
 using Dapper;
 using DmsSystem.Application.DTOs;
 using DmsSystem.Application.Interfaces;
-using DmsSystem.Infrastructure.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Text;
@@ -19,12 +17,12 @@ namespace DmsSystem.Application.Services;
 /// </summary>
 public class DividendService : IDividendService
 {
-    private readonly DmsDbContext _context;
+    private readonly IDbConnectionFactory _connectionFactory;
     private readonly ILogger<DividendService> _logger;
 
-    public DividendService(DmsDbContext context, ILogger<DividendService> logger)
+    public DividendService(IDbConnectionFactory connectionFactory, ILogger<DividendService> logger)
     {
-        _context = context;
+        _connectionFactory = connectionFactory;
         _logger = logger;
     }
 
@@ -40,7 +38,7 @@ public class DividendService : IDividendService
         var failed = 0;
         var errors = new List<string>();
 
-        await using var connection = _context.Database.GetDbConnection();
+        await using var connection = _connectionFactory.GetConnection();
         if (connection.State != ConnectionState.Open)
         {
             await connection.OpenAsync();
@@ -151,7 +149,7 @@ OUTPUT $action;";
 
     public async Task<DividendConfirmResult> ConfirmAsync(string fundNo, DateOnly dividendDate, string dividendType)
     {
-        await using var connection = _context.Database.GetDbConnection();
+        await using var connection = _connectionFactory.GetConnection();
         if (connection.State != ConnectionState.Open)
         {
             await connection.OpenAsync();

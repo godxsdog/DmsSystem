@@ -348,7 +348,13 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 - ✅ FileParser 實作
 - ✅ FileGenerator 實作
 - ✅ DbContext
+- ✅ Factory 實作（如 `DbConnectionFactory`）
 - ❌ **不應包含**：業務邏輯 Service
+
+**資料庫連接抽象**：
+- ✅ `IDbConnectionFactory` 介面定義於 Application 層
+- ✅ `DbConnectionFactory` 實作位於 Infrastructure 層
+- ✅ Application 層透過介面取得資料庫連接，避免直接依賴 Infrastructure 層的具體實作
 
 ---
 
@@ -430,6 +436,12 @@ dotnet sln list
 ---
 
 ## 🔄 更新記錄
+
+### 2024-12-XX
+- **架構修正**：建立 `IDbConnectionFactory` 介面解決 Application 層直接依賴 Infrastructure 層的問題
+- **修復編譯錯誤**：添加 `Microsoft.AspNetCore.Http.Abstractions` 和 `Microsoft.EntityFrameworkCore` NuGet 套件到 Application 層
+- **依賴注入**：在 `Program.cs` 中註冊 `IDbConnectionFactory`，確保架構符合洋蔥式架構原則
+- `DividendService` 現在透過 `IDbConnectionFactory` 取得資料庫連接，而非直接使用 `DmsDbContext`
 
 ### 2024-12-05
 - 移除 WinForms 客戶端，系統現在以 React 網頁應用程式為主

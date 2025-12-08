@@ -6,6 +6,7 @@ using DmsSystem.Domain.Entities;
 using DmsSystem.Infrastructure.FileGeneration;
 using DmsSystem.Infrastructure.FileParsing;
 using DmsSystem.Infrastructure.Persistence.Contexts;
+using DmsSystem.Infrastructure.Persistence.Factories;
 using DmsSystem.Infrastructure.Persistence.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,9 @@ try
     // ============================================
     // 依賴注入設定
     // ============================================
+
+    // 資料庫連接工廠註冊
+    builder.Services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
 
     // Repository 註冊
     builder.Services.AddScoped<IShmtParRepository, ShmtParRepository>();
