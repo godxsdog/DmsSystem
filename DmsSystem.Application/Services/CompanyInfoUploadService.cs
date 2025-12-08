@@ -4,7 +4,7 @@ using DmsSystem.Domain.Entities;
 namespace DmsSystem.Application.Services;
 
 /// <summary>
-/// 實作處理「公司資訊」檔案上傳的服務。
+/// 公司資訊檔案上傳服務實作
 /// </summary>
 public class CompanyInfoUploadService : ICompanyInfoUploadService
 {

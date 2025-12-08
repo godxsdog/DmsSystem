@@ -4,7 +4,7 @@ using DmsSystem.Domain.Entities;
 namespace DmsSystem.Application.Services;
 
 /// <summary>
-/// 實作處理「股東會明細」檔案上傳的服務。
+/// 股東會明細檔案上傳服務實作
 /// </summary>
 public class ShareholderMeetingDetailService : IShareholderMeetingDetailService
 {

@@ -13,8 +13,11 @@ using System.Text;
 namespace DmsSystem.Application.Services;
 
 /// <summary>
-/// 5A1 配息匯入與計算服務（使用 Dapper 直連資料庫）
+/// 5A1 配息匯入與計算服務實作
 /// </summary>
+/// <remarks>
+/// 使用 Dapper 直接操作資料庫，提供配息資料匯入與計算功能
+/// </remarks>
 public class DividendService : IDividendService
 {
     private readonly IDbConnectionFactory _connectionFactory;
@@ -26,6 +29,11 @@ public class DividendService : IDividendService
         _logger = logger;
     }
 
+    /// <summary>
+    /// 匯入可分配收益 CSV 檔案並更新 MDS.FUND_DIV 資料表
+    /// </summary>
+    /// <param name="file">CSV 檔案（Big5 編碼）</param>
+    /// <returns>匯入結果，包含新增、更新、失敗筆數及錯誤訊息</returns>
     public async Task<DividendImportResult> ImportAsync(IFormFile file)
     {
         if (file == null || file.Length == 0)
@@ -147,6 +155,13 @@ OUTPUT $action;";
         return new DividendImportResult(success, inserted, updated, failed, errors);
     }
 
+    /// <summary>
+    /// 執行配息計算與確認，更新配息率與狀態
+    /// </summary>
+    /// <param name="fundNo">基金代號</param>
+    /// <param name="dividendDate">配息基準日</param>
+    /// <param name="dividendType">配息頻率：M（月）、Q（季）、S（半年）、Y（年）</param>
+    /// <returns>計算結果，包含 NAV、單位數、配息總額、配息率等資訊</returns>
     public async Task<DividendConfirmResult> ConfirmAsync(string fundNo, DateOnly dividendDate, string dividendType)
     {
         await using var connection = _connectionFactory.GetConnection();

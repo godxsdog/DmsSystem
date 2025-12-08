@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DmsSystem.Application.Services;
 
 /// <summary>
-/// 實作報表產生服務。
+/// 報表產生服務實作，提供股東會報表資料查詢與 Excel 產生功能
 /// </summary>
 public class ReportService : IReportService
 {

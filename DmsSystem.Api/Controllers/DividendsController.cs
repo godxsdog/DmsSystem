@@ -16,8 +16,10 @@ public class DividendsController : ControllerBase
     }
 
     /// <summary>
-    /// 5A1：匯入可分配收益 CSV
+    /// 5A1：匯入可分配收益 CSV 檔案
     /// </summary>
+    /// <param name="file">CSV 檔案（Big5 編碼）</param>
+    /// <returns>匯入結果</returns>
     [HttpPost("import")]
     public async Task<ActionResult<DividendImportResult>> Import([FromForm] IFormFile file)
     {
@@ -30,8 +32,12 @@ public class DividendsController : ControllerBase
     }
 
     /// <summary>
-    /// 5A1：執行計算/確認 (基準日 + 配息頻率)
+    /// 5A1：執行配息計算與確認
     /// </summary>
+    /// <param name="fundNo">基金代號</param>
+    /// <param name="dividendDate">配息基準日（格式：yyyy-MM-dd）</param>
+    /// <param name="dividendType">配息頻率（M/Q/S/Y）</param>
+    /// <returns>計算結果</returns>
     [HttpPost("{fundNo}/{dividendDate}/{dividendType}/confirm")]
     public async Task<ActionResult<DividendConfirmResult>> Confirm(string fundNo, string dividendDate, string dividendType)
     {

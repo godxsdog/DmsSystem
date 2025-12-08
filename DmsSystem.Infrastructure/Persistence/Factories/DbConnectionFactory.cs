@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DmsSystem.Infrastructure.Persistence.Factories;
 
 /// <summary>
-/// 資料庫連接工廠實作，使用 DmsDbContext 取得資料庫連接
+/// 資料庫連接工廠實作，透過 DmsDbContext 提供資料庫連接
 /// </summary>
 public class DbConnectionFactory : IDbConnectionFactory
 {

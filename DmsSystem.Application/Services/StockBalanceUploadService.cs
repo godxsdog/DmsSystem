@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace DmsSystem.Application.Services;
 
 /// <summary>
-/// 實作處理「股票餘額」檔案上傳的服務。
+/// 股票餘額檔案上傳服務實作
 /// </summary>
 public class StockBalanceUploadService : IStockBalanceUploadService
 {
