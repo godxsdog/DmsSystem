@@ -1,0 +1,139 @@
+.dividend-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dividend-container h2 {
+  color: #333;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.dividend-section {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dividend-section h3 {
+  color: #007bff;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group select {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group input[type="file"] {
+  margin-bottom: 0.5rem;
+}
+
+.form-group button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.form-group button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.form-group button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.result-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 2px solid;
+}
+
+.result-box.success {
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+}
+
+.result-box.error {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+}
+
+.result-box h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.result-message {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.result-details {
+  margin-top: 1rem;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-row .label {
+  font-weight: 500;
+  color: #555;
+}
+
+.result-row .value {
+  font-weight: 600;
+  color: #007bff;
+}
+
+.errors {
+  margin-top: 1rem;
+}
+
+.errors ul {
+  margin: 0.5rem 0 0 1.5rem;
+  padding: 0;
+}
+
+.errors li {
+  margin-bottom: 0.25rem;
+}

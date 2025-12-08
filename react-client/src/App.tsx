@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FileUpload } from './components/FileUpload';
 import { DataView } from './pages/DataView';
+import { Dividend } from './pages/Dividend';
 import './App.css';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     }, 5000);
   };
 
-  const [currentView, setCurrentView] = useState<'upload' | 'data'>('upload');
+  const [currentView, setCurrentView] = useState<'upload' | 'data' | 'dividend'>('upload');
 
   return (
     <div className="app">
@@ -31,6 +32,12 @@ function App() {
             onClick={() => setCurrentView('data')}
           >
             資料檢視
+          </button>
+          <button
+            className={currentView === 'dividend' ? 'active' : ''}
+            onClick={() => setCurrentView('dividend')}
+          >
+            配息管理
           </button>
         </nav>
       </header>
@@ -72,6 +79,7 @@ function App() {
           </>
         )}
         {currentView === 'data' && <DataView />}
+        {currentView === 'dividend' && <Dividend />}
       </main>
     </div>
   );
