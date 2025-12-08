@@ -1,7 +1,8 @@
 .dividend-container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 2rem 3rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 .dividend-container h2 {

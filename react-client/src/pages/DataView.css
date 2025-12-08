@@ -1,5 +1,7 @@
 .data-view {
-  padding: 2rem;
+  padding: 2rem 3rem;
+  width: 100%;
+  margin: 0;
 }
 
 .data-view h2 {
