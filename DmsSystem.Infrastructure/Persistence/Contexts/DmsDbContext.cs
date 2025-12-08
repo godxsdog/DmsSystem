@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using DmsSystem.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +65,12 @@ public partial class DmsDbContext : DbContext
     public virtual DbSet<StockBalance> StockBalances { get; set; }
 
     public virtual DbSet<Trustee> Trustees { get; set; }
+
+    public virtual DbSet<FundDiv> FundDivs { get; set; }
+
+    public virtual DbSet<FundDivSet> FundDivSets { get; set; }
+
+    public virtual DbSet<FundDivObj> FundDivObjs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");

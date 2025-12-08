@@ -59,6 +59,9 @@ try
     builder.Services.AddScoped<IStockBalanceRepository, StockBalanceRepository>();
     builder.Services.AddScoped<IEquityRepository, EquityRepository>();
     builder.Services.AddScoped<IShareholderReportRepository, ShareholderReportDapperRepository>();
+    builder.Services.AddScoped<IFundDivRepository, FundDivRepository>();
+    builder.Services.AddScoped<IFundDivSetRepository, FundDivSetRepository>();
+    builder.Services.AddScoped<IFundDivObjRepository, FundDivObjRepository>();
 
     // 檔案解析器註冊
     builder.Services.AddScoped<IFileParser<ShmtSource1>, ShmtSource1FileParser>();
