@@ -54,8 +54,8 @@ public class DividendService : IDividendService
 
         using var reader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding("Big5"));
         // CsvHelper 某些版本在建構子會掃描 attributesType，若為 null 會拋出 ArgumentNullException。
-        // 改用單參數建構子並關閉 AttributeMapping，以避免觸發 ApplyAttributes。
-        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        // 改為明確傳入資料列型別，並關閉 AttributeMapping 以避免再次掃描。
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture, typeof(DividendCsvRow))
         {
             HasHeaderRecord = true,
             Encoding = Encoding.GetEncoding("Big5"),
