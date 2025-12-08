@@ -53,11 +53,12 @@ public class DividendService : IDividendService
         }
 
         using var reader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding("Big5"));
-        using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
             Encoding = Encoding.GetEncoding("Big5")
-        });
+        };
+        using var csv = new CsvReader(reader, config);
         csv.Context.RegisterClassMap<DividendCsvMap>();
 
         var records = csv.GetRecords<DividendCsvRow>().ToList();
