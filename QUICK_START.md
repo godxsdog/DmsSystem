@@ -2,16 +2,15 @@
 
 ## 快速啟動
 
-### 1. 啟動後端 API
+### 1. 啟動後端 API（雲端 SQL）
 
 ```bash
 ./start.sh
 ```
 
 這個腳本會：
-- 自動啟動 SQL Server 容器（如果尚未運行）
-- 載入配息測試資料
-- 啟動 API 伺服器（http://localhost:5137）
+- 直接使用雲端 SQL（vtwesiwudb22），不再啟動 Docker
+- 啟動 API 伺服器（http://localhost:5137，Swagger 已停用）
 
 ### 2. 啟動前端（新終端視窗）
 
@@ -44,10 +43,8 @@
 - 目標配息率設定（Step 2）：`POST /api/dividend-settings/targets`，Body：`FundNo`, `DivType`, `TxDate`, `DivObj`, `DivObjAmt`
 - 查詢目標配息率（回溯最近一筆）：`GET /api/dividend-settings/targets/{fundNo}/{divType}/{effectiveDate}`
 
-### 手動載入測試資料
-
-如果需要重新載入測試資料：
-
+### 手動載入測試資料（僅本機測試用，若需）
+若未連雲端，需本機 Docker 測試時可執行：
 ```bash
 ./scripts/load-dividend-test-data.sh
 ```

@@ -1,24 +1,11 @@
 #!/bin/bash
-# DMS 系統啟動腳本
+# DMS 系統啟動腳本（使用雲端 SQL，無需 Docker）
 
-echo "=== DMS 系統啟動 ==="
-
-# 檢查 SQL Server 是否運行
-if ! docker ps | grep -q dms-sqlserver; then
-    echo "📦 啟動 SQL Server 容器..."
-    docker-compose up -d
-    
-    echo "⏳ 等待 SQL Server 啟動（30秒）..."
-    sleep 30
-fi
-
-# 載入配息測試資料（如果尚未載入）
-echo "📊 檢查並載入配息測試資料..."
-./scripts/load-dividend-test-data.sh 2>&1 | tail -5
-
+echo "=== DMS 系統啟動（雲端 SQL） ==="
+echo "使用連線：vtwesiwudb22 / DMS（appsettings 已設定）"
 echo ""
 echo "🚀 啟動 API 伺服器..."
-echo "API 將在 http://localhost:5137 啟動"
+echo "API 將在 http://localhost:5137 啟動（Swagger 已停用）"
 echo ""
 
 cd DmsSystem.Api
