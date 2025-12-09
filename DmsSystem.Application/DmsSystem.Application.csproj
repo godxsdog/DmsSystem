@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DmsSystem.Domain\DmsSystem.Domain.csproj" />
+    <ProjectReference Include="..\DmsSystem.Infrastructure\DmsSystem.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
