@@ -1,4 +1,4 @@
-namespace DmsSystem.Infrastructure.Persistence.SqlQueries;
+namespace DmsSystem.Application.SqlQueries;
 
 /// <summary>
 /// 配息相關 SQL 查詢語句

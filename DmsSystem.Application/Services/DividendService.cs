@@ -6,7 +6,7 @@ using CsvHelper.Configuration;
 using Dapper;
 using DmsSystem.Application.DTOs;
 using DmsSystem.Application.Interfaces;
-using DmsSystem.Infrastructure.Persistence.SqlQueries;
+using DmsSystem.Application.SqlQueries;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Text;
