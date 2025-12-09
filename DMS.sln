@@ -38,6 +38,48 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-client", "{B3FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
+	ProjectSection(SolutionItems) = preProject
+		react-client\package.json = react-client\package.json
+		react-client\package-lock.json = react-client\package-lock.json
+		react-client\tsconfig.json = react-client\tsconfig.json
+		react-client\tsconfig.app.json = react-client\tsconfig.app.json
+		react-client\tsconfig.node.json = react-client\tsconfig.node.json
+		react-client\vite.config.ts = react-client\vite.config.ts
+		react-client\index.html = react-client\index.html
+		react-client\README.md = react-client\README.md
+		react-client\eslint.config.js = react-client\eslint.config.js
+		react-client\src\App.tsx = react-client\src\App.tsx
+		react-client\src\main.tsx = react-client\src\main.tsx
+		react-client\src\api\client.ts = react-client\src\api\client.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README.md = docs\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FEATURES", "FEATURES", "{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}"
+	ProjectSection(SolutionItems) = preProject
+		docs\FEATURES\README.md = docs\FEATURES\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DIVIDEND", "DIVIDEND", "{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8}"
+	ProjectSection(SolutionItems) = preProject
+		docs\FEATURES\DIVIDEND\README.md = docs\FEATURES\DIVIDEND\README.md
+		docs\FEATURES\DIVIDEND\TEST_CASES.md = docs\FEATURES\DIVIDEND\TEST_CASES.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SHAREHOLDER-MEETING", "SHAREHOLDER-MEETING", "{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9}"
+	ProjectSection(SolutionItems) = preProject
+		docs\FEATURES\SHAREHOLDER-MEETING\README.md = docs\FEATURES\SHAREHOLDER-MEETING\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "INVESTMENT", "INVESTMENT", "{B4FE74E1-B743-11D0-AE1A-00A0C90FFFCA}"
+	ProjectSection(SolutionItems) = preProject
+		docs\FEATURES\INVESTMENT\README.md = docs\FEATURES\INVESTMENT\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +111,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{B3FE74E1-B743-11D0-AE1A-00A0C90FFFC5} = {B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}
+		{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5} = {B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}
 		{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
 		{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
 		{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
-		{B3FE74E1-B743-11D0-AE1A-00A0C90FFFCA} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
+		{B4FE74E1-B743-11D0-AE1A-00A0C90FFFCA} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E31D59BA-374F-4460-84F7-A0D59F1DCF3D}
