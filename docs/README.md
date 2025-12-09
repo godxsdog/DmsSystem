@@ -57,7 +57,7 @@ Mac 本地開發測試環境專用文件，使用 Docker SQL Server：
 ### 首次使用系統
 
 1. **選擇環境**：
-   - **Windows 環境** → [快速開始](./00-快速開始.md) → [Windows 開發環境完整手冊](./WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
+   - **Windows 環境** → [快速開始](./00-快速開始.md)（已包含完整環境設定）
    - **Mac 環境** → [Mac 快速測試指南](./MAC-DEVELOPMENT-ONLY/00-快速測試指南.md) → [Mac 開發環境完整手冊](./MAC-DEVELOPMENT-ONLY/01-Mac開發環境完整手冊.md)
 
 2. **了解架構**：
