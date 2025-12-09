@@ -62,13 +62,12 @@ public class DividendService : IDividendService
             if (line == null) break; // 檔案過短時提前結束
         }
         
-        // CsvHelper 33.1.0：使用單參數建構子並關閉屬性映射，避免 ApplyAttributes 掃描 null element
+        // CsvHelper 33.1.0：使用單參數建構子，避免使用帶 attributesType 的建構子觸發 ApplyAttributes
+        // 手動註冊 ClassMap 即可避免自動屬性掃描
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
-            Encoding = Encoding.GetEncoding("Big5"),
-            // 完全關閉屬性映射，避免觸發 ApplyAttributes
-            AttributeMappingEnabled = false
+            Encoding = Encoding.GetEncoding("Big5")
         };
         
         using var csv = new CsvReader(reader, config);
