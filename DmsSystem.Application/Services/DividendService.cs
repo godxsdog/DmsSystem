@@ -58,7 +58,8 @@ public class DividendService : IDividendService
         // 先讀取並跳過前3行
         for (int i = 0; i < 3; i++)
         {
-            await reader.ReadLineAsync();
+            var line = await reader.ReadLineAsync();
+            if (line == null) break; // 檔案過短時提前結束
         }
         
         // CsvHelper 33.1.0：使用單參數建構子並關閉屬性映射，避免 ApplyAttributes 掃描 null element
