@@ -116,12 +116,12 @@ WHEN NOT MATCHED THEN
             PRE_DIV1, PRE_DIV2, PRE_DIV3, PRE_DIV4, PRE_DIV5,
             DIV1, DIV2, DIV3, DIV4, DIV5,
             PRE_DIV1_B, DIV1_B, FEE, DIV_TOT,
-            STEP2_STATUS, STEP2_CRE_EMP, STEP2_CRE_TIME, STATUS, STATUS_C)
+            STEP2_STATUS, STEP2_CRE_EMP, STEP2_CRE_TIME)
     VALUES (@FundNo, @DividendYear, @DividendDate, @DividendType, @Nav, 0,
             @PreDiv1, @PreDiv2, @PreDiv3, @PreDiv4, @PreDiv5,
             @Div1, @Div2, @Div3, @Div4, @Div5,
             @PreDiv1B, @Div1B, @Fee, @DivTot,
-            'C', 'SYSTEM', @Now, 'Y', 'N')
+            'C', 'SYSTEM', @Now)
 OUTPUT $action;";
 
                 var action = await connection.ExecuteScalarAsync<string>(
