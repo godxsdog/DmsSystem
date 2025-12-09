@@ -143,8 +143,8 @@ OUTPUT $action;";
                         record.Div3,
                         record.Div4,
                         record.Div5,
-                        record.PreDiv1B,
-                        record.Div1B,
+                        PreDiv1B = record.PreDiv1B ?? 0,
+                        Div1B = record.Div1B ?? 0,
                         record.Fee,
                         record.DivTot,
                         Now = now
@@ -550,8 +550,8 @@ WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type",
         public decimal Div3 { get; set; }
         public decimal Div4 { get; set; }
         public decimal Div5 { get; set; }
-        public decimal PreDiv1B { get; set; }
-        public decimal Div1B { get; set; }
+        public decimal? PreDiv1B { get; set; }
+        public decimal? Div1B { get; set; }
         public decimal Fee { get; set; }
         public decimal DivTot { get; set; }
         public decimal Nav { get; set; }
@@ -618,8 +618,9 @@ WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
             Map(m => m.Div3).Name("div3");
             Map(m => m.Div4).Name("div4");
             Map(m => m.Div5).Name("div5");
-            Map(m => m.PreDiv1B).Name("pre_div1_b");
-            Map(m => m.Div1B).Name("div1_b");
+            // pre_div1_b 和 div1_b 可能為空，標記為 Optional，空值會轉為 null
+            Map(m => m.PreDiv1B).Name("pre_div1_b").Optional();
+            Map(m => m.Div1B).Name("div1_b").Optional();
             Map(m => m.Fee).Name("fee");
             Map(m => m.DivTot).Name("div_tot");
             Map(m => m.Nav).Name("nav").Optional();
