@@ -58,9 +58,26 @@ dotnet restore
    - 設定正式區 SQL Server 連接字串
 
 4. **啟動系統**
-   - 開啟 `DMS.sln`（Visual Studio 2022）
+
+**方式一：使用 Visual Studio 2022（推薦）**
+   - 開啟 `DMS.sln`
    - 設定啟動專案為 `DmsSystem.Api`
+   - 設定環境為 `Production`
    - 按 F5 啟動
+
+**方式二：使用命令列**
+```powershell
+cd DmsSystem.Api
+$env:ASPNETCORE_ENVIRONMENT="Production"
+dotnet run
+```
+
+5. **啟動前端（新終端視窗）**
+```powershell
+cd react-client
+npm install  # 僅首次需要
+npm run dev
+```
 
 **詳細說明**：請參考 [快速開始文件](./docs/00-快速開始.md)
 
@@ -80,11 +97,30 @@ dotnet run
 3. **啟動前端**
 ```bash
 cd react-client
-npm install
+npm install  # 僅首次需要
 npm run dev
 ```
 
 **詳細說明**：請參考 [`docs/MAC-DEVELOPMENT-ONLY/`](./docs/MAC-DEVELOPMENT-ONLY/)
+
+### 使用啟動腳本（Mac/Linux）
+
+**啟動後端 API（使用雲端 SQL）**
+```bash
+./start.sh
+```
+API 將在 http://localhost:5137 啟動（Swagger 已停用）
+
+**啟動前端（新終端視窗）**
+```bash
+./start-frontend.sh
+```
+前端將在 http://localhost:5173 啟動
+
+### 訪問系統
+
+- **前端應用**：http://localhost:5173
+- **API 文檔（Swagger）**：http://localhost:5137/swagger（注意：目前 Swagger 已停用）
 
 ---
 
@@ -170,7 +206,7 @@ npm run dev
 
 ## 🧪 測試
 
-### 執行測試
+### 執行單元測試
 
 ```bash
 dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
@@ -182,6 +218,20 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 cd DmsSystem.Tests
 ./RunTests.sh
 ```
+
+### 配息功能測試
+
+**測試資料**：
+- 基金代號：D109, D110, D111, D123, D124, D125 等
+- 配息基準日：2020-07-06
+- 配息頻率：M (月配)
+
+**測試步驟**：
+1. 匯入 CSV 檔案：訪問 http://localhost:5173，點擊「配息管理」標籤，選擇 CSV 檔案並匯入
+2. 查詢配息資料：使用查詢功能篩選已載入的配息資料
+3. 執行配息計算：輸入基金代號、配息基準日、配息頻率，執行計算與確認
+
+**詳細測試案例**：請參考 [配息功能測試案例](./docs/FEATURES/DIVIDEND/TEST_CASES.md)
 
 ---
 
@@ -198,6 +248,17 @@ cd DmsSystem.Tests
 - **Windows 環境**：連接正式區 SQL Server，用於正式環境執行和生產部署
 - **Mac 環境**：使用 Docker SQL Server，用於個人開發和測試
 - **前端技術**：系統現在以 React 網頁應用程式為主，不再支援 Windows Forms
+- **Swagger**：目前 Swagger 已停用，不會自動開啟瀏覽器
+- **API 連接埠**：預設為 http://localhost:5137
+- **前端連接埠**：預設為 http://localhost:5173
+
+## 📝 最新修正
+
+所有最新修正內容已記錄在 [最新修正記錄](./docs/10-最新修正記錄.md)，包含：
+- 配息功能修正（CsvHelper 配置、CSV 格式處理、空值處理等）
+- SQL 語句重構（移至獨立資源類別）
+- 錯誤處理改進（前端錯誤顯示、CORS 設定等）
+- 配息資料查詢功能
 
 ---
 
