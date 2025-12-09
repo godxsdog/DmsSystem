@@ -1,8 +1,8 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-# DMS 系統 - 股東會資料管理系統
-# 支援 Windows（正式區 SQL Server）和 Mac（Docker SQL Server）環境
+# DMS System - Shareholder Meeting Data Management System
+# Supports Windows (Production SQL Server) and Mac (Docker SQL Server) environments
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Api", "DmsSystem.Api\DmsSystem.Api.csproj", "{288384D8-8C67-49E9-B1EE-134D19F1E784}"
