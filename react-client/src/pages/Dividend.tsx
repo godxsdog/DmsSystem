@@ -58,15 +58,54 @@ export function Dividend() {
         body: formData,
       });
 
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({ message: response.statusText }));
-        throw new Error(error.message || `HTTP error! status: ${response.status}`);
+      let result: DividendImportResult;
+      
+      try {
+        const data = await response.json();
+        
+        // 檢查是否為後端返回的錯誤格式（GlobalExceptionHandlerMiddleware）
+        if (data.error) {
+          const errorMsg = data.error.message || data.error.type || '未知錯誤';
+          const errorDetails = data.error.stackTrace ? `\n詳細資訊: ${data.error.stackTrace.split('\n')[0]}` : '';
+          result = {
+            success: false,
+            inserted: 0,
+            updated: 0,
+            failed: 1,
+            errors: [`${errorMsg}${errorDetails}`],
+          };
+        }
+        // 檢查是否為 DividendImportResult 格式
+        else if (data.success !== undefined || data.inserted !== undefined) {
+          result = data as DividendImportResult;
+        }
+        // 其他錯誤格式
+        else {
+          result = {
+            success: false,
+            inserted: 0,
+            updated: 0,
+            failed: 1,
+            errors: [data.message || `HTTP ${response.status}: ${response.statusText}`],
+          };
+        }
+      } catch (parseError) {
+        // JSON 解析失敗，可能是網路錯誤或其他問題
+        result = {
+          success: false,
+          inserted: 0,
+          updated: 0,
+          failed: 1,
+          errors: [`無法解析伺服器回應: ${response.status} ${response.statusText}`],
+        };
       }
 
-      const result: DividendImportResult = await response.json();
       setImportResult(result);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '匯入失敗';
+      // 網路錯誤或其他例外
+      const errorMessage = error instanceof Error 
+        ? `${error.message}${error.stack ? `\n堆疊: ${error.stack.split('\n')[0]}` : ''}` 
+        : '匯入失敗：未知錯誤';
       setImportResult({
         success: false,
         inserted: 0,
