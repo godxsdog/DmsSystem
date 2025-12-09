@@ -2543,19 +2543,11 @@ public partial class DmsDbContext : DbContext
             entity.Property(e => e.CRate)
                 .HasColumnType("decimal(12, 10)")
                 .HasColumnName("C_RATE");
-            entity.Property(e => e.Status)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasColumnName("STATUS");
-            entity.Property(e => e.StatusC)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasColumnName("STATUS_C");
-            entity.Property(e => e.UpdUser)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("UPD_USER");
-            entity.Property(e => e.UpdDate).HasColumnName("UPD_DATE");
+            // 這些欄位在實際資料表中不存在，使用 Ignore 忽略
+            entity.Ignore(e => e.Status);
+            entity.Ignore(e => e.StatusC);
+            entity.Ignore(e => e.UpdUser);
+            entity.Ignore(e => e.UpdDate);
         });
 
         OnModelCreatingPartial(modelBuilder);
