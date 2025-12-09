@@ -54,19 +54,25 @@ public class DividendService : IDividendService
 
         using var reader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding("Big5"));
         
-        // CsvHelper 30.0.1 版本在建立 CsvConfiguration 時會自動掃描屬性，若遇到 null element 會拋出 ArgumentNullException。
-        // 解決方案：使用最簡單的配置方式，完全避免屬性掃描，並在建立 CsvReader 後手動註冊 ClassMap 實例。
+        // CSV 檔案格式：前3行是說明文字，第4行才是真正的欄位標題
+        // 先讀取並跳過前3行
+        for (int i = 0; i < 3; i++)
+        {
+            await reader.ReadLineAsync();
+        }
+        
+        // CsvHelper 33.1.0：使用單參數建構子並關閉屬性映射，避免 ApplyAttributes 掃描 null element
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
             Encoding = Encoding.GetEncoding("Big5"),
-            // 關閉所有自動映射功能，避免觸發 ApplyAttributes
+            // 完全關閉屬性映射，避免觸發 ApplyAttributes
             AttributeMappingEnabled = false
         };
         
         using var csv = new CsvReader(reader, config);
         
-        // 手動註冊 ClassMap 實例，避免使用泛型方法觸發自動掃描
+        // 手動註冊 ClassMap 實例，避免泛型方法觸發自動掃描
         var map = new DividendCsvMap();
         csv.Context.RegisterClassMap(map);
 
