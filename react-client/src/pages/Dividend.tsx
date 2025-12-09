@@ -103,6 +103,7 @@ export function Dividend() {
         // 檢查是否為 DividendImportResult 格式
         else if (data.success !== undefined || data.inserted !== undefined) {
           result = data as DividendImportResult;
+          console.log('匯入結果:', result);
         }
         // 其他錯誤格式
         else {
@@ -116,6 +117,7 @@ export function Dividend() {
         }
       } catch (parseError) {
         // JSON 解析失敗，可能是網路錯誤或其他問題
+        console.error('JSON 解析錯誤:', parseError);
         result = {
           success: false,
           inserted: 0,
@@ -125,6 +127,8 @@ export function Dividend() {
         };
       }
 
+      // 確保無論如何都設定結果
+      console.log('設定匯入結果:', result);
       setImportResult(result);
     } catch (error) {
       // 網路錯誤或其他例外
@@ -245,17 +249,31 @@ export function Dividend() {
         {importResult && (
           <div className={`result-box ${importResult.success ? 'success' : 'error'}`}>
             <h4>匯入結果</h4>
-            <p>新增：{importResult.inserted} 筆</p>
-            <p>更新：{importResult.updated} 筆</p>
-            <p>失敗：{importResult.failed} 筆</p>
+            {importResult.success ? (
+              <div style={{ marginBottom: '10px', padding: '10px', backgroundColor: '#d4edda', borderRadius: '4px' }}>
+                <strong style={{ color: '#155724' }}>✓ 匯入成功！</strong>
+              </div>
+            ) : (
+              <div style={{ marginBottom: '10px', padding: '10px', backgroundColor: '#f8d7da', borderRadius: '4px' }}>
+                <strong style={{ color: '#721c24' }}>✗ 匯入失敗</strong>
+              </div>
+            )}
+            <p><strong>新增：</strong>{importResult.inserted} 筆</p>
+            <p><strong>更新：</strong>{importResult.updated} 筆</p>
+            <p><strong>失敗：</strong>{importResult.failed} 筆</p>
             {importResult.errors.length > 0 && (
-              <div className="errors">
+              <div className="errors" style={{ marginTop: '10px' }}>
                 <strong>錯誤訊息：</strong>
                 <ul>
                   {importResult.errors.map((error, index) => (
                     <li key={index}>{error}</li>
                   ))}
                 </ul>
+              </div>
+            )}
+            {importResult.success && importResult.inserted === 0 && importResult.updated === 0 && (
+              <div style={{ marginTop: '10px', padding: '10px', backgroundColor: '#fff3cd', borderRadius: '4px' }}>
+                <strong style={{ color: '#856404' }}>⚠ 注意：</strong> 匯入成功但沒有新增或更新任何資料，可能是資料已存在或格式不符。
               </div>
             )}
           </div>
