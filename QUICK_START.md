@@ -1,21 +1,33 @@
 # DMS 系統快速啟動指南
 
+> 📝 **注意**：這是簡化版的快速啟動指南。完整說明請參考 [docs/00-快速開始.md](./docs/00-快速開始.md)
+
 ## 快速啟動
 
-### 1. 啟動後端 API（雲端 SQL）
+### 1. 啟動後端 API
 
-```bash
-./start.sh
+**Windows 環境（正式區 SQL Server）**：
+```powershell
+cd DmsSystem.Api
+$env:ASPNETCORE_ENVIRONMENT="Production"
+dotnet run
 ```
 
-這個腳本會：
-- 直接使用雲端 SQL（vtwesiwudb22），不再啟動 Docker
-- 啟動 API 伺服器（http://localhost:5137，Swagger 已停用）
+**Mac 環境（Docker SQL Server）**：
+```bash
+docker-compose up -d
+cd DmsSystem.Api
+dotnet run
+```
 
-### 2. 啟動前端（新終端視窗）
+API 將在 http://localhost:5137 啟動
+
+### 2. 啟動前端
 
 ```bash
-./start-frontend.sh
+cd react-client
+npm install  # 僅首次需要
+npm run dev
 ```
 
 前端將在 http://localhost:5173 啟動
@@ -71,27 +83,21 @@
      - 每單位配息金額（當期）
      - 每單位本金配息比率
 
+## 詳細說明
+
+- **完整環境設定**：[docs/00-快速開始.md](./docs/00-快速開始.md)
+- **資料庫配置**：[docs/03-資料庫配置.md](./docs/03-資料庫配置.md)
+- **測試指南**：[docs/04-測試指南.md](./docs/04-測試指南.md)
+- **配息功能測試**：[docs/FEATURES/DIVIDEND/TEST_CASES.md](./docs/FEATURES/DIVIDEND/TEST_CASES.md)
+
 ## 注意事項
 
 - Swagger 已停用，不會自動開啟瀏覽器
 - API 伺服器運行在 http://localhost:5137
 - 前端運行在 http://localhost:5173
-- 確保 SQL Server 容器正在運行
+- Windows 環境需確保正式區 SQL Server 可連接
+- Mac 環境需確保 Docker SQL Server 容器正在運行
 
 ## 故障排除
 
-### SQL Server 未啟動
-
-```bash
-docker-compose up -d
-```
-
-### 測試資料未載入
-
-```bash
-./scripts/load-dividend-test-data.sh
-```
-
-### 端口被占用
-
-修改 `DmsSystem.Api/Properties/launchSettings.json` 中的端口號
+詳細故障排除請參考 [docs/00-快速開始.md](./docs/00-快速開始.md) 的「錯誤診斷與報告」章節。

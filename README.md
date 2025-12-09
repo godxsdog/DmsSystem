@@ -18,6 +18,7 @@
 - 股票餘額上傳
 - 資料查詢與顯示（React 網頁前端）
 - 報表產生
+- **基金配息管理**：配息資料匯入、查詢、計算與確認
 
 ---
 
@@ -61,7 +62,7 @@ dotnet restore
    - 設定啟動專案為 `DmsSystem.Api`
    - 按 F5 啟動
 
-**詳細說明**：請參考 [`docs/WINDOWS-DEVELOPMENT/`](./docs/WINDOWS-DEVELOPMENT/)
+**詳細說明**：請參考 [快速開始文件](./docs/00-快速開始.md)
 
 ### Mac 環境（Docker SQL Server）
 
@@ -99,12 +100,11 @@ npm run dev
 
 ### Windows 環境文件
 
-位置：`docs/WINDOWS-DEVELOPMENT/`
+所有 Windows 環境相關內容已整合到主要文件中：
 
-- [Windows 開發環境完整手冊](./docs/WINDOWS-DEVELOPMENT/01-Windows開發環境完整手冊.md)
-- [Git 版本控制指南](./docs/WINDOWS-DEVELOPMENT/02-Git版本控制指南.md)
-- [環境切換指南](./docs/WINDOWS-DEVELOPMENT/03-環境切換指南.md)
-- [資料庫遷移指南](./docs/WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md)
+- [快速開始](./docs/00-快速開始.md) - 包含完整環境設定、Git 版本控制、錯誤診斷等
+- [資料庫配置](./docs/03-資料庫配置.md) - 包含資料庫操作、備份、還原等
+- [測試指南](./docs/04-測試指南.md) - 包含執行測試、配息功能測試等
 
 ### Mac 環境文件
 
