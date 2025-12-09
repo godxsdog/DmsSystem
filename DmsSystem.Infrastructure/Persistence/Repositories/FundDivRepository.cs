@@ -46,6 +46,36 @@ public class FundDivRepository : IFundDivRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<IEnumerable<FundDiv>> GetAllAsync(string? fundNo = null, string? dividendType = null, DateTime? startDate = null, DateTime? endDate = null)
+    {
+        var query = _context.Set<FundDiv>().AsQueryable();
+
+        if (!string.IsNullOrEmpty(fundNo))
+        {
+            query = query.Where(f => f.FundNo == fundNo);
+        }
+
+        if (!string.IsNullOrEmpty(dividendType))
+        {
+            query = query.Where(f => f.DividendType == dividendType);
+        }
+
+        if (startDate.HasValue)
+        {
+            query = query.Where(f => f.DividendDate >= startDate.Value);
+        }
+
+        if (endDate.HasValue)
+        {
+            query = query.Where(f => f.DividendDate <= endDate.Value);
+        }
+
+        return await query
+            .OrderByDescending(f => f.DividendDate)
+            .ThenBy(f => f.FundNo)
+            .ToListAsync();
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();

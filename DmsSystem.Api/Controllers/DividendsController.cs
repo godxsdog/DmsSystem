@@ -9,10 +9,12 @@ namespace DmsSystem.Api.Controllers;
 public class DividendsController : ControllerBase
 {
     private readonly IDividendService _service;
+    private readonly IFundDivRepository _fundDivRepository;
 
-    public DividendsController(IDividendService service)
+    public DividendsController(IDividendService service, IFundDivRepository fundDivRepository)
     {
         _service = service;
+        _fundDivRepository = fundDivRepository;
     }
 
     /// <summary>
@@ -53,6 +55,45 @@ public class DividendsController : ControllerBase
         }
 
         return Ok(result);
+    }
+
+    /// <summary>
+    /// 查詢已載入的配息資料
+    /// </summary>
+    /// <param name="fundNo">基金代號（選填）</param>
+    /// <param name="dividendType">配息頻率（選填：M/Q/S/Y）</param>
+    /// <param name="startDate">開始日期（選填，格式：yyyy-MM-dd）</param>
+    /// <param name="endDate">結束日期（選填，格式：yyyy-MM-dd）</param>
+    /// <returns>配息資料列表</returns>
+    [HttpGet]
+    public async Task<ActionResult> GetDividends(
+        [FromQuery] string? fundNo = null,
+        [FromQuery] string? dividendType = null,
+        [FromQuery] string? startDate = null,
+        [FromQuery] string? endDate = null)
+    {
+        try
+        {
+            DateTime? start = null;
+            DateTime? end = null;
+
+            if (!string.IsNullOrEmpty(startDate) && DateTime.TryParse(startDate, out var parsedStart))
+            {
+                start = parsedStart;
+            }
+
+            if (!string.IsNullOrEmpty(endDate) && DateTime.TryParse(endDate, out var parsedEnd))
+            {
+                end = parsedEnd;
+            }
+
+            var dividends = await _fundDivRepository.GetAllAsync(fundNo, dividendType, start, end);
+            return Ok(new { data = dividends, total = dividends.Count() });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { error = ex.Message });
+        }
     }
 }
 

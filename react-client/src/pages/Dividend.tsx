@@ -20,6 +20,17 @@ interface DividendConfirmResult {
   capitalRate: number | null;
 }
 
+interface FundDiv {
+  fundNo: string;
+  dividendYear: number | null;
+  dividendDate: string;
+  dividendType: string;
+  nav: number | null;
+  unit: number | null;
+  divTot: number | null;
+  divRate: number | null;
+}
+
 export function Dividend() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -31,6 +42,15 @@ export function Dividend() {
   const [dividendType, setDividendType] = useState('M');
   const [calculating, setCalculating] = useState(false);
   const [confirmResult, setConfirmResult] = useState<DividendConfirmResult | null>(null);
+
+  // 查詢配息資料
+  const [queryFundNo, setQueryFundNo] = useState('');
+  const [queryDividendType, setQueryDividendType] = useState('');
+  const [queryStartDate, setQueryStartDate] = useState('');
+  const [queryEndDate, setQueryEndDate] = useState('');
+  const [dividends, setDividends] = useState<FundDiv[]>([]);
+  const [loadingDividends, setLoadingDividends] = useState(false);
+  const [queryError, setQueryError] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -171,6 +191,37 @@ export function Dividend() {
     }
   };
 
+  const handleQueryDividends = async () => {
+    setLoadingDividends(true);
+    setQueryError(null);
+
+    try {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
+      const params = new URLSearchParams();
+      
+      if (queryFundNo) params.append('fundNo', queryFundNo);
+      if (queryDividendType) params.append('dividendType', queryDividendType);
+      if (queryStartDate) params.append('startDate', queryStartDate);
+      if (queryEndDate) params.append('endDate', queryEndDate);
+
+      const response = await fetch(`${API_BASE_URL}/api/Dividends?${params.toString()}`);
+      
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ error: response.statusText }));
+        throw new Error(error.error || `HTTP ${response.status}`);
+      }
+
+      const result = await response.json();
+      setDividends(result.data || []);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : '查詢失敗';
+      setQueryError(errorMessage);
+      setDividends([]);
+    } finally {
+      setLoadingDividends(false);
+    }
+  };
+
   return (
     <div className="dividend-container">
       <h2>配息管理</h2>
@@ -288,6 +339,113 @@ export function Dividend() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+      </section>
+
+      {/* 查詢已載入的配息資料 */}
+      <section className="dividend-section">
+        <h3>3. 查詢已載入的配息資料</h3>
+        <div className="form-group">
+          <label>
+            基金代號（選填）：
+            <input
+              type="text"
+              value={queryFundNo}
+              onChange={(e) => setQueryFundNo(e.target.value)}
+              placeholder="例如：D109"
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            配息頻率（選填）：
+            <select
+              value={queryDividendType}
+              onChange={(e) => setQueryDividendType(e.target.value)}
+            >
+              <option value="">全部</option>
+              <option value="M">月配 (M)</option>
+              <option value="Q">季配 (Q)</option>
+              <option value="S">半年配 (S)</option>
+              <option value="Y">年配 (Y)</option>
+            </select>
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            開始日期（選填）：
+            <input
+              type="date"
+              value={queryStartDate}
+              onChange={(e) => setQueryStartDate(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            結束日期（選填）：
+            <input
+              type="date"
+              value={queryEndDate}
+              onChange={(e) => setQueryEndDate(e.target.value)}
+            />
+          </label>
+        </div>
+        <button onClick={handleQueryDividends} disabled={loadingDividends}>
+          {loadingDividends ? '查詢中...' : '查詢配息資料'}
+        </button>
+
+        {queryError && (
+          <div className="result-box error">
+            <h4>查詢錯誤</h4>
+            <p>{queryError}</p>
+          </div>
+        )}
+
+        {dividends.length > 0 && (
+          <div className="result-box success">
+            <h4>查詢結果（共 {dividends.length} 筆）</h4>
+            <div style={{ overflowX: 'auto', marginTop: '10px' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+                <thead>
+                  <tr style={{ backgroundColor: '#f0f0f0' }}>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>基金代號</th>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>配息年度</th>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>配息基準日</th>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>配息頻率</th>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>NAV</th>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>單位數</th>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>總可分配金額</th>
+                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>配息率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dividends.map((div, index) => (
+                    <tr key={index}>
+                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{div.fundNo}</td>
+                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{div.dividendYear || '-'}</td>
+                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                        {new Date(div.dividendDate).toLocaleDateString('zh-TW')}
+                      </td>
+                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{div.dividendType}</td>
+                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                        {div.nav?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 8 }) || '-'}
+                      </td>
+                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                        {div.unit?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '-'}
+                      </td>
+                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                        {div.divTot?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '-'}
+                      </td>
+                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                        {div.divRate?.toLocaleString('zh-TW', { minimumFractionDigits: 6, maximumFractionDigits: 6 }) || '-'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </section>

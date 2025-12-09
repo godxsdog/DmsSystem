@@ -26,4 +26,9 @@ public interface IFundDivRepository
     /// 查詢上期配息資料
     /// </summary>
     Task<FundDiv?> GetPreviousAsync(string fundNo, string dividendType, DateTime dividendDate);
+
+    /// <summary>
+    /// 查詢所有配息資料（支援篩選）
+    /// </summary>
+    Task<IEnumerable<FundDiv>> GetAllAsync(string? fundNo = null, string? dividendType = null, DateTime? startDate = null, DateTime? endDate = null);
 }
