@@ -2339,7 +2339,9 @@ public partial class DmsDbContext : DbContext
                 .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasColumnName("FUND_NO");
-            entity.Property(e => e.DividendYear).HasColumnName("DIVIDEND_YEAR");
+            entity.Property(e => e.DividendYear)
+                .HasColumnType("decimal(4,0)")
+                .HasColumnName("DIVIDEND_YEAR");
             entity.Property(e => e.DividendDate).HasColumnName("DIVIDEND_DATE");
             entity.Property(e => e.DividendType)
                 .HasMaxLength(1)

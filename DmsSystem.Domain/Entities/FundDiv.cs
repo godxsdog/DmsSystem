@@ -13,7 +13,7 @@ public partial class FundDiv
     /// <summary>
     /// 配息年度
     /// </summary>
-    public int? DividendYear { get; set; }
+    public decimal? DividendYear { get; set; }
 
     /// <summary>
     /// 配息基準日
