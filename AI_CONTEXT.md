@@ -22,6 +22,7 @@
 - 股票餘額上傳
 - 資料查詢與顯示（React 網頁前端）
 - 報表產生
+- **基金配息管理**：配息資料匯入、查詢、計算與確認
 
 ### 前端技術
 **系統現在以 React 網頁應用程式為主**，不再支援 Windows Forms 桌面應用程式。
@@ -43,11 +44,13 @@ DmsSystem/
 ├── DmsSystem.Infrastructure/      # 基礎設施層
 │   ├── Persistence/               # 資料存取
 │   │   ├── Contexts/              # DbContext
-│   │   └── Repositories/         # Repository 實作
+│   │   ├── Repositories/         # Repository 實作
+│   │   └── SqlQueries/           # SQL 語句資源類別
 │   ├── FileParsing/               # 檔案解析實作（Excel、CSV）
 │   └── FileGeneration/           # 檔案產生器實作
 │   ⚠️ **注意**：Infrastructure 層不應包含 Services 資料夾
 │   ⚠️ Service 實作應在 Application 層，不在 Infrastructure 層
+│   ⚠️ SQL 語句應放在 SqlQueries 資源類別中，保持程式碼整潔
 │
 ├── DmsSystem.Api/                 # API 表現層（最外層）
 │   ├── Controllers/               # API 控制器
@@ -67,15 +70,17 @@ DmsSystem/
 │   │   └── pages/                # 頁面元件
 │
 ├── docs/                          # 技術文件
-│   ├── 00-快速開始.md            # 通用：快速啟動
+│   ├── 00-快速開始.md            # 通用：快速啟動（包含完整環境設定、Git 版本控制、錯誤診斷）
 │   ├── 01-架構指南.md            # 通用：架構說明
 │   ├── 02-架構分析與優勢.md      # 通用：架構分析
-│   ├── 03-資料庫配置.md          # 通用：資料庫配置
-│   ├── 04-測試指南.md            # 通用：測試說明
+│   ├── 03-資料庫配置.md          # 通用：資料庫配置（包含資料庫操作、備份、還原）
+│   ├── 04-測試指南.md            # 通用：測試說明（包含執行測試、配息功能測試）
 │   ├── 05-專案完成總結.md        # 通用：專案總結
 │   ├── 06-使用者手冊.md          # 通用：使用說明
-│   ├── 07-執行狀態報告.md        # 通用：狀態檢查
-│   ├── 08-系統測試報告.md        # 通用：測試報告
+│   ├── 07-架構修正說明.md        # 通用：架構修正說明
+│   ├── 08-執行狀態報告.md        # 通用：狀態檢查
+│   ├── 09-系統測試報告.md        # 通用：測試報告
+│   ├── 10-最新修正記錄.md        # 通用：最新修正記錄（配息功能、SQL 重構、錯誤處理等）
 │   │
 │   ├── MAC-DEVELOPMENT-ONLY/      # Mac 本地開發測試（Docker SQL Server）
 │   │   ├── 00-快速測試指南.md    # ⭐ 從這裡開始測試
@@ -83,11 +88,11 @@ DmsSystem/
 │   │   ├── 02-測試資料載入.md
 │   │   └── 03-Docker-SQL-Server設定.md
 │   │
-│   └── WINDOWS-DEVELOPMENT/       # Windows 正式環境（正式區 SQL Server）
-│       ├── 01-Windows正式環境手冊.md
-│       ├── 02-Git版本控制指南.md
-│       ├── 03-環境切換指南.md
-│       └── 04-資料庫遷移指南.md
+│   └── FEATURES/                   # 功能模組文件
+│       ├── DIVIDEND/              # 基金配息管理
+│       │   ├── TEST_CASES.md      # 配息功能測試案例
+│       │   └── ...
+│       └── ...
 │
 └── scripts/                        # 工具腳本
     ├── init-db.sql                # 資料庫初始化
@@ -157,14 +162,13 @@ DmsSystem/
 - `02-測試資料載入.md` - 測試資料載入
 - `03-Docker-SQL-Server設定.md` - Docker 設定
 
-### Windows 環境文件（WINDOWS-DEVELOPMENT/）
+### Windows 環境文件
 
-**編號規則**：`01-` 到 `04-`
+**位置**：所有 Windows 環境相關內容已整合到 `docs/` 根目錄的主要文件中
 
-- `01-Windows正式環境手冊.md` - 正式環境指南
-- `02-Git版本控制指南.md` - Git 工作流程
-- `03-環境切換指南.md` - Mac → Windows 切換
-- `04-資料庫遷移指南.md` - 資料庫遷移
+- `00-快速開始.md` - 包含完整環境設定、Git 版本控制、錯誤診斷等
+- `03-資料庫配置.md` - 包含資料庫操作、備份、還原等
+- `04-測試指南.md` - 包含執行測試、配息功能測試等
 
 ### 命名原則
 
@@ -184,19 +188,31 @@ DmsSystem/
 
 ### Commit 訊息格式
 
+**⚠️ 重要**：所有 commit message 必須使用**中文**，提升可讀性。
+
 ```
 <type>: <簡短描述>
 
 <詳細說明（可選）>
 ```
 
-**Type 類型**：
-- `feat`: 新功能
-- `fix`: 錯誤修正
-- `docs`: 文件更新
-- `refactor`: 重構
-- `test`: 測試相關
-- `chore`: 雜項
+**Type 類型（中文）**：
+- `功能`: 新功能
+- `修正`: 錯誤修正
+- `文件`: 文件更新
+- `重構`: 重構程式碼
+- `測試`: 測試相關
+- `建置`: 建置或工具
+- `整理`: 文件或程式碼整理
+
+**範例**：
+```
+功能：新增配息資料查詢 API
+
+- 新增 GET /api/Dividends 端點
+- 支援基金代號、配息頻率、日期範圍篩選
+- 前端新增查詢 UI 和結果表格顯示
+```
 
 ### 每次更新必須
 
@@ -261,7 +277,7 @@ cd react-client
 npm run dev
 ```
 
-**文件位置**：`docs/WINDOWS-DEVELOPMENT/`
+**文件位置**：所有 Windows 環境相關內容已整合到 `docs/` 根目錄的主要文件中
 
 ---
 
@@ -349,6 +365,7 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 - ✅ FileGenerator 實作
 - ✅ DbContext
 - ✅ Factory 實作（如 `DbConnectionFactory`）
+- ✅ SqlQueries 資源類別（存放 SQL 語句，保持程式碼整潔）
 - ❌ **不應包含**：業務邏輯 Service
 
 **資料庫連接抽象**：
@@ -380,9 +397,9 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 ## 📖 快速參考
 
 ### 開始開發
-1. 閱讀 `docs/00-快速開始.md`
+1. 閱讀 `docs/00-快速開始.md`（包含 Windows 和 Mac 環境說明）
 2. Mac 環境：閱讀 `docs/MAC-DEVELOPMENT-ONLY/00-快速測試指南.md`
-3. Windows 環境：閱讀 `docs/WINDOWS-DEVELOPMENT/01-Windows正式環境手冊.md`
+3. Windows 環境：閱讀 `docs/00-快速開始.md`（已包含完整環境設定）
 
 ### 了解架構
 1. 閱讀 `docs/01-架構指南.md`
@@ -393,7 +410,7 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 2. 執行 `DmsSystem.Tests/RunTests.sh`
 
 ### 資料庫遷移
-閱讀 `docs/WINDOWS-DEVELOPMENT/04-資料庫遷移指南.md`
+閱讀 `docs/03-資料庫配置.md`（已包含資料庫操作、備份、還原等）
 
 ---
 
@@ -437,6 +454,28 @@ dotnet sln list
 
 ## 🔄 更新記錄
 
+### 2024-12-08
+- **配息功能修正**：
+  - 修正 CsvHelper 配置，避免 ArgumentNullException
+  - 處理 CSV 檔案前 3 行說明文字
+  - 修正空值欄位處理（PreDiv1B、Div1B）
+  - 修正 SQL 欄位錯誤（移除不存在的 STATUS、STATUS_C 等欄位）
+  - 修正資料型別錯誤（DividendYear 從 int? 改為 decimal?）
+- **配息功能新增**：
+  - 新增配息資料查詢功能（GET /api/Dividends）
+  - 前端新增配息資料查詢 UI，支援多種篩選條件
+- **程式碼重構**：
+  - 建立 `DividendSqlQueries` 類別存放所有配息相關 SQL 語句
+  - 將 SQL 字串從業務邏輯中分離，提升程式碼整潔度
+- **錯誤處理改進**：
+  - 改進前端錯誤處理，正確顯示詳細錯誤訊息
+  - 改進 CORS 設定，開發環境允許所有 localhost port
+- **文件整合**：
+  - 將 WINDOWS-DEVELOPMENT 資料夾內容整合到主要文件
+  - 建立 10-最新修正記錄.md 記錄所有修正內容
+  - 刪除重複的 WINDOWS-DEVELOPMENT 資料夾和 QUICK_START.md
+- **Commit Message 規範**：所有 commit message 改為中文
+
 ### 2024-12-XX
 - **架構修正**：建立 `IDbConnectionFactory` 介面解決 Application 層直接依賴 Infrastructure 層的問題
 - **修復編譯錯誤**：添加 `Microsoft.AspNetCore.Http.Abstractions` 和 `Microsoft.EntityFrameworkCore` NuGet 套件到 Application 層
@@ -451,7 +490,6 @@ dotnet sln list
 - 修復 DMS.sln 缺少 DmsSystem.Tests 專案的問題
 - 更新 DMS.sln 加入 Solution Items 和 react-client 資料夾，確保 VS2022 可以讀取所有檔案
 - **架構修正**：移除 Infrastructure/Services 中的舊 Service 實作，確保 Service 實作都在 Application 層
-- **文件分離**：完全分離 Mac 和 Windows 文件，建立 Windows 專用 DMS.sln，兩邊流程完全獨立
 
 ---
 
