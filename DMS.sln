@@ -1,7 +1,8 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-# Windows 正式環境專用版本 - 連接正式區 SQL Server
+# DMS 系統 - 股東會資料管理系統
+# 支援 Windows（正式區 SQL Server）和 Mac（Docker SQL Server）環境
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Api", "DmsSystem.Api\DmsSystem.Api.csproj", "{288384D8-8C67-49E9-B1EE-134D19F1E784}"
@@ -54,14 +55,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B
 		docs\07-架構修正說明.md = docs\07-架構修正說明.md
 		docs\08-執行狀態報告.md = docs\08-執行狀態報告.md
 		docs\09-系統測試報告.md = docs\09-系統測試報告.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WINDOWS-DEVELOPMENT", "WINDOWS-DEVELOPMENT", "{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6}"
-	ProjectSection(SolutionItems) = preProject
-		docs\WINDOWS-DEVELOPMENT\01-Windows開發環境完整手冊.md = docs\WINDOWS-DEVELOPMENT\01-Windows開發環境完整手冊.md
-		docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md = docs\WINDOWS-DEVELOPMENT\02-Git版本控制指南.md
-		docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md = docs\WINDOWS-DEVELOPMENT\03-環境切換指南.md
-		docs\WINDOWS-DEVELOPMENT\04-資料庫遷移指南.md = docs\WINDOWS-DEVELOPMENT\04-資料庫遷移指南.md
+		docs\10-最新修正記錄.md = docs\10-最新修正記錄.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FEATURES", "FEATURES", "{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}"
@@ -72,6 +66,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DIVIDEND", "DIVIDEND", "{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8}"
 	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\DIVIDEND\README.md = docs\FEATURES\DIVIDEND\README.md
+		docs\FEATURES\DIVIDEND\TEST_CASES.md = docs\FEATURES\DIVIDEND\TEST_CASES.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BA", "BA", "{C4FE74E1-B743-11D0-AE1A-00A0C90FFFC1}"
@@ -142,7 +137,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
 		{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
 		{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
 		{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
