@@ -53,9 +53,14 @@ export function Dividend() {
       formData.append('file', file);
 
       const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
-      const response = await fetch(`${API_BASE_URL}/api/Dividends/import`, {
+      const apiUrl = `${API_BASE_URL}/api/Dividends/import`;
+      
+      console.log('嘗試連接 API:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
+        // 不設定 headers，讓瀏覽器自動設定 Content-Type 和 boundary
       });
 
       let result: DividendImportResult;
@@ -103,9 +108,15 @@ export function Dividend() {
       setImportResult(result);
     } catch (error) {
       // 網路錯誤或其他例外
-      const errorMessage = error instanceof Error 
-        ? `${error.message}${error.stack ? `\n堆疊: ${error.stack.split('\n')[0]}` : ''}` 
-        : '匯入失敗：未知錯誤';
+      let errorMessage = '匯入失敗：未知錯誤';
+      
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        errorMessage = `無法連接到後端 API (${apiUrl})。請檢查：\n1. 後端服務是否正在運行\n2. API URL 是否正確\n3. 是否有 CORS 問題\n4. 網路連線是否正常\n\n錯誤詳情: ${error.message}`;
+      } else if (error instanceof Error) {
+        errorMessage = `${error.message}${error.stack ? `\n堆疊: ${error.stack.split('\n').slice(0, 3).join('\n')}` : ''}`;
+      }
+      
+      console.error('匯入錯誤:', error);
       setImportResult({
         success: false,
         inserted: 0,

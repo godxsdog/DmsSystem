@@ -97,14 +97,31 @@ try
     {
         options.AddPolicy("AllowReactApp", policy =>
         {
-            policy.WithOrigins(
-                    "http://localhost:3000",      // React 開發伺服器預設埠
-                    "http://localhost:5173",     // Vite 開發伺服器預設埠
-                    "http://localhost:8080"       // 其他可能的開發埠
-                )
+            if (builder.Environment.IsDevelopment())
+            {
+                // 開發環境：允許所有 localhost port
+                policy.SetIsOriginAllowed(origin => 
+                {
+                    if (string.IsNullOrEmpty(origin)) return false;
+                    var uri = new Uri(origin);
+                    return uri.Host == "localhost" || uri.Host == "127.0.0.1";
+                })
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
+            }
+            else
+            {
+                // 生產環境：僅允許特定來源
+                policy.WithOrigins(
+                        "http://localhost:3000",
+                        "http://localhost:5173",
+                        "http://localhost:8080"
+                    )
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            }
         });
     });
 
