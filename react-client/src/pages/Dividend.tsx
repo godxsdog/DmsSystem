@@ -83,10 +83,31 @@ export function Dividend() {
         // 不設定 headers，讓瀏覽器自動設定 Content-Type 和 boundary
       });
 
+      console.log('API 回應狀態:', response.status, response.statusText);
+      console.log('API 回應 OK:', response.ok);
+
       let result: DividendImportResult;
       
       try {
-        const data = await response.json();
+        const responseText = await response.text();
+        console.log('API 回應內容:', responseText);
+        
+        let data: any;
+        try {
+          data = JSON.parse(responseText);
+        } catch (parseError) {
+          // 如果無法解析為 JSON，使用文字內容
+          console.error('JSON 解析失敗，回應內容:', responseText);
+          result = {
+            success: false,
+            inserted: 0,
+            updated: 0,
+            failed: 1,
+            errors: [`伺服器回應格式錯誤: ${responseText.substring(0, 200)}`],
+          };
+          setImportResult(result);
+          return;
+        }
         
         // 檢查是否為後端返回的錯誤格式（GlobalExceptionHandlerMiddleware）
         if (data.error) {
@@ -117,13 +138,13 @@ export function Dividend() {
         }
       } catch (parseError) {
         // JSON 解析失敗，可能是網路錯誤或其他問題
-        console.error('JSON 解析錯誤:', parseError);
+        console.error('處理回應時發生錯誤:', parseError);
         result = {
           success: false,
           inserted: 0,
           updated: 0,
           failed: 1,
-          errors: [`無法解析伺服器回應: ${response.status} ${response.statusText}`],
+          errors: [`無法處理伺服器回應: ${response.status} ${response.statusText}`],
         };
       }
 
