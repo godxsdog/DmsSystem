@@ -102,8 +102,14 @@ try
                 // 開發環境：允許所有 localhost port
                 policy.SetIsOriginAllowed(origin => 
                 {
-                    if (string.IsNullOrEmpty(origin)) return false;
-                    var uri = new Uri(origin);
+                    if (string.IsNullOrWhiteSpace(origin)) return false;
+                    
+                    // 安全地解析 URI，避免 UriFormatException
+                    if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri))
+                    {
+                        return false;
+                    }
+                    
                     return uri.Host == "localhost" || uri.Host == "127.0.0.1";
                 })
                 .AllowAnyHeader()
