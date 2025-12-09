@@ -31,53 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Tests", "DmsSyste
 		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8} = {DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-client", "{B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}"
 	ProjectSection(SolutionItems) = preProject
-		react-client\package.json = react-client\package.json
-		react-client\tsconfig.json = react-client\tsconfig.json
-		react-client\vite.config.ts = react-client\vite.config.ts
-		react-client\index.html = react-client\index.html
-		react-client\src\App.tsx = react-client\src\App.tsx
-		react-client\src\main.tsx = react-client\src\main.tsx
-		react-client\src\api\client.ts = react-client\src\api\client.ts
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
-	ProjectSection(SolutionItems) = preProject
-		docs\README.md = docs\README.md
-		docs\00-快速開始.md = docs\00-快速開始.md
-		docs\01-架構指南.md = docs\01-架構指南.md
-		docs\02-架構分析與優勢.md = docs\02-架構分析與優勢.md
-		docs\03-資料庫配置.md = docs\03-資料庫配置.md
-		docs\04-測試指南.md = docs\04-測試指南.md
-		docs\05-專案完成總結.md = docs\05-專案完成總結.md
-		docs\06-使用者手冊.md = docs\06-使用者手冊.md
-		docs\07-架構修正說明.md = docs\07-架構修正說明.md
-		docs\08-執行狀態報告.md = docs\08-執行狀態報告.md
-		docs\09-系統測試報告.md = docs\09-系統測試報告.md
-		docs\10-最新修正記錄.md = docs\10-最新修正記錄.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FEATURES", "FEATURES", "{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}"
-	ProjectSection(SolutionItems) = preProject
-		docs\FEATURES\README.md = docs\FEATURES\README.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DIVIDEND", "DIVIDEND", "{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8}"
-	ProjectSection(SolutionItems) = preProject
-		docs\FEATURES\DIVIDEND\README.md = docs\FEATURES\DIVIDEND\README.md
-		docs\FEATURES\DIVIDEND\TEST_CASES.md = docs\FEATURES\DIVIDEND\TEST_CASES.md
-		docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md = docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SHAREHOLDER-MEETING", "SHAREHOLDER-MEETING", "{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9}"
-	ProjectSection(SolutionItems) = preProject
-		docs\FEATURES\SHAREHOLDER-MEETING\README.md = docs\FEATURES\SHAREHOLDER-MEETING\README.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "INVESTMENT", "INVESTMENT", "{B3FE74E1-B743-11D0-AE1A-00A0C90FFFCA}"
-	ProjectSection(SolutionItems) = preProject
-		docs\FEATURES\INVESTMENT\README.md = docs\FEATURES\INVESTMENT\README.md
+		README.md = README.md
+		AI_CONTEXT.md = AI_CONTEXT.md
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Global
