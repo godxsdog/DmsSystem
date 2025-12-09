@@ -31,29 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DmsSystem.Tests", "DmsSyste
 		{DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8} = {DFF41FF1-3743-405D-A1E0-F3DEEC2CA8B8}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-		AI_CONTEXT.md = AI_CONTEXT.md
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-client", "{B3FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
-	ProjectSection(SolutionItems) = preProject
-		react-client\package.json = react-client\package.json
-		react-client\package-lock.json = react-client\package-lock.json
-		react-client\tsconfig.json = react-client\tsconfig.json
-		react-client\tsconfig.app.json = react-client\tsconfig.app.json
-		react-client\tsconfig.node.json = react-client\tsconfig.node.json
-		react-client\vite.config.ts = react-client\vite.config.ts
-		react-client\index.html = react-client\index.html
-		react-client\README.md = react-client\README.md
-		react-client\eslint.config.js = react-client\eslint.config.js
-		react-client\src\App.tsx = react-client\src\App.tsx
-		react-client\src\main.tsx = react-client\src\main.tsx
-		react-client\src\api\client.ts = react-client\src\api\client.ts
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
 	ProjectSection(SolutionItems) = preProject
 		docs\README.md = docs\README.md
@@ -81,6 +58,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DIVIDEND", "DIVIDEND", "{F2
 		docs\FEATURES\DIVIDEND\TEST_CASES.md = docs\FEATURES\DIVIDEND\TEST_CASES.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DIVIDEND-DEVELOPMENT", "DIVIDEND-DEVELOPMENT", "{C5FE74E1-B743-11D0-AE1A-00A0C90FFFC2}"
+	ProjectSection(SolutionItems) = preProject
+		docs\FEATURES\DIVIDEND\DEVELOPMENT\EF-Scaffold-指令.md = docs\FEATURES\DIVIDEND\DEVELOPMENT\EF-Scaffold-指令.md
+		docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能Review報告.md = docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能Review報告.md
+		docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md = docs\FEATURES\DIVIDEND\DEVELOPMENT\配息功能開發指南.md
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SHAREHOLDER-MEETING", "SHAREHOLDER-MEETING", "{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9}"
 	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\SHAREHOLDER-MEETING\README.md = docs\FEATURES\SHAREHOLDER-MEETING\README.md
@@ -89,6 +73,30 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "INVESTMENT", "INVESTMENT", "{B4FE74E1-B743-11D0-AE1A-00A0C90FFFCA}"
 	ProjectSection(SolutionItems) = preProject
 		docs\FEATURES\INVESTMENT\README.md = docs\FEATURES\INVESTMENT\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MAC-DEVELOPMENT-ONLY", "MAC-DEVELOPMENT-ONLY", "{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6}"
+	ProjectSection(SolutionItems) = preProject
+		docs\MAC-DEVELOPMENT-ONLY\00-快速測試指南.md = docs\MAC-DEVELOPMENT-ONLY\00-快速測試指南.md
+		docs\MAC-DEVELOPMENT-ONLY\01-Mac開發環境完整手冊.md = docs\MAC-DEVELOPMENT-ONLY\01-Mac開發環境完整手冊.md
+		docs\MAC-DEVELOPMENT-ONLY\02-測試資料載入.md = docs\MAC-DEVELOPMENT-ONLY\02-測試資料載入.md
+		docs\MAC-DEVELOPMENT-ONLY\03-Docker-SQL-Server設定.md = docs\MAC-DEVELOPMENT-ONLY\03-Docker-SQL-Server設定.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client", "react-client", "{B3FE74E1-B743-11D0-AE1A-00A0C90FFFC5}"
+	ProjectSection(SolutionItems) = preProject
+		react-client\package.json = react-client\package.json
+		react-client\package-lock.json = react-client\package-lock.json
+		react-client\tsconfig.json = react-client\tsconfig.json
+		react-client\tsconfig.app.json = react-client\tsconfig.app.json
+		react-client\tsconfig.node.json = react-client\tsconfig.node.json
+		react-client\vite.config.ts = react-client\vite.config.ts
+		react-client\index.html = react-client\index.html
+		react-client\README.md = react-client\README.md
+		react-client\eslint.config.js = react-client\eslint.config.js
+		react-client\src\App.tsx = react-client\src\App.tsx
+		react-client\src\main.tsx = react-client\src\main.tsx
+		react-client\src\api\client.ts = react-client\src\api\client.ts
 	EndProjectSection
 EndProject
 Global
@@ -122,12 +130,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B3FE74E1-B743-11D0-AE1A-00A0C90FFFC5} = {B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}
-		{C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5} = {B2FE74E1-B743-11D0-AE1A-00A0C90FFFC4}
 		{E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
 		{F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
+		{C5FE74E1-B743-11D0-AE1A-00A0C90FFFC2} = {F2FE74E1-B743-11D0-AE1A-00A0C90FFFC8}
 		{A3FE74E1-B743-11D0-AE1A-00A0C90FFFC9} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
 		{B4FE74E1-B743-11D0-AE1A-00A0C90FFFCA} = {E2FE74E1-B743-11D0-AE1A-00A0C90FFFC7}
+		{D2FE74E1-B743-11D0-AE1A-00A0C90FFFC6} = {C2FE74E1-B743-11D0-AE1A-00A0C90FFFC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E31D59BA-374F-4460-84F7-A0D59F1DCF3D}
