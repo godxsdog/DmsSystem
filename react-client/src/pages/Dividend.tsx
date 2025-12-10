@@ -572,38 +572,36 @@ export function Dividend() {
           <div className="result-box success">
             <h4>查詢結果（共 {dividends.length} 筆）</h4>
             <div style={{ overflowX: 'auto', marginTop: '10px' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+              <table className="dividend-table">
                 <thead>
-                  <tr style={{ backgroundColor: '#f0f0f0' }}>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>基金代號</th>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>配息年度</th>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>配息基準日</th>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>配息頻率</th>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>NAV</th>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>單位數</th>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>總可分配金額</th>
-                    <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>配息率</th>
+                  <tr>
+                    <th>基金代號</th>
+                    <th>配息年度</th>
+                    <th>配息基準日</th>
+                    <th>配息頻率</th>
+                    <th className="text-right">NAV</th>
+                    <th className="text-right">單位數</th>
+                    <th className="text-right">總可分配金額</th>
+                    <th className="text-right">配息率</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dividends.map((div, index) => (
                     <tr key={index}>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{div.fundNo}</td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{div.dividendYear || '-'}</td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-                        {new Date(div.dividendDate).toLocaleDateString('zh-TW')}
-                      </td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{div.dividendType}</td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                      <td>{div.fundNo}</td>
+                      <td>{div.dividendYear || '-'}</td>
+                      <td>{new Date(div.dividendDate).toLocaleDateString('zh-TW')}</td>
+                      <td>{div.dividendType}</td>
+                      <td className="text-right">
                         {div.nav?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 8 }) || '-'}
                       </td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                      <td className="text-right">
                         {div.unit?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '-'}
                       </td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                      <td className="text-right">
                         {div.divTot?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '-'}
                       </td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'right' }}>
+                      <td className="text-right">
                         {div.divRate?.toLocaleString('zh-TW', { minimumFractionDigits: 6, maximumFractionDigits: 6 }) || '-'}
                       </td>
                     </tr>
