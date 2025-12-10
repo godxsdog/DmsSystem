@@ -335,18 +335,19 @@ public class DividendService : IDividendService
             }
 
             // 11. 計算收益分攤（根據分攤順序）
+            // 修正 RuntimeBinderException: Explicitly cast dynamic properties to int
             int[] orders = new int[]
             {
-                divSet.ITEM01_SEQ ?? 0,
-                divSet.ITEM02_SEQ ?? 0,
-                divSet.ITEM03_SEQ ?? 0,
-                divSet.ITEM04_SEQ ?? 0,
-                divSet.ITEM05_SEQ ?? 0,
-                divSet.ITEM06_SEQ ?? 0,
-                divSet.ITEM07_SEQ ?? 0,
-                divSet.ITEM08_SEQ ?? 0,
-                divSet.ITEM09_SEQ ?? 0,
-                divSet.ITEM10_SEQ ?? 0
+                (int)(divSet.ITEM01_SEQ ?? 0),
+                (int)(divSet.ITEM02_SEQ ?? 0),
+                (int)(divSet.ITEM03_SEQ ?? 0),
+                (int)(divSet.ITEM04_SEQ ?? 0),
+                (int)(divSet.ITEM05_SEQ ?? 0),
+                (int)(divSet.ITEM06_SEQ ?? 0),
+                (int)(divSet.ITEM07_SEQ ?? 0),
+                (int)(divSet.ITEM08_SEQ ?? 0),
+                (int)(divSet.ITEM09_SEQ ?? 0),
+                (int)(divSet.ITEM10_SEQ ?? 0)
             };
 
             // 根據分攤順序取得各項金額（依順序 1-10）
