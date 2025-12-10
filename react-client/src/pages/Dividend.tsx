@@ -32,6 +32,14 @@ interface FundDiv {
 }
 
 export function Dividend() {
+  // API 設定
+  const [apiBaseUrl, setApiBaseUrl] = useState(
+    localStorage.getItem('apiBaseUrl') || 
+    import.meta.env.VITE_API_BASE_URL || 
+    'http://localhost:5137'
+  );
+  const [showSettings, setShowSettings] = useState(true); // 預設展開，方便用戶看到
+
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [importResult, setImportResult] = useState<DividendImportResult | null>(null);
@@ -52,6 +60,12 @@ export function Dividend() {
   const [loadingDividends, setLoadingDividends] = useState(false);
   const [queryError, setQueryError] = useState<string | null>(null);
 
+  const handleApiUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newUrl = e.target.value;
+    setApiBaseUrl(newUrl);
+    localStorage.setItem('apiBaseUrl', newUrl);
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
@@ -68,8 +82,8 @@ export function Dividend() {
     setUploading(true);
     setImportResult(null);
 
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
-    const apiUrl = `${API_BASE_URL}/api/Dividends/import`;
+    // 使用動態設定的 apiBaseUrl
+    const apiUrl = `${apiBaseUrl}/api/Dividends/import`;
 
     try {
       const formData = new FormData();
@@ -156,7 +170,7 @@ export function Dividend() {
       let errorMessage = '匯入失敗：未知錯誤';
       
       if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-        errorMessage = `無法連接到後端 API (${apiUrl})。請檢查：\n1. 後端服務是否正在運行\n2. API URL 是否正確\n3. 是否有 CORS 問題\n4. 網路連線是否正常\n\n錯誤詳情: ${error.message}`;
+        errorMessage = `無法連接到後端 API (${apiUrl})。請檢查：\n1. 後端服務是否正在運行\n2. API URL 設定是否正確（請在上方設定區塊調整）\n3. 是否有 CORS 問題\n4. 網路連線是否正常\n\n錯誤詳情: ${error.message}`;
       } else if (error instanceof Error) {
         errorMessage = `${error.message}${error.stack ? `\n堆疊: ${error.stack.split('\n').slice(0, 3).join('\n')}` : ''}`;
       }
@@ -184,9 +198,9 @@ export function Dividend() {
     setConfirmResult(null);
 
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
+      // 使用動態設定的 apiBaseUrl
       const response = await fetch(
-        `${API_BASE_URL}/api/Dividends/${fundNo}/${dividendDate}/${dividendType}/confirm`,
+        `${apiBaseUrl}/api/Dividends/${fundNo}/${dividendDate}/${dividendType}/confirm`,
         {
           method: 'POST',
         }
@@ -221,7 +235,7 @@ export function Dividend() {
     setQueryError(null);
 
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
+      // 使用動態設定的 apiBaseUrl
       const params = new URLSearchParams();
       
       if (queryFundNo) params.append('fundNo', queryFundNo);
@@ -229,7 +243,7 @@ export function Dividend() {
       if (queryStartDate) params.append('startDate', queryStartDate);
       if (queryEndDate) params.append('endDate', queryEndDate);
 
-      const response = await fetch(`${API_BASE_URL}/api/Dividends?${params.toString()}`);
+      const response = await fetch(`${apiBaseUrl}/api/Dividends?${params.toString()}`);
       
       if (!response.ok) {
         const error = await response.json().catch(() => ({ error: response.statusText }));
@@ -250,6 +264,37 @@ export function Dividend() {
   return (
     <div className="dividend-container">
       <h2>配息管理</h2>
+
+      {/* API 設定區塊 */}
+      <section className="dividend-section" style={{ borderLeft: '5px solid #007bff' }}>
+        <h3 onClick={() => setShowSettings(!showSettings)} style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>⚙️ API 連線設定 (目前: {apiBaseUrl})</span>
+          <span style={{ fontSize: '12px' }}>{showSettings ? '▲ 收合' : '▼ 展開'}</span>
+        </h3>
+        
+        {showSettings && (
+          <div className="form-group">
+            <label>後端 API 網址 (請依據您的 Visual Studio 啟動設定調整)：</label>
+            <input
+              type="text"
+              value={apiBaseUrl}
+              onChange={handleApiUrlChange}
+              placeholder="例如 http://localhost:5137"
+              style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
+            />
+            <div style={{ marginTop: '5px', fontSize: '0.9em', color: '#666', backgroundColor: '#f8f9fa', padding: '10px', borderRadius: '4px' }}>
+              <p style={{ margin: '0 0 5px 0' }}><strong>常見連接埠參考：</strong></p>
+              <ul style={{ margin: '0', paddingLeft: '20px' }}>
+                <li style={{ marginBottom: '3px' }}><button style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0 }} onClick={() => { setApiBaseUrl('http://localhost:5137'); localStorage.setItem('apiBaseUrl', 'http://localhost:5137'); }}>http://localhost:5137</button> (VS2022 預設 HTTP)</li>
+                <li style={{ marginBottom: '3px' }}><button style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0 }} onClick={() => { setApiBaseUrl('https://localhost:7036'); localStorage.setItem('apiBaseUrl', 'https://localhost:7036'); }}>https://localhost:7036</button> (VS2022 預設 HTTPS)</li>
+                <li style={{ marginBottom: '3px' }}><button style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0 }} onClick={() => { setApiBaseUrl('http://localhost:35912'); localStorage.setItem('apiBaseUrl', 'http://localhost:35912'); }}>http://localhost:35912</button> (IIS Express HTTP)</li>
+                <li style={{ marginBottom: '3px' }}><button style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0 }} onClick={() => { setApiBaseUrl('https://localhost:44301'); localStorage.setItem('apiBaseUrl', 'https://localhost:44301'); }}>https://localhost:44301</button> (IIS Express HTTPS)</li>
+              </ul>
+              <p style={{ marginTop: '8px', marginBottom: '0', color: '#dc3545' }}>注意：若使用 HTTPS，瀏覽器可能會因為自簽名憑證阻擋請求。請先在瀏覽器新分頁開啟 API 網址 (如 https://localhost:7036/weatherforecast) 並接受風險。</p>
+            </div>
+          </div>
+        )}
+      </section>
 
       {/* 檔案匯入區塊 */}
       <section className="dividend-section">
