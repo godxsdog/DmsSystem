@@ -82,19 +82,19 @@ FROM MDS.FUND_DIV_SET
 WHERE FUND_NO = @FundNo AND DIV_TYPE = @Type";
 
     /// <summary>
-    /// 查詢目標配息率
+    /// 查詢目標配息率 (修正：只取最新一筆)
     /// </summary>
     public const string GetFundDivObj = @"
-SELECT DIV_OBJ, DIV_OBJ_AMT
+SELECT TOP 1 DIV_OBJ, DIV_OBJ_AMT
 FROM MDS.FUND_DIV_OBJ
 WHERE FUND_NO = @FundNo AND DIV_TYPE = @Type AND TX_DATE <= @Date
 ORDER BY TX_DATE DESC";
 
     /// <summary>
-    /// 查詢上期配息率
+    /// 查詢上期配息率 (修正：只取最新一筆)
     /// </summary>
     public const string GetPreviousFundDiv = @"
-SELECT DIV_RATE_M, NAV
+SELECT TOP 1 DIV_RATE_M, NAV
 FROM MDS.FUND_DIV
 WHERE FUND_NO = @FundNo AND DIVIDEND_TYPE = @Type AND DIVIDEND_DATE < @Date
 ORDER BY DIVIDEND_DATE DESC";
@@ -137,5 +137,40 @@ SET NAV = @Nav,
     STEP2_COF_TIME = @Now,
     STEP3_COF_EMP = 'SYSTEM',
     STEP3_COF_TIME = @Now
+WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
+
+    /// <summary>
+    /// 查詢待處理的配息項目 (STEP2_STATUS = 'C')
+    /// </summary>
+    public const string GetPendingFundDivs = @"
+SELECT FUND_NO AS FundNo, DIVIDEND_DATE AS DividendDate, DIVIDEND_TYPE AS DividendType
+FROM MDS.FUND_DIV
+WHERE STEP2_STATUS = 'C'
+AND (@Date IS NULL OR DIVIDEND_DATE = @Date)
+ORDER BY DIVIDEND_DATE, FUND_NO";
+
+    /// <summary>
+    /// 更新配息組成 (5A3 Import)
+    /// </summary>
+    public const string UpdateFundDivComposition = @"
+UPDATE MDS.FUND_DIV
+SET I_RATE = @InterestRate,
+    C_RATE = @CapitalRate,
+    STEP4_STATUS = 'C',
+    STEP4_CRE_EMP = 'SYSTEM',
+    STEP4_CRE_TIME = @Now
+WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
+
+    /// <summary>
+    /// 上傳至 WPS (5A3 Upload) - 模擬
+    /// </summary>
+    public const string UploadToWps = @"
+UPDATE MDS.FUND_DIV
+SET STEP3_STATUS = 'O',
+    STEP4_STATUS = 'O',
+    STEP3_COF_EMP = 'SYSTEM',
+    STEP3_COF_TIME = @Now,
+    STEP4_COF_EMP = 'SYSTEM',
+    STEP4_COF_TIME = @Now
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 }

@@ -520,6 +520,113 @@ public class DividendService : IDividendService
         return new BatchConfirmResult(totalCount, successCount, failureCount, errors);
     }
 
+    /// <summary>
+    /// 5A3：匯入配息組成 CSV
+    /// </summary>
+    /// <param name="file">CSV 檔案</param>
+    /// <returns>匯入結果</returns>
+    public async Task<DividendImportResult> ImportCompositionAsync(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return new DividendImportResult(false, 0, 0, 1, new() { "檔案為空" });
+        }
+
+        var updated = 0;
+        var failed = 0;
+        var errors = new List<string>();
+
+        await using var connection = _connectionFactory.GetConnection();
+        if (connection.State != ConnectionState.Open)
+        {
+            await connection.OpenAsync();
+        }
+
+        using var reader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding("Big5"));
+        
+        // 配息組成 CSV 通常沒有複雜的表頭跳過邏輯，假設有 1 行標題
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = true,
+            Encoding = Encoding.GetEncoding("Big5")
+        };
+        
+        using var csv = new CsvReader(reader, config);
+        
+        // 註冊 Map
+        var map = new DividendCompositionCsvMap();
+        csv.Context.RegisterClassMap(map);
+
+        var records = csv.GetRecords<DividendCompositionCsvRow>().ToList();
+
+        foreach (var record in records)
+        {
+            try
+            {
+                var now = DateTime.UtcNow;
+                var rowsAffected = await connection.ExecuteAsync(
+                    DividendSqlQueries.UpdateFundDivComposition,
+                    new
+                    {
+                        record.FundNo,
+                        Date = record.DividendDate,
+                        Type = record.DividendType,
+                        InterestRate = record.InterestRate,
+                        CapitalRate = record.CapitalRate,
+                        Now = now
+                    });
+
+                if (rowsAffected > 0)
+                {
+                    updated++;
+                }
+                else
+                {
+                    failed++;
+                    errors.Add($"基金 {record.FundNo} ({record.DividendDate:yyyy/MM/dd}) 無法更新：找不到對應記錄或資料無變更");
+                }
+            }
+            catch (Exception ex)
+            {
+                failed++;
+                errors.Add($"基金 {record.FundNo} ({record.DividendDate:yyyy/MM/dd}): {ex.Message}");
+                _logger.LogError(ex, "匯入配息組成失敗: FundNo={FundNo}", record.FundNo);
+            }
+        }
+
+        var success = failed == 0;
+        return new DividendImportResult(success, 0, updated, failed, errors);
+    }
+
+    /// <summary>
+    /// 5A3：上傳配息資料至 EC (WPS)
+    /// </summary>
+    /// <param name="fundNo">基金代號</param>
+    /// <param name="dividendDate">配息基準日</param>
+    /// <param name="dividendType">配息頻率</param>
+    /// <returns>執行結果</returns>
+    public async Task<bool> UploadToEcAsync(string fundNo, DateOnly dividendDate, string dividendType)
+    {
+        await using var connection = _connectionFactory.GetConnection();
+        if (connection.State != ConnectionState.Open)
+        {
+            await connection.OpenAsync();
+        }
+
+        var now = DateTime.UtcNow;
+        var rowsAffected = await connection.ExecuteAsync(
+            DividendSqlQueries.UploadToWps,
+            new
+            {
+                FundNo = fundNo,
+                Date = dividendDate.ToDateTime(TimeOnly.MinValue),
+                Type = dividendType,
+                Now = now
+            });
+
+        return rowsAffected > 0;
+    }
+
     private sealed class DividendCsvRow
     {
         public string FundNo { get; set; } = default!;
@@ -609,6 +716,18 @@ WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
             Map(m => m.Fee).Name("fee");
             Map(m => m.DivTot).Name("div_tot");
             Map(m => m.Nav).Name("nav").Optional();
+        }
+    }
+
+    private sealed class DividendCompositionCsvMap : ClassMap<DividendCompositionCsvRow>
+    {
+        public DividendCompositionCsvMap()
+        {
+            Map(m => m.FundNo).Name("fund_no");
+            Map(m => m.DividendDate).Name("dividend_date");
+            Map(m => m.DividendType).Name("dividend_type");
+            Map(m => m.InterestRate).Name("interest_rate");
+            Map(m => m.CapitalRate).Name("capital_rate");
         }
     }
 }
