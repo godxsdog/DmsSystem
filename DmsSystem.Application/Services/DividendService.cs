@@ -6,7 +6,7 @@ using CsvHelper.Configuration;
 using Dapper;
 using DmsSystem.Application.DTOs;
 using DmsSystem.Application.Interfaces;
-using DmsSystem.Application.SqlQueries;
+using DmsSystem.Infrastructure.Persistence.SqlQueries;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Text;
@@ -298,26 +298,39 @@ public class DividendService : IDividendService
 
             // 10. 計算本金補足
             string capitalType = divSet.CAPITAL_TYPE ?? "N";
-            decimal divRatePerUnit = divRate; // 每單位可分配收益
+            decimal divRatePerUnit = divRate; // 每單位可分配收益（已扣除費用）
             decimal feeRate = unit.Value > 0 ? Math.Round(fee / unit.Value, 6) : 0m;
             decimal capitalRate = 0m;
 
-            if (divRateObj <= divRatePerUnit)
-            {
-                capitalRate = 0m;
-            }
-            else
+            // 先依可分配收益與目標比較（對應 PB 1169～1180）
+            if (divRateObj > divRatePerUnit)
             {
                 if (capitalType == "N")
                 {
-                    // 不可分配本金，調整每單位配息金額
-                    capitalRate = 0m;
+                    // 不可分配本金，直接把目標調降到可分配收益
                     divRateObj = divRatePerUnit;
                 }
                 else
                 {
-                    // 可分配本金，差額放在本金比率
+                    // 可分配本金，先記錄差額
                     capitalRate = divRateObj - divRatePerUnit;
+                }
+            }
+
+            // 再扣除每單位費用後檢核（對應 PB 1552～1561）
+            decimal availableAfterFee = Math.Max(0m, divRatePerUnit - feeRate);
+            if (availableAfterFee < divRateObj)
+            {
+                if (capitalType == "Y")
+                {
+                    // 可配本金：補足費用後不足的部分
+                    capitalRate += (divRateObj - availableAfterFee);
+                }
+                else
+                {
+                    // 不可配本金：目標下修到扣費後可分配金額
+                    capitalRate = 0m;
+                    divRateObj = availableAfterFee;
                 }
             }
 
