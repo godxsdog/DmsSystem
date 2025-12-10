@@ -1,24 +1,25 @@
 using System.Data.Common;
 using DmsSystem.Application.Interfaces;
-using DmsSystem.Infrastructure.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace DmsSystem.Infrastructure.Persistence.Factories;
 
 /// <summary>
-/// 資料庫連接工廠實作，透過 DmsDbContext 提供資料庫連接
+/// 資料庫連接工廠實作，透過 Configuration 建立新的資料庫連接
 /// </summary>
 public class DbConnectionFactory : IDbConnectionFactory
 {
-    private readonly DmsDbContext _context;
+    private readonly string _connectionString;
 
-    public DbConnectionFactory(DmsDbContext context)
+    public DbConnectionFactory(IConfiguration configuration)
     {
-        _context = context;
+        _connectionString = configuration.GetConnectionString("DefaultConnection") 
+            ?? throw new InvalidOperationException("資料庫連接字串 'DefaultConnection' 未設定");
     }
 
     public DbConnection GetConnection()
     {
-        return _context.Database.GetDbConnection();
+        return new SqlConnection(_connectionString);
     }
 }
