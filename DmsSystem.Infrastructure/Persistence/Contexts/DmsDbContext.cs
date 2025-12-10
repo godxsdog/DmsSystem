@@ -2405,6 +2405,7 @@ public partial class DmsDbContext : DbContext
             entity.Property(e => e.Div1RateM)
                 .HasColumnType("decimal(12, 10)")
                 .HasColumnName("DIV1_RATE_M");
+            entity.Property(e => e.DivAdj).HasColumnName("DIV_ADJ");
             entity.Property(e => e.Div1B).HasColumnName("DIV1_B");
             entity.Property(e => e.Div2).HasColumnName("DIV2");
             entity.Property(e => e.Div2Rate)
