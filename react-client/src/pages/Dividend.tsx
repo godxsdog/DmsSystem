@@ -20,6 +20,13 @@ interface DividendConfirmResult {
   capitalRate: number | null;
 }
 
+interface BatchConfirmResult {
+  totalCount: number;
+  successCount: number;
+  failureCount: number;
+  errors: string[];
+}
+
 interface FundDiv {
   fundNo: string;
   dividendYear: number | null;
@@ -50,6 +57,7 @@ export function Dividend() {
   const [dividendType, setDividendType] = useState('M');
   const [calculating, setCalculating] = useState(false);
   const [confirmResult, setConfirmResult] = useState<DividendConfirmResult | null>(null);
+  const [batchResult, setBatchResult] = useState<BatchConfirmResult | null>(null);
 
   // 查詢配息資料
   const [queryFundNo, setQueryFundNo] = useState('');
@@ -196,6 +204,7 @@ export function Dividend() {
 
     setCalculating(true);
     setConfirmResult(null);
+    setBatchResult(null); // 清除批量结果
 
     try {
       // 使用動態設定的 apiBaseUrl
@@ -224,6 +233,42 @@ export function Dividend() {
         divRate: null,
         divRateMonthly: null,
         capitalRate: null,
+      });
+    } finally {
+      setCalculating(false);
+    }
+  };
+
+  const handleBatchConfirm = async () => {
+    // 允许不填日期，此时计算所有未确认的项目
+    // 如果填了日期，则计算该日期的所有未确认项目
+    
+    setCalculating(true);
+    setConfirmResult(null); // 清除单笔结果
+    setBatchResult(null);
+
+    try {
+      let url = `${apiBaseUrl}/api/Dividends/confirm-all`;
+      if (dividendDate) {
+        url += `?dividendDate=${dividendDate}`;
+      }
+
+      const response = await fetch(url, { method: 'POST' });
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ message: response.statusText }));
+        throw new Error(error.message || `HTTP error! status: ${response.status}`);
+      }
+
+      const result: BatchConfirmResult = await response.json();
+      setBatchResult(result);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : '批量計算失敗';
+      setBatchResult({
+        totalCount: 0,
+        successCount: 0,
+        failureCount: 1,
+        errors: [errorMessage]
       });
     } finally {
       setCalculating(false);
@@ -356,7 +401,7 @@ export function Dividend() {
               type="text"
               value={fundNo}
               onChange={(e) => setFundNo(e.target.value)}
-              placeholder="例如：A001"
+              placeholder="例如：A001 (留空以使用批量計算)"
               disabled={calculating}
             />
           </label>
@@ -387,13 +432,23 @@ export function Dividend() {
             </select>
           </label>
         </div>
-        <button onClick={handleConfirm} disabled={calculating || !fundNo || !dividendDate}>
-          {calculating ? '計算中...' : '執行計算與確認'}
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button onClick={handleConfirm} disabled={calculating || !fundNo || !dividendDate} style={{ flex: 1 }}>
+            {calculating && fundNo ? '計算中...' : '執行單筆計算與確認'}
+          </button>
+          <button 
+            onClick={handleBatchConfirm} 
+            disabled={calculating} 
+            style={{ flex: 1, backgroundColor: '#28a745', borderColor: '#28a745' }}
+            title="計算所有「未確認」的項目 (可指定日期)"
+          >
+            {calculating && !fundNo ? '批量計算中...' : '批量計算所有未確認項目'}
+          </button>
+        </div>
 
         {confirmResult && (
-          <div className={`result-box ${confirmResult.success ? 'success' : 'error'}`}>
-            <h4>計算結果</h4>
+          <div className={`result-box ${confirmResult.success ? 'success' : 'error'}`} style={{ marginTop: '20px' }}>
+            <h4>單筆計算結果</h4>
             <p className="result-message">{confirmResult.message}</p>
             {confirmResult.success && (
               <div className="result-details">
@@ -421,6 +476,32 @@ export function Dividend() {
                   <span className="label">每單位本金配息比率：</span>
                   <span className="value">{confirmResult.capitalRate?.toLocaleString('zh-TW', { minimumFractionDigits: 6, maximumFractionDigits: 6 }) || 'N/A'}</span>
                 </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {batchResult && (
+           <div className={`result-box ${batchResult.successCount > 0 && batchResult.failureCount === 0 ? 'success' : 'error'}`} style={{ marginTop: '20px' }}>
+            <h4>批量計算結果</h4>
+            <p><strong>總處理筆數：</strong>{batchResult.totalCount}</p>
+            <p><strong>成功：</strong>{batchResult.successCount}</p>
+            <p><strong>失敗：</strong>{batchResult.failureCount}</p>
+            
+            {batchResult.errors.length > 0 && (
+              <div className="errors" style={{ marginTop: '10px' }}>
+                <strong>錯誤詳情：</strong>
+                <ul>
+                  {batchResult.errors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            {batchResult.totalCount === 0 && (
+               <div style={{ marginTop: '10px', padding: '10px', backgroundColor: '#fff3cd', borderRadius: '4px' }}>
+                <strong style={{ color: '#856404' }}>⚠ 提示：</strong> 沒有發現需要確認的項目 (STEP2_STATUS = 'C')。
               </div>
             )}
           </div>

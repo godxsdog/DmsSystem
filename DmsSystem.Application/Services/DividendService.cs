@@ -464,6 +464,62 @@ public class DividendService : IDividendService
         }
     }
 
+    /// <summary>
+    /// 批量執行配息計算與確認（針對所有未確認項目）
+    /// </summary>
+    /// <param name="dividendDate">可選：指定配息基準日</param>
+    /// <returns>批量計算結果</returns>
+    public async Task<BatchConfirmResult> BatchConfirmAsync(DateOnly? dividendDate = null)
+    {
+        await using var connection = _connectionFactory.GetConnection();
+        if (connection.State != ConnectionState.Open)
+        {
+            await connection.OpenAsync();
+        }
+
+        // 查詢所有待處理的記錄 (STEP2_STATUS = 'C')
+        var pendingItems = await connection.QueryAsync<dynamic>(
+            DividendSqlQueries.GetPendingFundDivs,
+            new { Date = dividendDate?.ToDateTime(TimeOnly.MinValue) });
+
+        var totalCount = 0;
+        var successCount = 0;
+        var failureCount = 0;
+        var errors = new List<string>();
+
+        foreach (var item in pendingItems)
+        {
+            totalCount++;
+            string fundNo = item.FundNo;
+            DateTime date = item.DividendDate;
+            string type = item.DividendType;
+            var dateOnly = DateOnly.FromDateTime(date);
+
+            try
+            {
+                // 呼叫單筆確認邏輯
+                var result = await ConfirmAsync(fundNo, dateOnly, type);
+                if (result.Success)
+                {
+                    successCount++;
+                }
+                else
+                {
+                    failureCount++;
+                    errors.Add($"基金 {fundNo} ({dateOnly:yyyy-MM-dd}): {result.Message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                failureCount++;
+                errors.Add($"基金 {fundNo} ({dateOnly:yyyy-MM-dd}): {ex.Message}");
+                _logger.LogError(ex, "批量確認失敗: FundNo={FundNo}", fundNo);
+            }
+        }
+
+        return new BatchConfirmResult(totalCount, successCount, failureCount, errors);
+    }
+
     private sealed class DividendCsvRow
     {
         public string FundNo { get; set; } = default!;
@@ -512,7 +568,7 @@ SET PRE_DIV1_RATE = CASE WHEN @Ord1 = 1 THEN @Rate1 WHEN @Ord1 = 2 THEN @Rate2 W
     DIV4_RATE = CASE WHEN @Ord9 = 1 THEN @Rate1 WHEN @Ord9 = 2 THEN @Rate2 WHEN @Ord9 = 3 THEN @Rate3 WHEN @Ord9 = 4 THEN @Rate4 WHEN @Ord9 = 5 THEN @Rate5 WHEN @Ord9 = 6 THEN @Rate6 WHEN @Ord9 = 7 THEN @Rate7 WHEN @Ord9 = 8 THEN @Rate8 WHEN @Ord9 = 9 THEN @Rate9 WHEN @Ord9 = 10 THEN @Rate10 ELSE 0 END,
     DIV4_RATE_M = CASE WHEN @Ord9 = 1 THEN @Rate1 WHEN @Ord9 = 2 THEN @Rate2 WHEN @Ord9 = 3 THEN @Rate3 WHEN @Ord9 = 4 THEN @Rate4 WHEN @Ord9 = 5 THEN @Rate5 WHEN @Ord9 = 6 THEN @Rate6 WHEN @Ord9 = 7 THEN @Rate7 WHEN @Ord9 = 8 THEN @Rate8 WHEN @Ord9 = 9 THEN @Rate9 WHEN @Ord9 = 10 THEN @Rate10 ELSE 0 END,
     DIV5_RATE = CASE WHEN @Ord10 = 1 THEN @Rate1 WHEN @Ord10 = 2 THEN @Rate2 WHEN @Ord10 = 3 THEN @Rate3 WHEN @Ord10 = 4 THEN @Rate4 WHEN @Ord10 = 5 THEN @Rate5 WHEN @Ord10 = 6 THEN @Rate6 WHEN @Ord10 = 7 THEN @Rate7 WHEN @Ord10 = 8 THEN @Rate8 WHEN @Ord10 = 9 THEN @Rate9 WHEN @Ord10 = 10 THEN @Rate10 ELSE 0 END,
-    DIV5_RATE_M = CASE WHEN @Ord10 = 1 THEN @Rate1 WHEN @Ord10 = 2 THEN @Rate2 WHEN @Ord10 = 3 THEN @Rate3 WHEN @Ord10 = 4 THEN @Rate4 WHEN @Ord10 = 5 THEN @Rate5 WHEN @Ord10 = 6 THEN @Rate6 WHEN @Ord10 = 7 THEN @Rate7 WHEN @Ord10 = 8 THEN @Rate8 WHEN @Ord10 = 9 THEN @Rate9 WHEN @Ord10 = 10 THEN @Rate10 ELSE 0 END
+    DIV5_RATE_M = CASE WHEN @Ord10 = 1 THEN @Rate1 WHEN @Ord10 = 2 THEN @Rate2 WHEN @Ord10 = 3 THEN @Rate3 WHEN @Ord10 = 4 THEN @Rate4 WHEN @Ord10 = 5 THEN @Rate5 WHEN @Ord10 = 6 THEN @Rate6 WHEN @Ord10 = 7 THEN @Rate7 WHEN @Ord10 = 8 THEN @Rate8 WHEN @Ord10 = 9 THEN @Ord10 = 10 THEN @Rate10 ELSE 0 END
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 
         // 替換參數名稱
@@ -556,4 +612,3 @@ WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
         }
     }
 }
-

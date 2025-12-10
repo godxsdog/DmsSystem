@@ -44,7 +44,7 @@ WHEN NOT MATCHED THEN
             @Div1, @Div2, @Div3, @Div4, @Div5,
             @PreDiv1B, @Div1B, @Fee, @DivTot,
             'C', 'SYSTEM', @Now)
-OUTPUT $action;";
+    OUTPUT $action;";
 
     /// <summary>
     /// 查詢 NAV
@@ -138,4 +138,13 @@ SET NAV = @Nav,
     STEP3_COF_EMP = 'SYSTEM',
     STEP3_COF_TIME = @Now
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
+
+    /// <summary>
+    /// 查詢待確認的配息紀錄
+    /// </summary>
+    public const string GetPendingFundDivs = @"
+SELECT FUND_NO AS FundNo, DIVIDEND_DATE AS DividendDate, DIVIDEND_TYPE AS DividendType
+FROM MDS.FUND_DIV
+WHERE STEP2_STATUS = 'C'
+AND (@Date IS NULL OR DIVIDEND_DATE = @Date)";
 }

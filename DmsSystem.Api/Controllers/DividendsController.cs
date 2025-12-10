@@ -58,6 +58,28 @@ public class DividendsController : ControllerBase
     }
 
     /// <summary>
+    /// 5A1：批量執行配息計算與確認
+    /// </summary>
+    /// <param name="dividendDate">指定配息基準日（選填，格式：yyyy-MM-dd）</param>
+    /// <returns>批量計算結果</returns>
+    [HttpPost("confirm-all")]
+    public async Task<ActionResult<BatchConfirmResult>> ConfirmAll([FromQuery] string? dividendDate = null)
+    {
+        DateOnly? dateOnly = null;
+        if (!string.IsNullOrEmpty(dividendDate))
+        {
+            if (!DateOnly.TryParse(dividendDate, out var parsedDate))
+            {
+                return BadRequest("dividendDate 格式錯誤，請使用 yyyy-MM-dd");
+            }
+            dateOnly = parsedDate;
+        }
+
+        var result = await _service.BatchConfirmAsync(dateOnly);
+        return Ok(result);
+    }
+
+    /// <summary>
     /// 查詢已載入的配息資料
     /// </summary>
     /// <param name="fundNo">基金代號（選填）</param>
@@ -96,4 +118,3 @@ public class DividendsController : ControllerBase
         }
     }
 }
-

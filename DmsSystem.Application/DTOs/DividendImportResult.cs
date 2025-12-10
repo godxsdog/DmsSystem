@@ -17,3 +17,8 @@ public record DividendConfirmResult(
     decimal? DivRateMonthly,
     decimal? CapitalRate);
 
+public record BatchConfirmResult(
+    int TotalCount,
+    int SuccessCount,
+    int FailureCount,
+    List<string> Errors);

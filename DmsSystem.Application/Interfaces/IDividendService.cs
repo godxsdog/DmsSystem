@@ -23,5 +23,11 @@ public interface IDividendService
     /// <param name="dividendType">配息頻率（M/Q/S/Y）</param>
     /// <returns>計算結果</returns>
     Task<DividendConfirmResult> ConfirmAsync(string fundNo, DateOnly dividendDate, string dividendType);
-}
 
+    /// <summary>
+    /// 批量執行配息計算與確認（針對所有未確認項目）
+    /// </summary>
+    /// <param name="dividendDate">可選：指定配息基準日</param>
+    /// <returns>批量計算結果</returns>
+    Task<BatchConfirmResult> BatchConfirmAsync(DateOnly? dividendDate = null);
+}
