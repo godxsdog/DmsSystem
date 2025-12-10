@@ -30,4 +30,20 @@ public interface IDividendService
     /// <param name="dividendDate">可選：指定配息基準日</param>
     /// <returns>批量計算結果</returns>
     Task<BatchConfirmResult> BatchConfirmAsync(DateOnly? dividendDate = null);
+
+    /// <summary>
+    /// 5A3：匯入配息組成 CSV
+    /// </summary>
+    /// <param name="file">CSV 檔案</param>
+    /// <returns>匯入結果</returns>
+    Task<DividendImportResult> ImportCompositionAsync(IFormFile file);
+
+    /// <summary>
+    /// 5A3：上傳配息資料至 EC (WPS)
+    /// </summary>
+    /// <param name="fundNo">基金代號</param>
+    /// <param name="dividendDate">配息基準日</param>
+    /// <param name="dividendType">配息頻率</param>
+    /// <returns>執行結果</returns>
+    Task<bool> UploadToEcAsync(string fundNo, DateOnly dividendDate, string dividendType);
 }

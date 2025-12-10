@@ -147,4 +147,26 @@ SELECT FUND_NO AS FundNo, DIVIDEND_DATE AS DividendDate, DIVIDEND_TYPE AS Divide
 FROM MDS.FUND_DIV
 WHERE STEP2_STATUS = 'C'
 AND (@Date IS NULL OR DIVIDEND_DATE = @Date)";
+
+    /// <summary>
+    /// 5A3：更新配息組成 (InterestRate, CapitalRate)
+    /// </summary>
+    public const string UpdateFundDivComposition = @"
+UPDATE MDS.FUND_DIV
+SET INTEREST_RATE = @InterestRate,
+    CAPITAL_RATE = @CapitalRate,
+    STEP3_STATUS = 'C', -- 假設使用 STEP3 作為組成確認狀態
+    STEP3_UPD_TIME = @Now
+WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
+
+    /// <summary>
+    /// 5A3：上傳至 WPS (模擬)
+    /// </summary>
+    public const string UploadToWps = @"
+-- 這裡模擬刪除與新增 WPS 資料的邏輯
+-- 實務上可能需要 Linked Server 或其他方式
+UPDATE MDS.FUND_DIV
+SET STEP3_STATUS = 'O', -- 設定為已上傳
+    STEP3_COF_TIME = @Now
+WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 }

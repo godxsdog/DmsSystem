@@ -80,6 +80,52 @@ public class DividendsController : ControllerBase
     }
 
     /// <summary>
+    /// 5A3：匯入配息組成 CSV (上傳配息組成，維護 INTEREST_RATE, CAPITAL_RATE)
+    /// </summary>
+    /// <param name="file">CSV 檔案</param>
+    /// <returns>匯入結果</returns>
+    [HttpPost("composition/import")]
+    public async Task<ActionResult<DividendImportResult>> ImportComposition([FromForm] IFormFile file)
+    {
+        var result = await _service.ImportCompositionAsync(file);
+        if (!result.Success)
+        {
+            return BadRequest(result);
+        }
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// 5A3：上傳配息資料至 EC
+    /// </summary>
+    /// <param name="fundNo">基金代號</param>
+    /// <param name="dividendDate">配息基準日（格式：yyyy-MM-dd）</param>
+    /// <param name="dividendType">配息頻率（M/Q/S/Y）</param>
+    /// <returns>執行結果</returns>
+    [HttpPost("{fundNo}/{dividendDate}/{dividendType}/upload-ec")]
+    public async Task<ActionResult> UploadToEc(string fundNo, string dividendDate, string dividendType)
+    {
+        if (!DateOnly.TryParse(dividendDate, out var dateOnly))
+        {
+            return BadRequest("dividendDate 格式錯誤，請使用 yyyy-MM-dd");
+        }
+
+        try
+        {
+            var success = await _service.UploadToEcAsync(fundNo, dateOnly, dividendType);
+            if (!success)
+            {
+                return BadRequest("上傳 EC 失敗，請確認資料狀態或是否已存在");
+            }
+            return Ok(new { success = true, message = "上傳 EC 成功" });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
+
+    /// <summary>
     /// 查詢已載入的配息資料
     /// </summary>
     /// <param name="fundNo">基金代號（選填）</param>
