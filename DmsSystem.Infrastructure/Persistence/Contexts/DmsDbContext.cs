@@ -2405,7 +2405,6 @@ public partial class DmsDbContext : DbContext
             entity.Property(e => e.Div1RateM)
                 .HasColumnType("decimal(12, 10)")
                 .HasColumnName("DIV1_RATE_M");
-            entity.Property(e => e.DivAdj).HasColumnName("DIV_ADJ");
             entity.Property(e => e.Div1B).HasColumnName("DIV1_B");
             entity.Property(e => e.Div2).HasColumnName("DIV2");
             entity.Property(e => e.Div2Rate)
@@ -2464,6 +2463,8 @@ public partial class DmsDbContext : DbContext
                 .HasColumnType("decimal(12, 10)")
                 .HasColumnName("CAPITAL_RATE_M");
             entity.Property(e => e.CapitalAdj).HasColumnName("CAPITAL_ADJ");
+            // 資料庫目前無 DIV_ADJ 欄位，忽略以避免查詢錯誤
+            entity.Ignore(e => e.DivAdj);
             entity.Property(e => e.DivObj)
                 .HasColumnType("decimal(12, 6)")
                 .HasColumnName("DIV_OBJ");

@@ -86,7 +86,8 @@ public partial class FundDiv
     public decimal? Div1 { get; set; }
     public decimal? Div1Rate { get; set; }
     public decimal? Div1RateM { get; set; }
-    public decimal? DivAdj { get; set; } // 對應 DIV_ADJ
+    // 資料庫現況無 DIV_ADJ 欄位，暫不對應資料庫欄位
+    public decimal? DivAdj { get; set; } // 對應 DIV_ADJ（若資料庫補欄位時再啟用）
     public decimal? Div1B { get; set; }
 
     public decimal? Div2 { get; set; }
