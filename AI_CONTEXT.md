@@ -23,7 +23,7 @@
 - 股票餘額上傳
 - 資料查詢與顯示（React 網頁前端）
 - 報表產生
-- **基金配息管理**：配息資料匯入、查詢、計算與確認
+- **基金配息管理**：配息資料匯入、查詢、計算與確認（含批量處理）、配息組成維護與上傳 EC
 
 ### 前端技術
 **系統現在以 React 網頁應用程式為主**，不再支援 Windows Forms 桌面應用程式。
@@ -92,6 +92,7 @@ DmsSystem/
 │   └── FEATURES/                   # 功能模組文件
 │       ├── DIVIDEND/              # 基金配息管理
 │       │   ├── TEST_CASES.md      # 配息功能測試案例
+│       │   ├── 配息系統操作與邏輯說明.md # 系統操作流程與詳細計算邏輯
 │       │   └── ...
 │       └── ...
 │
@@ -142,7 +143,7 @@ DmsSystem/
 
 ### 通用文件（docs/ 根目錄）
 
-**編號規則**：`00-` 到 `08-`，按邏輯順序排列
+**編號規則**：`00-` 到 `09-`，按邏輯順序排列
 
 - `00-快速開始.md` - 快速啟動指南
 - `01-架構指南.md` - 架構說明
@@ -151,8 +152,10 @@ DmsSystem/
 - `04-測試指南.md` - 測試說明
 - `05-專案完成總結.md` - 專案總結
 - `06-使用者手冊.md` - 使用說明
-- `07-執行狀態報告.md` - 狀態檢查
-- `08-系統測試報告.md` - 測試報告
+- `07-架構修正說明.md` - 架構修正歷程
+- `08-執行狀態報告.md` - 狀態檢查
+- `09-系統測試報告.md` - 測試報告
+- `10-最新修正記錄.md` - 專案變更日誌
 
 ### Mac 環境文件（MAC-DEVELOPMENT-ONLY/）
 
@@ -309,7 +312,7 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 
 1. **通用文件**：所有環境都適用（架構、測試、使用說明等）
    - 位置：`docs/` 根目錄
-   - 編號：`00-` 到 `08-`
+   - 編號：`00-` 到 `09-`
 
 2. **Mac 環境文件**：個人開發測試使用
    - 位置：`docs/MAC-DEVELOPMENT-ONLY/`
@@ -353,6 +356,7 @@ dotnet test DmsSystem.Tests/DmsSystem.Tests.csproj
 - ✅ `ShareholderMeetingDetailService`
 - ✅ `StockBalanceUploadService`
 - ✅ `ReportService`
+- ✅ `DividendService`
 
 **⚠️ 重要**：Service 實作**不應**在 Infrastructure 層
 - ❌ `DmsSystem.Infrastructure/Services/` - 已移除，不應存在
@@ -455,6 +459,16 @@ dotnet sln list
 
 ## 🔄 更新記錄
 
+### 2024-12-10（最新）
+- **配息功能重大更新 (5A1/5A3)**：
+  - **批量確認功能 (5A1)**：新增 `POST /api/Dividends/confirm-all` API 與前端「批量計算所有未確認項目」按鈕，可一次處理所有待確認配息。
+  - **配息組成維護 (5A3)**：移植 PB 邏輯，新增 CSV 匯入與上傳 EC 功能。
+    - 匯入：`POST /api/Dividends/composition/import`，更新 `I_RATE`, `C_RATE`。
+    - 上傳：`POST /api/Dividends/{fundNo}/{date}/{type}/upload-ec`，模擬同步至 WPS 並更新狀態。
+  - **Entity/Schema 修正**：補全 `FundDiv.cs` 欄位 (`DivAdj`) 並修正 SQL 欄位對應 (`INTEREST_RATE` -> `I_RATE`, `CAPITAL_RATE` -> `C_RATE`)。
+  - **前端優化**：新增 API 連線設定 UI，解決開發環境 Port 不一致問題。
+  - **文件新增**：新增 `docs/FEATURES/DIVIDEND/配息系統操作與邏輯說明.md`。
+
 ### 2024-12-08
 - **配息功能修正**：
   - 修正 CsvHelper 配置，避免 ArgumentNullException
@@ -506,4 +520,3 @@ dotnet sln list
 ---
 
 **此文件應作為 AI 助手的首要參考文件，每次對話開始時都應先閱讀此文件以了解專案現況。**
-
