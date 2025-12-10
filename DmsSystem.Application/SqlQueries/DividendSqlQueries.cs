@@ -85,7 +85,7 @@ WHERE FUND_NO = @FundNo AND DIV_TYPE = @Type";
     /// 查詢目標配息率
     /// </summary>
     public const string GetFundDivObj = @"
-SELECT DIV_OBJ, DIV_OBJ_AMT
+SELECT TOP 1 DIV_OBJ, DIV_OBJ_AMT
 FROM MDS.FUND_DIV_OBJ
 WHERE FUND_NO = @FundNo AND DIV_TYPE = @Type AND TX_DATE <= @Date
 ORDER BY TX_DATE DESC";
@@ -94,7 +94,7 @@ ORDER BY TX_DATE DESC";
     /// 查詢上期配息率
     /// </summary>
     public const string GetPreviousFundDiv = @"
-SELECT DIV_RATE_M, NAV
+SELECT TOP 1 DIV_RATE_M, NAV
 FROM MDS.FUND_DIV
 WHERE FUND_NO = @FundNo AND DIVIDEND_TYPE = @Type AND DIVIDEND_DATE < @Date
 ORDER BY DIVIDEND_DATE DESC";
