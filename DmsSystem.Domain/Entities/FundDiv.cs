@@ -86,6 +86,7 @@ public partial class FundDiv
     public decimal? Div1 { get; set; }
     public decimal? Div1Rate { get; set; }
     public decimal? Div1RateM { get; set; }
+    public decimal? DivAdj { get; set; } // 對應 DIV_ADJ
     public decimal? Div1B { get; set; }
 
     public decimal? Div2 { get; set; }

@@ -149,14 +149,14 @@ WHERE STEP2_STATUS = 'C'
 AND (@Date IS NULL OR DIVIDEND_DATE = @Date)";
 
     /// <summary>
-    /// 5A3：更新配息組成 (InterestRate, CapitalRate)
+    /// 5A3：更新配息組成 (I_RATE, C_RATE)
     /// </summary>
     public const string UpdateFundDivComposition = @"
 UPDATE MDS.FUND_DIV
-SET INTEREST_RATE = @InterestRate,
-    CAPITAL_RATE = @CapitalRate,
-    STEP3_STATUS = 'C', -- 假設使用 STEP3 作為組成確認狀態
-    STEP3_UPD_TIME = @Now
+SET I_RATE = @InterestRate,
+    C_RATE = @CapitalRate,
+    STEP4_STATUS = 'C', -- 使用 STEP4 作為組成未確認狀態 (對應 PB status_c='C')
+    STEP4_UPD_TIME = @Now
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 
     /// <summary>
@@ -166,7 +166,9 @@ WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 -- 這裡模擬刪除與新增 WPS 資料的邏輯
 -- 實務上可能需要 Linked Server 或其他方式
 UPDATE MDS.FUND_DIV
-SET STEP3_STATUS = 'O', -- 設定為已上傳
-    STEP3_COF_TIME = @Now
+SET STEP3_STATUS = 'O', -- 單位配息上傳成功 (對應 PB status='O')
+    STEP4_STATUS = 'O', -- 配息組成上傳成功 (對應 PB status_c='O')
+    STEP3_COF_TIME = @Now,
+    STEP4_COF_TIME = @Now
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 }
