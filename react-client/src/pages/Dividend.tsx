@@ -68,13 +68,13 @@ export function Dividend() {
     setUploading(true);
     setImportResult(null);
 
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
+    const apiUrl = `${API_BASE_URL}/api/Dividends/import`;
+
     try {
       const formData = new FormData();
       formData.append('file', file);
 
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
-      const apiUrl = `${API_BASE_URL}/api/Dividends/import`;
-      
       console.log('嘗試連接 API:', apiUrl);
       
       const response = await fetch(apiUrl, {
