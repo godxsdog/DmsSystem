@@ -65,6 +65,8 @@
   line-height: 1.5;
   text-decoration: none;
   font-family: inherit;
+  box-sizing: border-box;
+  height: 48px; /* Fixed height for consistency */
 }
 
 .btn:disabled {
@@ -115,11 +117,39 @@
   background-color: transparent;
   color: #007bff;
   border-color: #007bff;
+  height: auto; /* Allow auto height for small outline buttons */
+  padding: 0.4rem 0.8rem;
 }
 
 .btn-outline:hover:not(:disabled) {
   background-color: #007bff;
   color: white;
+}
+
+/* Form Controls */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-sizing: border-box;
+  height: 48px; /* Same height as buttons */
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 /* File Input Wrapper */

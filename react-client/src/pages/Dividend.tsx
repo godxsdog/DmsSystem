@@ -325,6 +325,7 @@ export function Dividend() {
                 onClick={handleImport} 
                 disabled={!file || uploading}
                 className="btn btn-primary"
+                style={{ width: '100%', maxWidth: '400px' }}
               >
                 {uploading ? '匯入中...' : '匯入檔案'}
               </button>
@@ -372,10 +373,12 @@ export function Dividend() {
                 基金代號：
                 <input
                   type="text"
+                  className="form-control"
                   value={fundNo}
                   onChange={(e) => setFundNo(e.target.value)}
                   placeholder="例如：A001 (留空以使用批量計算)"
                   disabled={calculating}
+                  maxLength={20}
                 />
               </label>
             </div>
@@ -384,9 +387,11 @@ export function Dividend() {
                 配息基準日：
                 <input
                   type="date"
+                  className="form-control"
                   value={dividendDate}
                   onChange={(e) => setDividendDate(e.target.value)}
                   disabled={calculating}
+                  max="9999-12-31"
                 />
               </label>
             </div>
@@ -394,6 +399,7 @@ export function Dividend() {
               <label>
                 配息頻率：
                 <select
+                  className="form-control"
                   value={dividendType}
                   onChange={(e) => setDividendType(e.target.value)}
                   disabled={calculating}
@@ -405,14 +411,14 @@ export function Dividend() {
                 </select>
               </label>
             </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '10px', maxWidth: '400px' }}>
               <button 
                 onClick={handleConfirm} 
                 disabled={calculating || !fundNo || !dividendDate} 
                 style={{ flex: 1 }}
                 className="btn btn-primary btn-execute"
               >
-                {calculating && fundNo ? '計算中...' : '執行單筆計算與確認'}
+                {calculating && fundNo ? '計算中...' : '執行單筆計算'}
               </button>
               <button 
                 onClick={handleBatchConfirm} 
@@ -421,7 +427,7 @@ export function Dividend() {
                 className="btn btn-success btn-execute"
                 title="計算所有「未確認」的項目 (可指定日期)"
               >
-                {calculating && !fundNo ? '批量計算中...' : '批量計算所有未確認項目'}
+                {calculating && !fundNo ? '批量計算中...' : '批量計算'}
               </button>
             </div>
 
@@ -497,9 +503,11 @@ export function Dividend() {
               基金代號（選填）：
               <input
                 type="text"
+                className="form-control"
                 value={queryFundNo}
                 onChange={(e) => setQueryFundNo(e.target.value)}
                 placeholder="例如：D109"
+                maxLength={20}
               />
             </label>
           </div>
@@ -507,6 +515,7 @@ export function Dividend() {
             <label>
               配息頻率（選填）：
               <select
+                className="form-control"
                 value={queryDividendType}
                 onChange={(e) => setQueryDividendType(e.target.value)}
               >
@@ -523,8 +532,10 @@ export function Dividend() {
               開始日期（選填）：
               <input
                 type="date"
+                className="form-control"
                 value={queryStartDate}
                 onChange={(e) => setQueryStartDate(e.target.value)}
+                max="9999-12-31"
               />
             </label>
           </div>
@@ -533,8 +544,10 @@ export function Dividend() {
               結束日期（選填）：
               <input
                 type="date"
+                className="form-control"
                 value={queryEndDate}
                 onChange={(e) => setQueryEndDate(e.target.value)}
+                max="9999-12-31"
               />
             </label>
           </div>
@@ -542,6 +555,7 @@ export function Dividend() {
             onClick={handleQueryDividends} 
             disabled={loadingDividends}
             className="btn btn-primary"
+            style={{ width: '100%', maxWidth: '400px' }}
           >
             {loadingDividends ? '查詢中...' : '查詢配息資料'}
           </button>
