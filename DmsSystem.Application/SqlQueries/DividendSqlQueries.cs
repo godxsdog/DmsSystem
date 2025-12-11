@@ -33,6 +33,7 @@ WHEN MATCHED THEN
         STEP2_STATUS = ISNULL(STEP2_STATUS, 'C'),
         STEP2_CRE_EMP = ISNULL(STEP2_CRE_EMP, 'SYSTEM'),
         STEP2_CRE_TIME = ISNULL(STEP2_CRE_TIME, @Now)
+    WHERE target.STEP2_STATUS = 'C' -- 僅在資料為未確認狀態時進行更新 (仿照 PB 邏輯)
 WHEN NOT MATCHED THEN
     INSERT (FUND_NO, DIVIDEND_YEAR, DIVIDEND_DATE, DIVIDEND_TYPE, NAV, UNIT,
             PRE_DIV1, PRE_DIV2, PRE_DIV3, PRE_DIV4, PRE_DIV5,
@@ -157,18 +158,52 @@ SET I_RATE = @InterestRate,
     C_RATE = @CapitalRate,
     STEP4_STATUS = 'C', -- 使用 STEP4 作為組成未確認狀態 (對應 PB status_c='C')
     STEP4_CRE_TIME = @Now
-WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
+WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type
+  AND (STEP4_STATUS = 'C' OR STEP4_STATUS IS NULL)"; // 限制僅更新未確認或無狀態的資料
 
     /// <summary>
-    /// 5A3：上傳至 WPS (模擬)
+    /// 5A3：上傳至 WPS (包含本地狀態更新與 WPS 資料寫入)
     /// </summary>
     public const string UploadToWps = @"
--- 這裡模擬刪除與新增 WPS 資料的邏輯
--- 實務上可能需要 Linked Server 或其他方式
+-- 1. 更新本地狀態
 UPDATE MDS.FUND_DIV
 SET STEP3_STATUS = 'O', -- 單位配息上傳成功 (對應 PB status='O')
     STEP4_STATUS = 'O', -- 配息組成上傳成功 (對應 PB status_c='O')
     STEP3_COF_TIME = @Now,
     STEP4_COF_TIME = @Now
-WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
+WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type;
+
+-- 2. 寫入或更新 WPS.FUND_DIVIDEND (模擬 PB 邏輯)
+MERGE WPS.FUND_DIVIDEND AS target
+USING (
+    SELECT 
+        FUND_NO,
+        -- FUND_NAME (需關聯取得，或省略),
+        DIVIDEND_TYPE,
+        DIVIDEND_YEAR,
+        -- DIVIDEND_MONTH (需計算),
+        DIV_RATE AS UNIT_DIVIDEND_RATE,
+        DIVIDEND_DATE,
+        -- NEXT_DIVIDEND_DATE, PAYMENT_DATE, NAV, ROI... (省略部分欄位)
+        DIV_RATE_M AS MONTH_DIVIDEND_RATE,
+        DIV_RATE_O AS YEAR_DIVIDEND_RATE,
+        -- REMARK,
+        I_RATE AS INTEREST_DIVIDEND,
+        C_RATE AS PRINCIPAL_DIVIDEND,
+        -- PAY_DATE,
+        'MDS' AS FUNC,
+        @Now AS LAST_MODIFIED
+    FROM MDS.FUND_DIV
+    WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type
+) AS source
+ON (target.FUND_NO = source.FUND_NO AND target.DIVIDEND_DATE = source.DIVIDEND_DATE AND target.DIVIDEND_TYPE = source.DIVIDEND_TYPE)
+WHEN MATCHED THEN
+    UPDATE SET 
+        INTEREST_DIVIDEND = source.INTEREST_DIVIDEND,
+        PRINCIPAL_DIVIDEND = source.PRINCIPAL_DIVIDEND,
+        LAST_MODIFIED = source.LAST_MODIFIED
+WHEN NOT MATCHED THEN
+    INSERT (FUND_NO, DIVIDEND_TYPE, DIVIDEND_YEAR, UNIT_DIVIDEND_RATE, DIVIDEND_DATE, MONTH_DIVIDEND_RATE, YEAR_DIVIDEND_RATE, INTEREST_DIVIDEND, PRINCIPAL_DIVIDEND, FUNC, LAST_MODIFIED)
+    VALUES (source.FUND_NO, source.DIVIDEND_TYPE, source.DIVIDEND_YEAR, source.UNIT_DIVIDEND_RATE, source.DIVIDEND_DATE, source.MONTH_DIVIDEND_RATE, source.YEAR_DIVIDEND_RATE, source.INTEREST_DIVIDEND, source.PRINCIPAL_DIVIDEND, source.FUNC, source.LAST_MODIFIED);
+";
 }
