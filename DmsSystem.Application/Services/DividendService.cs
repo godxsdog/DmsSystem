@@ -486,14 +486,7 @@ public class DividendService : IDividendService
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true, // 第一行是 Header
-            Encoding = Encoding.GetEncoding("Big5"),
-            ShouldSkipRecord = args => 
-            {
-                var row = args.Row;
-                if (row.Parser.Count == 0) return true;
-                var fundNo = row.GetField("fund_no");
-                return string.IsNullOrWhiteSpace(fundNo) || fundNo.Equals("fund_no", StringComparison.OrdinalIgnoreCase);
-            }
+            Encoding = Encoding.GetEncoding("Big5")
         };
         
         using var csv = new CsvReader(reader, config);
@@ -515,7 +508,9 @@ public class DividendService : IDividendService
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(record.FundNo) || string.IsNullOrWhiteSpace(record.DividendDateStr))
+                if (string.IsNullOrWhiteSpace(record.FundNo) || 
+                    string.IsNullOrWhiteSpace(record.DividendDateStr) || 
+                    record.FundNo.Equals("fund_no", StringComparison.OrdinalIgnoreCase))
                 {
                     continue; 
                 }
