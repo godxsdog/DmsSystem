@@ -60,11 +60,25 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-top: 1rem;
 }
 
 table {
   width: 100%;
+  min-width: 600px; /* Ensure table doesn't get too squashed */
   border-collapse: collapse;
+}
+
+@media (max-width: 768px) {
+  .data-view {
+    padding: 1rem;
+  }
+  
+  th, td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
 }
 
 thead {

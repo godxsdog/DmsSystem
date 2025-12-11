@@ -793,7 +793,7 @@ export function Dividend() {
           {sortedQueryDividends.length > 0 && (
             <div className="result-box success">
               <h4>查詢結果（共 {sortedQueryDividends.length} 筆）</h4>
-              <div style={{ overflowX: 'auto', marginTop: '10px' }}>
+              <div className="table-wrapper" style={{ marginTop: '10px' }}>
                 <table className="dividend-table">
                   <thead>
                     <tr>
@@ -953,7 +953,7 @@ export function Dividend() {
                   </div>
                 )}
 
-                <div style={{ overflowX: 'auto' }}>
+                <div className="table-wrapper">
                   <table className="dividend-table selectable">
                     <thead>
                       <tr>

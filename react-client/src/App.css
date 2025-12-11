@@ -45,9 +45,27 @@
 
 .app-main {
   width: 100%;
-  max-width: none;
+  max-width: 100%;
   margin: 0;
   padding: 2rem 3rem;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  flex: 1; /* Allow it to grow in flex container */
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding: 1rem;
+  }
+  
+  .app-header {
+    padding: 1rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
 }
 
 /* Global Button Styles */
