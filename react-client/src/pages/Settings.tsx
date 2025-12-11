@@ -37,42 +37,46 @@ export function Settings() {
         <h3 style={{ marginTop: '0', marginBottom: '15px' }}>常見連接埠說明</h3>
         <p>這些是 Visual Studio 與 IIS Express 的預設連接埠，請依據您的後端啟動方式選擇：</p>
         
-        <ul style={{ paddingLeft: '20px', lineHeight: '1.8' }}>
-          <li>
+        <ul style={{ paddingLeft: '20px', lineHeight: '1.8', listStyle: 'none' }}>
+          <li style={{ marginBottom: '8px' }}>
             <button 
               onClick={() => setUrl('http://localhost:5137')}
-              style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0, fontSize: 'inherit' }}
+              className="btn btn-outline"
+              style={{ marginRight: '10px', padding: '0.25rem 0.5rem', fontSize: '0.9rem' }}
             >
               http://localhost:5137
             </button> 
-            <span style={{ marginLeft: '10px', color: '#555' }}>- VS2022 預設 HTTP</span>
+            <span style={{ color: '#555' }}>- VS2022 預設 HTTP</span>
           </li>
-          <li>
+          <li style={{ marginBottom: '8px' }}>
             <button 
               onClick={() => setUrl('https://localhost:7036')}
-              style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0, fontSize: 'inherit' }}
+              className="btn btn-outline"
+              style={{ marginRight: '10px', padding: '0.25rem 0.5rem', fontSize: '0.9rem' }}
             >
               https://localhost:7036
             </button> 
-            <span style={{ marginLeft: '10px', color: '#555' }}>- VS2022 預設 HTTPS</span>
+            <span style={{ color: '#555' }}>- VS2022 預設 HTTPS</span>
           </li>
-          <li>
+          <li style={{ marginBottom: '8px' }}>
             <button 
               onClick={() => setUrl('http://localhost:35912')}
-              style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0, fontSize: 'inherit' }}
+              className="btn btn-outline"
+              style={{ marginRight: '10px', padding: '0.25rem 0.5rem', fontSize: '0.9rem' }}
             >
               http://localhost:35912
             </button> 
-            <span style={{ marginLeft: '10px', color: '#555' }}>- IIS Express HTTP</span>
+            <span style={{ color: '#555' }}>- IIS Express HTTP</span>
           </li>
-          <li>
+          <li style={{ marginBottom: '8px' }}>
             <button 
               onClick={() => setUrl('https://localhost:44301')}
-              style={{ background: 'none', border: 'none', color: '#007bff', textDecoration: 'underline', cursor: 'pointer', padding: 0, fontSize: 'inherit' }}
+              className="btn btn-outline"
+              style={{ marginRight: '10px', padding: '0.25rem 0.5rem', fontSize: '0.9rem' }}
             >
               https://localhost:44301
             </button> 
-            <span style={{ marginLeft: '10px', color: '#555' }}>- IIS Express HTTPS</span>
+            <span style={{ color: '#555' }}>- IIS Express HTTPS</span>
           </li>
         </ul>
 

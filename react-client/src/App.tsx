@@ -48,30 +48,15 @@ function App() {
         
         {currentView === 'shareholder' && (
           <div className="shareholder-container">
-            <div className="sub-nav" style={{ marginBottom: '20px', borderBottom: '1px solid #dee2e6', paddingBottom: '10px' }}>
+            <div className="tab-nav" style={{ marginBottom: '20px' }}>
               <button
-                style={{ 
-                  marginRight: '10px', 
-                  padding: '8px 16px',
-                  backgroundColor: shareholderSubView === 'upload' ? '#007bff' : '#f8f9fa',
-                  color: shareholderSubView === 'upload' ? 'white' : '#333',
-                  border: '1px solid #dee2e6',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
+                className={`tab-btn ${shareholderSubView === 'upload' ? 'active' : ''}`}
                 onClick={() => setShareholderSubView('upload')}
               >
                 檔案上傳
               </button>
               <button
-                style={{ 
-                  padding: '8px 16px',
-                  backgroundColor: shareholderSubView === 'data' ? '#007bff' : '#f8f9fa',
-                  color: shareholderSubView === 'data' ? 'white' : '#333',
-                  border: '1px solid #dee2e6',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
+                className={`tab-btn ${shareholderSubView === 'data' ? 'active' : ''}`}
                 onClick={() => setShareholderSubView('data')}
               >
                 資料檢視

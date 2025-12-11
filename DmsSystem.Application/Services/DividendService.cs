@@ -245,10 +245,10 @@ public class DividendService : IDividendService
             decimal divPre = 0m;
             if (previousDiv != null && previousDiv.NAV != null)
             {
-                decimal prevNav = (decimal)previousDiv.NAV;
+                decimal prevNav = (decimal)previousDiv!.NAV;
                 if (prevNav > 0)
                 {
-                    decimal prevDivRateM = (decimal?)(previousDiv.DIV_RATE_M) ?? 0m;
+                    decimal prevDivRateM = (decimal?)(previousDiv!.DIV_RATE_M) ?? 0m;
                     divPre = dividendType switch
                     {
                         "M" => Math.Round(prevDivRateM * 12 / prevNav, 4),
@@ -572,8 +572,8 @@ public class DividendService : IDividendService
                         record.FundNo,
                         Date = record.DividendDate,
                         Type = record.DividendType,
-                        InterestRate = record.InterestRate,
-                        CapitalRate = record.CapitalRate,
+                        record.InterestRate,
+                        record.CapitalRate,
                         Now = now
                     });
 
@@ -653,7 +653,7 @@ public class DividendService : IDividendService
     /// <summary>
     /// 建立分攤比率更新 SQL（根據分攤順序動態設定）
     /// </summary>
-    private string BuildRateUpdateSql(int[] orders)
+    private static string BuildRateUpdateSql(int[] orders)
     {
         var sql = @"
 UPDATE MDS.FUND_DIV

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { apiClient } from '../api/client';
 import './Dividend.css';
 
@@ -45,6 +45,7 @@ export function Dividend() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [importResult, setImportResult] = useState<DividendImportResult | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 配息計算表單
   const [fundNo, setFundNo] = useState('');
@@ -70,6 +71,10 @@ export function Dividend() {
     }
   };
 
+  const triggerFileSelect = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleImport = async () => {
     if (!file) {
       alert('請選擇檔案');
@@ -85,20 +90,15 @@ export function Dividend() {
       const formData = new FormData();
       formData.append('file', file);
 
-      console.log('嘗試連接 API:', apiUrl);
-      
       const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
       });
 
-      console.log('API 回應狀態:', response.status, response.statusText);
-
       let result: DividendImportResult;
       
       try {
         const responseText = await response.text();
-        console.log('API 回應內容:', responseText);
         
         let data: any;
         try {
@@ -156,7 +156,6 @@ export function Dividend() {
         errorMessage = error.message;
       }
       
-      console.error('匯入錯誤:', error);
       setImportResult({
         success: false,
         inserted: 0,
@@ -299,14 +298,34 @@ export function Dividend() {
           <section className="dividend-section">
             <h3>1. 匯入可分配收益 CSV 檔案</h3>
             <div className="form-group">
-              <label>選擇 CSV 檔案（Big5 編碼）：</label>
-              <input
-                type="file"
-                accept=".csv"
-                onChange={handleFileChange}
-                disabled={uploading}
-              />
-              <button onClick={handleImport} disabled={!file || uploading}>
+              <label style={{marginBottom: '10px'}}>選擇 CSV 檔案（Big5 編碼）：</label>
+              
+              <div className="file-input-wrapper" style={{ marginBottom: '15px' }}>
+                <input
+                  type="file"
+                  accept=".csv"
+                  onChange={handleFileChange}
+                  disabled={uploading}
+                  ref={fileInputRef}
+                />
+                <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  onClick={triggerFileSelect}
+                  disabled={uploading}
+                >
+                  {uploading ? '處理中...' : '選擇檔案'}
+                </button>
+                <span className="file-name">
+                  {file ? file.name : '未選擇任何檔案'}
+                </span>
+              </div>
+              
+              <button 
+                onClick={handleImport} 
+                disabled={!file || uploading}
+                className="btn btn-primary"
+              >
                 {uploading ? '匯入中...' : '匯入檔案'}
               </button>
             </div>
@@ -391,16 +410,16 @@ export function Dividend() {
                 onClick={handleConfirm} 
                 disabled={calculating || !fundNo || !dividendDate} 
                 style={{ flex: 1 }}
-                className="btn-execute"
+                className="btn btn-primary btn-execute"
               >
                 {calculating && fundNo ? '計算中...' : '執行單筆計算與確認'}
               </button>
               <button 
                 onClick={handleBatchConfirm} 
                 disabled={calculating} 
-                style={{ flex: 1, backgroundColor: '#28a745', borderColor: '#28a745' }}
+                style={{ flex: 1 }}
+                className="btn btn-success btn-execute"
                 title="計算所有「未確認」的項目 (可指定日期)"
-                className="btn-execute"
               >
                 {calculating && !fundNo ? '批量計算中...' : '批量計算所有未確認項目'}
               </button>
@@ -519,7 +538,11 @@ export function Dividend() {
               />
             </label>
           </div>
-          <button onClick={handleQueryDividends} disabled={loadingDividends}>
+          <button 
+            onClick={handleQueryDividends} 
+            disabled={loadingDividends}
+            className="btn btn-primary"
+          >
             {loadingDividends ? '查詢中...' : '查詢配息資料'}
           </button>
 
