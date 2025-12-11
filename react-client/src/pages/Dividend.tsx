@@ -60,19 +60,25 @@ export function Dividend() {
   const [confirmResult, setConfirmResult] = useState<DividendConfirmResult | null>(null);
   const [batchResult, setBatchResult] = useState<BatchConfirmResult | null>(null);
 
-  // 查詢配息資料
+  // 查詢配息資料 (獨立狀態)
   const [queryFundNo, setQueryFundNo] = useState('');
   const [queryDividendType, setQueryDividendType] = useState('');
   const [queryStartDate, setQueryStartDate] = useState('');
   const [queryEndDate, setQueryEndDate] = useState('');
-  const [dividends, setDividends] = useState<FundDiv[]>([]);
-  const [loadingDividends, setLoadingDividends] = useState(false);
+  const [queryDividends, setQueryDividends] = useState<FundDiv[]>([]);
+  const [queryLoading, setQueryLoading] = useState(false);
   const [queryError, setQueryError] = useState<string | null>(null);
 
-  // 5A3 配息組成與上傳 EC
+  // 5A3 配息組成與上傳 EC (獨立狀態)
   const [compositionFile, setCompositionFile] = useState<File | null>(null);
   const [compositionImportResult, setCompositionImportResult] = useState<DividendImportResult | null>(null);
   const compositionFileInputRef = useRef<HTMLInputElement>(null);
+  const [compFundNo, setCompFundNo] = useState('');
+  const [compStartDate, setCompStartDate] = useState('');
+  const [compDividends, setCompDividends] = useState<FundDiv[]>([]);
+  const [compLoading, setCompLoading] = useState(false);
+  const [compError, setCompError] = useState<string | null>(null);
+  
   const [selectedDividends, setSelectedDividends] = useState<Set<string>>(new Set()); // 存儲選中的 key (fundNo_date_type)
   const [uploadingToEc, setUploadingToEc] = useState(false);
   const [ecUploadResult, setEcUploadResult] = useState<{success: number, failed: number, errors: string[]} | null>(null);
@@ -304,10 +310,10 @@ export function Dividend() {
     }
   };
 
+  // 一般查詢 (Tab 2)
   const handleQueryDividends = async () => {
-    setLoadingDividends(true);
+    setQueryLoading(true);
     setQueryError(null);
-    setSelectedDividends(new Set()); // 清除選取
 
     try {
       const params = new URLSearchParams();
@@ -325,13 +331,45 @@ export function Dividend() {
       }
 
       const result = await response.json();
-      setDividends(result.data || []);
+      setQueryDividends(result.data || []);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : '查詢失敗';
       setQueryError(errorMessage);
-      setDividends([]);
+      setQueryDividends([]);
     } finally {
-      setLoadingDividends(false);
+      setQueryLoading(false);
+    }
+  };
+
+  // 組成查詢 (Tab 3)
+  const handleCompQuery = async () => {
+    setCompLoading(true);
+    setCompError(null);
+    setSelectedDividends(new Set()); // 清除選取
+
+    try {
+      const params = new URLSearchParams();
+      
+      if (compFundNo) params.append('fundNo', compFundNo);
+      // 組成查詢通常不需要指定 Type，或者可以加
+      if (compStartDate) params.append('startDate', compStartDate);
+      // 不需要 EndDate 除非用戶想查區間
+
+      const response = await fetch(`${apiClient.getBaseUrl()}/api/Dividends?${params.toString()}`);
+      
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ error: response.statusText }));
+        throw new Error(error.error || `HTTP ${response.status}`);
+      }
+
+      const result = await response.json();
+      setCompDividends(result.data || []);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : '查詢失敗';
+      setCompError(errorMessage);
+      setCompDividends([]);
+    } finally {
+      setCompLoading(false);
     }
   };
 
@@ -348,7 +386,7 @@ export function Dividend() {
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      const allKeys = dividends.map(d => `${d.fundNo}_${d.dividendDate}_${d.dividendType}`);
+      const allKeys = compDividends.map(d => `${d.fundNo}_${d.dividendDate}_${d.dividendType}`);
       setSelectedDividends(new Set(allKeys));
     } else {
       setSelectedDividends(new Set());
@@ -404,7 +442,7 @@ export function Dividend() {
     setUploadingToEc(false);
     
     // 重新查詢以更新狀態
-    handleQueryDividends();
+    handleCompQuery();
   };
 
   return (
@@ -693,11 +731,11 @@ export function Dividend() {
           </div>
           <button 
             onClick={handleQueryDividends} 
-            disabled={loadingDividends}
+            disabled={queryLoading}
             className="btn btn-primary"
             style={{ width: '100%', maxWidth: '400px' }}
           >
-            {loadingDividends ? '查詢中...' : '查詢配息資料'}
+            {queryLoading ? '查詢中...' : '查詢配息資料'}
           </button>
 
           {queryError && (
@@ -707,9 +745,9 @@ export function Dividend() {
             </div>
           )}
 
-          {dividends.length > 0 && (
+          {queryDividends.length > 0 && (
             <div className="result-box success">
-              <h4>查詢結果（共 {dividends.length} 筆）</h4>
+              <h4>查詢結果（共 {queryDividends.length} 筆）</h4>
               <div style={{ overflowX: 'auto', marginTop: '10px' }}>
                 <table className="dividend-table">
                   <thead>
@@ -725,7 +763,7 @@ export function Dividend() {
                     </tr>
                   </thead>
                   <tbody>
-                    {dividends.map((div, index) => (
+                    {queryDividends.map((div, index) => (
                       <tr key={index}>
                         <td>{div.fundNo}</td>
                         <td>{div.dividendYear || '-'}</td>
@@ -818,8 +856,8 @@ export function Dividend() {
                 <input
                   type="text"
                   className="form-control"
-                  value={queryFundNo}
-                  onChange={(e) => setQueryFundNo(e.target.value)}
+                  value={compFundNo}
+                  onChange={(e) => setCompFundNo(e.target.value)}
                   placeholder="例如：D109"
                   maxLength={20}
                 />
@@ -829,27 +867,27 @@ export function Dividend() {
                 <input
                   type="date"
                   className="form-control"
-                  value={queryStartDate}
-                  onChange={(e) => setQueryStartDate(e.target.value)}
+                  value={compStartDate}
+                  onChange={(e) => setCompStartDate(e.target.value)}
                   max="9999-12-31"
                 />
               </div>
               <div className="form-group" style={{ display: 'flex', alignItems: 'flex-end' }}>
                 <button 
-                  onClick={handleQueryDividends} 
-                  disabled={loadingDividends}
+                  onClick={handleCompQuery} 
+                  disabled={compLoading}
                   className="btn btn-primary"
                   style={{ width: '100%' }}
                 >
-                  {loadingDividends ? '查詢中...' : '查詢配息資料'}
+                  {compLoading ? '查詢中...' : '查詢配息資料'}
                 </button>
               </div>
             </div>
 
-            {dividends.length > 0 && (
+            {compDividends.length > 0 && (
               <div className="result-box success">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <h4>查詢結果（共 {dividends.length} 筆）</h4>
+                  <h4>查詢結果（共 {compDividends.length} 筆）</h4>
                   <button 
                     onClick={handleBatchUploadEc} 
                     disabled={uploadingToEc || selectedDividends.size === 0}
@@ -878,7 +916,7 @@ export function Dividend() {
                           <input 
                             type="checkbox" 
                             onChange={(e) => handleSelectAll(e.target.checked)}
-                            checked={dividends.length > 0 && selectedDividends.size === dividends.length}
+                            checked={compDividends.length > 0 && selectedDividends.size === compDividends.length}
                           />
                         </th>
                         <th>基金代號</th>
@@ -892,7 +930,7 @@ export function Dividend() {
                       </tr>
                     </thead>
                     <tbody>
-                      {dividends.map((div, index) => {
+                      {compDividends.map((div, index) => {
                         const key = `${div.fundNo}_${div.dividendDate}_${div.dividendType}`;
                         return (
                           <tr key={index}>

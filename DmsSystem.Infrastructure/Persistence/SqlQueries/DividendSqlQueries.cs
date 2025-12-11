@@ -162,14 +162,11 @@ SET I_RATE = @InterestRate,
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 
     /// <summary>
-    /// 上傳至 WPS (5A3 Upload) - 模擬
+    /// 上傳配息組成至 WPS (5A3 Upload) - 僅更新 STEP4 狀態
     /// </summary>
     public const string UploadToWps = @"
 UPDATE MDS.FUND_DIV
-SET STEP3_STATUS = 'O',
-    STEP4_STATUS = 'O',
-    STEP3_COF_EMP = 'SYSTEM',
-    STEP3_COF_TIME = @Now,
+SET STEP4_STATUS = 'O',
     STEP4_COF_EMP = 'SYSTEM',
     STEP4_COF_TIME = @Now
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
