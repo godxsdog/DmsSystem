@@ -139,11 +139,11 @@
   margin-bottom: 0.25rem;
 }
 
-/* 查詢結果表格配色（提升可讀性） */
+/* 查詢結果表格配色與優化 */
 .dividend-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px; /* 增加字體大小 */
+  font-size: 15px;
   background: #ffffff;
   color: #212529;
 }
@@ -152,14 +152,16 @@
   background: #f1f3f5;
   color: #212529;
   border: 1px solid #dee2e6;
-  padding: 12px 10px; /* 增加 Padding */
+  padding: 12px 10px;
   text-align: left;
   font-weight: 600;
+  white-space: nowrap; /* 防止表頭換行 */
 }
 
 .dividend-table td {
   border: 1px solid #dee2e6;
-  padding: 12px 10px; /* 增加 Padding */
+  padding: 12px 10px;
+  white-space: nowrap; /* 防止內容換行 */
 }
 
 .dividend-table tbody tr:nth-child(even) {
@@ -167,7 +169,7 @@
 }
 
 .dividend-table tbody tr:hover {
-  background: #e2e6ea; /* 加強 Hover 效果 */
+  background: #e2e6ea;
 }
 
 /* 點擊行勾選效果 */
@@ -176,10 +178,52 @@
 }
 
 .dividend-table.selectable tbody tr.selected {
-  background-color: #d1e7dd; /* 選中時的背景色 */
+  background-color: #d1e7dd;
+}
+
+/* 排序表頭樣式 */
+.dividend-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 25px; /* 預留箭頭空間 */
+}
+
+.dividend-table th.sortable:hover {
+  background-color: #e9ecef;
+}
+
+.dividend-table th.sortable::after {
+  content: '↕';
+  position: absolute;
+  right: 8px;
+  opacity: 0.3;
+  font-size: 0.8em;
+}
+
+.dividend-table th.sortable.asc::after {
+  content: '▲';
+  opacity: 1;
+  color: #007bff;
+}
+
+.dividend-table th.sortable.desc::after {
+  content: '▼';
+  opacity: 1;
+  color: #007bff;
 }
 
 .text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* 數字欄位優化 */
+.numeric {
+  font-variant-numeric: tabular-nums;
   text-align: right;
 }
 
@@ -212,7 +256,7 @@
 }
 
 .btn-execute {
-  border: 2px solid #0056b3 !important; /* Force border */
+  border: 2px solid #0056b3 !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   transition: all 0.2s;
   font-weight: bold;

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { apiClient } from '../api/client';
 import './Dividend.css';
 
@@ -44,6 +44,48 @@ interface FundDiv {
   statusC?: string; // 配息組成狀態
 }
 
+type SortConfig = {
+  key: keyof FundDiv | null;
+  direction: 'asc' | 'desc';
+};
+
+const useSortableData = (items: FundDiv[], config: SortConfig = { key: null, direction: 'asc' }) => {
+  const [sortConfig, setSortConfig] = useState<SortConfig>(config);
+
+  const sortedItems = useMemo(() => {
+    let sortableItems = [...items];
+    if (sortConfig.key !== null) {
+      sortableItems.sort((a, b) => {
+        let aValue: any = a[sortConfig.key!];
+        let bValue: any = b[sortConfig.key!];
+
+        // Handle null/undefined
+        if (aValue === null || aValue === undefined) aValue = '';
+        if (bValue === null || bValue === undefined) bValue = '';
+
+        if (aValue < bValue) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableItems;
+  }, [items, sortConfig]);
+
+  const requestSort = (key: keyof FundDiv) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  return { items: sortedItems, requestSort, sortConfig };
+};
+
 export function Dividend() {
   const [activeTab, setActiveTab] = useState<'execute' | 'query' | 'composition'>('execute');
 
@@ -79,9 +121,20 @@ export function Dividend() {
   const [compLoading, setCompLoading] = useState(false);
   const [compError, setCompError] = useState<string | null>(null);
   
-  const [selectedDividends, setSelectedDividends] = useState<Set<string>>(new Set()); // 存儲選中的 key (fundNo_date_type)
+  const [selectedDividends, setSelectedDividends] = useState<Set<string>>(new Set());
   const [uploadingToEc, setUploadingToEc] = useState(false);
   const [ecUploadResult, setEcUploadResult] = useState<{success: number, failed: number, errors: string[]} | null>(null);
+
+  // Sorting
+  const { items: sortedQueryDividends, requestSort: requestQuerySort, sortConfig: querySortConfig } = useSortableData(queryDividends);
+  const { items: sortedCompDividends, requestSort: requestCompSort, sortConfig: compSortConfig } = useSortableData(compDividends);
+
+  const getSortClass = (key: keyof FundDiv, config: SortConfig) => {
+    if (config.key === key) {
+      return `sortable ${config.direction}`;
+    }
+    return 'sortable';
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -351,9 +404,7 @@ export function Dividend() {
       const params = new URLSearchParams();
       
       if (compFundNo) params.append('fundNo', compFundNo);
-      // 組成查詢通常不需要指定 Type，或者可以加
       if (compStartDate) params.append('startDate', compStartDate);
-      // 不需要 EndDate 除非用戶想查區間
 
       const response = await fetch(`${apiClient.getBaseUrl()}/api/Dividends?${params.toString()}`);
       
@@ -384,22 +435,10 @@ export function Dividend() {
     setSelectedDividends(newSelected);
   };
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      const allKeys = compDividends.map(d => `${d.fundNo}_${d.dividendDate}_${d.dividendType}`);
-      setSelectedDividends(new Set(allKeys));
-    } else {
-      setSelectedDividends(new Set());
-    }
-  };
-
   const handleRowClick = (e: React.MouseEvent<HTMLTableRowElement>, key: string) => {
-    // 如果點擊的是 checkbox 本身，則不處理 (因為 checkbox 的 onChange 會處理)
     if ((e.target as HTMLElement).tagName === 'INPUT') {
       return;
     }
-    
-    // 切換狀態
     const isSelected = selectedDividends.has(key);
     handleCheckboxChange(key, !isSelected);
   };
@@ -422,12 +461,8 @@ export function Dividend() {
     let failed = 0;
     const errors: string[] = [];
 
-    // 由於後端只有單筆 API，前端使用迴圈處理
-    // TODO: 未來建議後端提供批量 API
     for (const key of selectedDividends) {
-      const [fNo, dDate, dType] = key.split('_'); // fundNo_dividendDate_dividendType
-      
-      // 解析日期字串 (yyyy-MM-ddThh:mm:ss -> yyyy-MM-dd)
+      const [fNo, dDate, dType] = key.split('_'); 
       const dateOnly = dDate.split('T')[0];
 
       try {
@@ -482,8 +517,8 @@ export function Dividend() {
       </div>
 
       {activeTab === 'execute' && (
+        // ... (保持不變)
         <>
-          {/* 檔案匯入區塊 */}
           <section className="dividend-section">
             <h3>1. 匯入可分配收益 CSV 檔案</h3>
             <div className="form-group">
@@ -554,7 +589,6 @@ export function Dividend() {
             )}
           </section>
 
-          {/* 配息計算區塊 */}
           <section className="dividend-section">
             <h3>2. 執行配息計算與確認</h3>
             <div className="form-group">
@@ -756,40 +790,40 @@ export function Dividend() {
             </div>
           )}
 
-          {queryDividends.length > 0 && (
+          {sortedQueryDividends.length > 0 && (
             <div className="result-box success">
-              <h4>查詢結果（共 {queryDividends.length} 筆）</h4>
+              <h4>查詢結果（共 {sortedQueryDividends.length} 筆）</h4>
               <div style={{ overflowX: 'auto', marginTop: '10px' }}>
                 <table className="dividend-table">
                   <thead>
                     <tr>
-                      <th>基金代號</th>
-                      <th>配息年度</th>
-                      <th>配息基準日</th>
-                      <th>配息頻率</th>
-                      <th className="text-right">NAV</th>
-                      <th className="text-right">單位數</th>
-                      <th className="text-right">總可分配金額</th>
-                      <th className="text-right">配息率</th>
+                      <th onClick={() => requestQuerySort('fundNo')} className={getSortClass('fundNo', querySortConfig)}>基金代號</th>
+                      <th onClick={() => requestQuerySort('dividendYear')} className={getSortClass('dividendYear', querySortConfig)}>配息年度</th>
+                      <th onClick={() => requestQuerySort('dividendDate')} className={getSortClass('dividendDate', querySortConfig)}>配息基準日</th>
+                      <th onClick={() => requestQuerySort('dividendType')} className={getSortClass('dividendType', querySortConfig)}>配息頻率</th>
+                      <th onClick={() => requestQuerySort('nav')} className={`text-right ${getSortClass('nav', querySortConfig)}`}>NAV</th>
+                      <th onClick={() => requestQuerySort('unit')} className={`text-right ${getSortClass('unit', querySortConfig)}`}>單位數</th>
+                      <th onClick={() => requestQuerySort('divTot')} className={`text-right ${getSortClass('divTot', querySortConfig)}`}>總可分配金額</th>
+                      <th onClick={() => requestQuerySort('divRate')} className={`text-right ${getSortClass('divRate', querySortConfig)}`}>配息率</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {queryDividends.map((div, index) => (
+                    {sortedQueryDividends.map((div, index) => (
                       <tr key={index}>
                         <td>{div.fundNo}</td>
                         <td>{div.dividendYear || '-'}</td>
                         <td>{new Date(div.dividendDate).toLocaleDateString('zh-TW')}</td>
                         <td>{div.dividendType}</td>
-                        <td className="text-right">
+                        <td className="text-right numeric">
                           {div.nav?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 8 }) || '-'}
                         </td>
-                        <td className="text-right">
+                        <td className="text-right numeric">
                           {div.unit?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '-'}
                         </td>
-                        <td className="text-right">
+                        <td className="text-right numeric">
                           {div.divTot?.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '-'}
                         </td>
-                        <td className="text-right">
+                        <td className="text-right numeric">
                           {div.divRate?.toLocaleString('zh-TW', { minimumFractionDigits: 6, maximumFractionDigits: 6 }) || '-'}
                         </td>
                       </tr>
@@ -895,10 +929,10 @@ export function Dividend() {
               </div>
             </div>
 
-            {compDividends.length > 0 && (
+            {sortedCompDividends.length > 0 && (
               <div className="result-box success">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <h4>查詢結果（共 {compDividends.length} 筆）</h4>
+                  <h4>查詢結果（共 {sortedCompDividends.length} 筆）</h4>
                   <button 
                     onClick={handleBatchUploadEc} 
                     disabled={uploadingToEc || selectedDividends.size === 0}
@@ -924,24 +958,20 @@ export function Dividend() {
                     <thead>
                       <tr>
                         <th style={{ width: '40px', textAlign: 'center' }}>
-                          <input 
-                            type="checkbox" 
-                            onChange={(e) => handleSelectAll(e.target.checked)}
-                            checked={compDividends.length > 0 && selectedDividends.size === compDividends.length}
-                          />
+                          {/* 移除全選 Checkbox */}
                         </th>
-                        <th>基金代號</th>
-                        <th>配息基準日</th>
-                        <th>配息頻率</th>
-                        <th className="text-right">配息率</th>
-                        <th className="text-right">本金比率</th>
-                        <th className="text-right">收益比率</th>
-                        <th className="text-center">配息狀態</th>
-                        <th className="text-center">組成狀態</th>
+                        <th onClick={() => requestCompSort('fundNo')} className={getSortClass('fundNo', compSortConfig)}>基金代號</th>
+                        <th onClick={() => requestCompSort('dividendDate')} className={getSortClass('dividendDate', compSortConfig)}>配息基準日</th>
+                        <th onClick={() => requestCompSort('dividendType')} className={getSortClass('dividendType', compSortConfig)}>配息頻率</th>
+                        <th onClick={() => requestCompSort('divRate')} className={`text-right ${getSortClass('divRate', compSortConfig)}`}>配息率</th>
+                        <th onClick={() => requestCompSort('capitalRate')} className={`text-right ${getSortClass('capitalRate', compSortConfig)}`}>本金比率</th>
+                        <th onClick={() => requestCompSort('interestRate')} className={`text-right ${getSortClass('interestRate', compSortConfig)}`}>收益比率</th>
+                        <th onClick={() => requestCompSort('status')} className={`text-center ${getSortClass('status', compSortConfig)}`}>配息狀態</th>
+                        <th onClick={() => requestCompSort('statusC')} className={`text-center ${getSortClass('statusC', compSortConfig)}`}>組成狀態</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {compDividends.map((div, index) => {
+                      {sortedCompDividends.map((div, index) => {
                         const key = `${div.fundNo}_${div.dividendDate}_${div.dividendType}`;
                         const isSelected = selectedDividends.has(key);
                         return (
@@ -956,13 +986,13 @@ export function Dividend() {
                             <td>{div.fundNo}</td>
                             <td>{new Date(div.dividendDate).toLocaleDateString('zh-TW')}</td>
                             <td>{div.dividendType}</td>
-                            <td className="text-right">
+                            <td className="text-right numeric">
                               {div.divRate?.toLocaleString('zh-TW', { minimumFractionDigits: 6, maximumFractionDigits: 6 }) || '-'}
                             </td>
-                            <td className="text-right">
+                            <td className="text-right numeric">
                               {div.capitalRate !== undefined ? (div.capitalRate * 100).toFixed(2) + '%' : '-'}
                             </td>
-                            <td className="text-right">
+                            <td className="text-right numeric">
                               {div.interestRate !== undefined ? (div.interestRate * 100).toFixed(2) + '%' : '-'}
                             </td>
                             <td className="text-center">
