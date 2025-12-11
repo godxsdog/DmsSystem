@@ -156,7 +156,7 @@ UPDATE MDS.FUND_DIV
 SET I_RATE = @InterestRate,
     C_RATE = @CapitalRate,
     STEP4_STATUS = 'C', -- 使用 STEP4 作為組成未確認狀態 (對應 PB status_c='C')
-    STEP4_UPD_TIME = @Now
+    STEP4_CRE_TIME = @Now
 WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
 
     /// <summary>
