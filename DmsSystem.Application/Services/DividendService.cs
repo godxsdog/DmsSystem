@@ -692,21 +692,21 @@ WHERE FUND_NO = @FundNo AND DIVIDEND_DATE = @Date AND DIVIDEND_TYPE = @Type";
             Map(m => m.FundNo).Name("fund_no");
             Map(m => m.DividendDate).Name("dividend_date");
             Map(m => m.DividendType).Name("dividend_type");
-            Map(m => m.PreDiv1).Name("pre_div1");
-            Map(m => m.PreDiv2).Name("pre_div2");
-            Map(m => m.PreDiv3).Name("pre_div3");
-            Map(m => m.PreDiv4).Name("pre_div4");
-            Map(m => m.PreDiv5).Name("pre_div5");
-            Map(m => m.Div1).Name("div1");
-            Map(m => m.Div2).Name("div2");
-            Map(m => m.Div3).Name("div3");
-            Map(m => m.Div4).Name("div4");
-            Map(m => m.Div5).Name("div5");
-            Map(m => m.PreDiv1B).Name("pre_div1_b").Optional();
-            Map(m => m.Div1B).Name("div1_b").Optional();
-            Map(m => m.Fee).Name("fee");
-            Map(m => m.DivTot).Name("div_tot");
-            Map(m => m.Nav).Name("nav").Optional();
+            Map(m => m.PreDiv1).Name("pre_div1").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.PreDiv2).Name("pre_div2").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.PreDiv3).Name("pre_div3").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.PreDiv4).Name("pre_div4").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.PreDiv5).Name("pre_div5").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Div1).Name("div1").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Div2).Name("div2").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Div3).Name("div3").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Div4).Name("div4").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Div5).Name("div5").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.PreDiv1B).Name("pre_div1_b").Optional().TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Div1B).Name("div1_b").Optional().TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Fee).Name("fee").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.DivTot).Name("div_tot").TypeConverterOption.NumberStyles(NumberStyles.Any);
+            Map(m => m.Nav).Name("nav").Optional().TypeConverterOption.NumberStyles(NumberStyles.Any);
         }
     }
 
