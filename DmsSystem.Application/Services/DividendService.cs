@@ -486,10 +486,25 @@ public class DividendService : IDividendService
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true, // 第一行是 Header
-            Encoding = Encoding.GetEncoding("Big5")
+            Encoding = Encoding.GetEncoding("Big5"),
+            HeaderValidated = null, // Disable default validation to handle dynamic header skipping
+            MissingFieldFound = null
         };
         
         using var csv = new CsvReader(reader, config);
+        
+        // Manual header detection: Check if first row is Chinese/Empty header
+        csv.Read();
+        var rawRecord = csv.Context.Parser.Record;
+        
+        // Determine if we need to skip this row (if it contains "基準日" or starts with empty fields)
+        if (rawRecord != null && (rawRecord.Contains("基準日") || (rawRecord.Length > 2 && string.IsNullOrWhiteSpace(rawRecord[0]) && string.IsNullOrWhiteSpace(rawRecord[1]))))
+        {
+            // This is the Chinese header row. Skip it and read the next row as the REAL header.
+            csv.Read(); 
+        }
+        
+        csv.ReadHeader(); // Process the current row (either 1st or 2nd) as header
         
         var map = new DividendCompositionCsvMap();
         csv.Context.RegisterClassMap(map);
