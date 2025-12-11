@@ -277,6 +277,10 @@ export function Dividend() {
       const data = await response.json();
 
       if (!response.ok) {
+        if (data.errors && Array.isArray(data.errors)) {
+             setCompositionImportResult(data as DividendImportResult);
+             return;
+        }
         throw new Error(data.error || data.message || '匯入失敗');
       }
 
