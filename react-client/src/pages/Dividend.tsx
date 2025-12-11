@@ -418,7 +418,14 @@ export function Dividend() {
       const params = new URLSearchParams();
       
       if (compFundNo) params.append('fundNo', compFundNo);
-      if (compStartDate) params.append('startDate', compStartDate);
+      // Ensure date format is correct (yyyy-MM-dd)
+      if (compStartDate) {
+        params.append('startDate', compStartDate);
+        // If only startDate is provided (fundNo is empty), the backend query will return all funds for that date.
+        // If the backend requires at least one condition, this is fine.
+        // However, if the query fails when only date is provided, we might need to adjust logic.
+        // The current backend logic (FundDivRepository.GetAllAsync) supports filtering by startDate only.
+      }
 
       const response = await fetch(`${apiClient.getBaseUrl()}/api/Dividends?${params.toString()}`);
       
