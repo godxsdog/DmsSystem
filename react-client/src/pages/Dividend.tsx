@@ -548,7 +548,7 @@ export function Dividend() {
               <button 
                 onClick={handleImport} 
                 disabled={!file || uploading}
-                className="btn btn-primary"
+                className="btn btn-primary btn-block-spacing"
                 style={{ width: '100%', maxWidth: '400px' }}
               >
                 {uploading ? '匯入中...' : '匯入檔案'}
@@ -634,7 +634,7 @@ export function Dividend() {
                 </select>
               </label>
             </div>
-            <div style={{ display: 'flex', gap: '10px', maxWidth: '400px' }}>
+            <div className="action-buttons">
               <button 
                 onClick={handleConfirm} 
                 disabled={calculating || !fundNo || !dividendDate} 
@@ -777,7 +777,7 @@ export function Dividend() {
           <button 
             onClick={handleQueryDividends} 
             disabled={queryLoading}
-            className="btn btn-primary"
+            className="btn btn-primary btn-block-spacing"
             style={{ width: '100%', maxWidth: '400px' }}
           >
             {queryLoading ? '查詢中...' : '查詢配息資料'}

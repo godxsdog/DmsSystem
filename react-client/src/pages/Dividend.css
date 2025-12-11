@@ -283,11 +283,15 @@
   color: #0056b3;
 }
 
-.btn-execute {
-  border: 2px solid #0056b3 !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  transition: all 0.2s;
-  font-weight: bold;
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  max-width: 400px;
+  margin-top: 2rem; /* Increased margin */
+}
+
+.btn-block-spacing {
+  margin-top: 1.5rem;
 }
 
 .btn-execute:active {
