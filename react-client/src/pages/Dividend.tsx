@@ -393,6 +393,17 @@ export function Dividend() {
     }
   };
 
+  const handleRowClick = (e: React.MouseEvent<HTMLTableRowElement>, key: string) => {
+    // 如果點擊的是 checkbox 本身，則不處理 (因為 checkbox 的 onChange 會處理)
+    if ((e.target as HTMLElement).tagName === 'INPUT') {
+      return;
+    }
+    
+    // 切換狀態
+    const isSelected = selectedDividends.has(key);
+    handleCheckboxChange(key, !isSelected);
+  };
+
   // 5A3: 批量上傳 EC
   const handleBatchUploadEc = async () => {
     if (selectedDividends.size === 0) {
@@ -909,7 +920,7 @@ export function Dividend() {
                 )}
 
                 <div style={{ overflowX: 'auto' }}>
-                  <table className="dividend-table">
+                  <table className="dividend-table selectable">
                     <thead>
                       <tr>
                         <th style={{ width: '40px', textAlign: 'center' }}>
@@ -932,12 +943,13 @@ export function Dividend() {
                     <tbody>
                       {compDividends.map((div, index) => {
                         const key = `${div.fundNo}_${div.dividendDate}_${div.dividendType}`;
+                        const isSelected = selectedDividends.has(key);
                         return (
-                          <tr key={index}>
+                          <tr key={index} onClick={(e) => handleRowClick(e, key)} className={isSelected ? 'selected' : ''}>
                             <td style={{ textAlign: 'center' }}>
                               <input 
                                 type="checkbox" 
-                                checked={selectedDividends.has(key)}
+                                checked={isSelected}
                                 onChange={(e) => handleCheckboxChange(key, e.target.checked)}
                               />
                             </td>
