@@ -208,4 +208,10 @@ public partial class FundDiv
     public string? StatusC { get; set; }
     public string? UpdUser { get; set; }
     public DateTime? UpdDate { get; set; }
+
+    /// <summary>
+    /// 基金名稱 (非資料庫欄位，僅供顯示)
+    /// </summary>
+    [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+    public string? FundName { get; set; }
 }

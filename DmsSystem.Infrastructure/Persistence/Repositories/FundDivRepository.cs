@@ -48,32 +48,41 @@ public class FundDivRepository : IFundDivRepository
 
     public async Task<IEnumerable<FundDiv>> GetAllAsync(string? fundNo = null, string? dividendType = null, DateTime? startDate = null, DateTime? endDate = null)
     {
-        var query = _context.Set<FundDiv>().AsQueryable();
+        var query = from fd in _context.Set<FundDiv>()
+                    join f in _context.Set<Fund>() on fd.FundNo equals f.FundNo into fundGroup
+                    from f in fundGroup.DefaultIfEmpty()
+                    select new { fd, FundName = f != null ? f.FundName : null };
 
         if (!string.IsNullOrEmpty(fundNo))
         {
-            query = query.Where(f => f.FundNo == fundNo);
+            query = query.Where(x => x.fd.FundNo == fundNo);
         }
 
         if (!string.IsNullOrEmpty(dividendType))
         {
-            query = query.Where(f => f.DividendType == dividendType);
+            query = query.Where(x => x.fd.DividendType == dividendType);
         }
 
         if (startDate.HasValue)
         {
-            query = query.Where(f => f.DividendDate >= startDate.Value);
+            query = query.Where(x => x.fd.DividendDate >= startDate.Value);
         }
 
         if (endDate.HasValue)
         {
-            query = query.Where(f => f.DividendDate <= endDate.Value);
+            query = query.Where(x => x.fd.DividendDate <= endDate.Value);
         }
 
-        return await query
-            .OrderByDescending(f => f.DividendDate)
-            .ThenBy(f => f.FundNo)
+        var result = await query
+            .OrderByDescending(x => x.fd.DividendDate)
+            .ThenBy(x => x.fd.FundNo)
             .ToListAsync();
+
+        return result.Select(x => 
+        {
+            x.fd.FundName = x.FundName;
+            return x.fd;
+        });
     }
 
     public async Task SaveChangesAsync()

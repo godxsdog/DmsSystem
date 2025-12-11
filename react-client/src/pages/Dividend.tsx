@@ -37,6 +37,7 @@ interface BatchConfirmResult {
 
 interface FundDiv {
   fundNo: string;
+  fundName?: string; // 新增基金名稱
   dividendYear: number | null;
   dividendDate: string;
   dividendType: string;
@@ -1020,11 +1021,12 @@ export function Dividend() {
                           {/* 移除全選 Checkbox */}
                         </th>
                         <th onClick={() => requestCompSort('fundNo')} className={getSortClass('fundNo', compSortConfig)}>基金代號</th>
+                        <th onClick={() => requestCompSort('fundName')} className={getSortClass('fundName', compSortConfig)}>基金名稱</th>
                         <th onClick={() => requestCompSort('dividendDate')} className={getSortClass('dividendDate', compSortConfig)}>配息基準日</th>
                         <th onClick={() => requestCompSort('dividendType')} className={getSortClass('dividendType', compSortConfig)}>配息頻率</th>
                         <th onClick={() => requestCompSort('divRate')} className={`text-right ${getSortClass('divRate', compSortConfig)}`}>配息率</th>
-                        <th onClick={() => requestCompSort('capitalRate')} className={`text-right ${getSortClass('capitalRate', compSortConfig)}`}>本金比率</th>
                         <th onClick={() => requestCompSort('interestRate')} className={`text-right ${getSortClass('interestRate', compSortConfig)}`}>收益比率</th>
+                        <th onClick={() => requestCompSort('capitalRate')} className={`text-right ${getSortClass('capitalRate', compSortConfig)}`}>本金比率</th>
                         <th onClick={() => requestCompSort('status')} className={`text-center ${getSortClass('status', compSortConfig)}`}>配息狀態</th>
                         <th onClick={() => requestCompSort('statusC')} className={`text-center ${getSortClass('statusC', compSortConfig)}`}>組成狀態</th>
                       </tr>
@@ -1043,16 +1045,17 @@ export function Dividend() {
                               />
                             </td>
                             <td>{div.fundNo}</td>
+                            <td>{div.fundName || '-'}</td>
                             <td>{new Date(div.dividendDate).toLocaleDateString('zh-TW')}</td>
                             <td>{div.dividendType}</td>
                             <td className="text-right numeric">
                               {div.divRate?.toLocaleString('zh-TW', { minimumFractionDigits: 6, maximumFractionDigits: 6 }) || '-'}
                             </td>
                             <td className="text-right numeric">
-                              {div.capitalRate !== undefined ? (div.capitalRate * 100).toFixed(2) + '%' : '-'}
+                              {div.interestRate !== undefined ? (div.interestRate * 100).toFixed(2) + '%' : '-'}
                             </td>
                             <td className="text-right numeric">
-                              {div.interestRate !== undefined ? (div.interestRate * 100).toFixed(2) + '%' : '-'}
+                              {div.capitalRate !== undefined ? (div.capitalRate * 100).toFixed(2) + '%' : '-'}
                             </td>
                             <td className="text-center">
                               {div.status === 'O' ? <span style={{color:'green'}}>已上傳</span> : <span style={{color:'orange'}}>未上傳</span>}
