@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
+const API_BASE_URL = localStorage.getItem('apiBaseUrl') || import.meta.env.VITE_API_BASE_URL || 'http://localhost:5137';
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -11,6 +11,15 @@ export class ApiClient {
 
   constructor(baseUrl: string = API_BASE_URL) {
     this.baseUrl = baseUrl;
+  }
+
+  setBaseUrl(url: string) {
+    this.baseUrl = url;
+    localStorage.setItem('apiBaseUrl', url);
+  }
+
+  getBaseUrl() {
+    return this.baseUrl;
   }
 
   async request<T>(
@@ -72,4 +81,3 @@ export class ApiClient {
 }
 
 export const apiClient = new ApiClient();
-
