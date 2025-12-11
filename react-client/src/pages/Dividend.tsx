@@ -37,10 +37,15 @@ interface FundDiv {
   unit: number | null;
   divTot: number | null;
   divRate: number | null;
+  // 5A3 新增欄位
+  interestRate?: number;
+  capitalRate?: number;
+  status?: string; // 單位配息狀態
+  statusC?: string; // 配息組成狀態
 }
 
 export function Dividend() {
-  const [activeTab, setActiveTab] = useState<'execute' | 'query'>('execute');
+  const [activeTab, setActiveTab] = useState<'execute' | 'query' | 'composition'>('execute');
 
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -64,6 +69,14 @@ export function Dividend() {
   const [loadingDividends, setLoadingDividends] = useState(false);
   const [queryError, setQueryError] = useState<string | null>(null);
 
+  // 5A3 配息組成與上傳 EC
+  const [compositionFile, setCompositionFile] = useState<File | null>(null);
+  const [compositionImportResult, setCompositionImportResult] = useState<DividendImportResult | null>(null);
+  const compositionFileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedDividends, setSelectedDividends] = useState<Set<string>>(new Set()); // 存儲選中的 key (fundNo_date_type)
+  const [uploadingToEc, setUploadingToEc] = useState(false);
+  const [ecUploadResult, setEcUploadResult] = useState<{success: number, failed: number, errors: string[]} | null>(null);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
@@ -71,8 +84,19 @@ export function Dividend() {
     }
   };
 
+  const handleCompositionFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setCompositionFile(e.target.files[0]);
+      setCompositionImportResult(null);
+    }
+  };
+
   const triggerFileSelect = () => {
     fileInputRef.current?.click();
+  };
+
+  const triggerCompositionFileSelect = () => {
+    compositionFileInputRef.current?.click();
   };
 
   const handleImport = async () => {
@@ -168,6 +192,43 @@ export function Dividend() {
     }
   };
 
+  const handleCompositionImport = async () => {
+    if (!compositionFile) {
+      alert('請選擇檔案');
+      return;
+    }
+
+    setUploading(true);
+    setCompositionImportResult(null);
+
+    const apiUrl = `${apiClient.getBaseUrl()}/api/Dividends/composition/import`;
+
+    try {
+      const formData = new FormData();
+      formData.append('file', compositionFile);
+
+      const response = await fetch(apiUrl, { method: 'POST', body: formData });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || '匯入失敗');
+      }
+
+      setCompositionImportResult(data as DividendImportResult);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : '匯入失敗';
+      setCompositionImportResult({
+        success: false,
+        inserted: 0,
+        updated: 0,
+        failed: 1,
+        errors: [errorMessage],
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleConfirm = async () => {
     if (!fundNo || !dividendDate) {
       alert('請填寫基金代號和配息基準日');
@@ -246,6 +307,7 @@ export function Dividend() {
   const handleQueryDividends = async () => {
     setLoadingDividends(true);
     setQueryError(null);
+    setSelectedDividends(new Set()); // 清除選取
 
     try {
       const params = new URLSearchParams();
@@ -273,6 +335,78 @@ export function Dividend() {
     }
   };
 
+  // 5A3: 處理勾選
+  const handleCheckboxChange = (key: string, checked: boolean) => {
+    const newSelected = new Set(selectedDividends);
+    if (checked) {
+      newSelected.add(key);
+    } else {
+      newSelected.delete(key);
+    }
+    setSelectedDividends(newSelected);
+  };
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      const allKeys = dividends.map(d => `${d.fundNo}_${d.dividendDate}_${d.dividendType}`);
+      setSelectedDividends(new Set(allKeys));
+    } else {
+      setSelectedDividends(new Set());
+    }
+  };
+
+  // 5A3: 批量上傳 EC
+  const handleBatchUploadEc = async () => {
+    if (selectedDividends.size === 0) {
+      alert('請先勾選要上傳的項目');
+      return;
+    }
+
+    if (!confirm(`確定要上傳 ${selectedDividends.size} 筆資料至 EC 官網嗎？`)) {
+      return;
+    }
+
+    setUploadingToEc(true);
+    setEcUploadResult(null);
+
+    let success = 0;
+    let failed = 0;
+    const errors: string[] = [];
+
+    // 由於後端只有單筆 API，前端使用迴圈處理
+    // TODO: 未來建議後端提供批量 API
+    for (const key of selectedDividends) {
+      const [fNo, dDate, dType] = key.split('_'); // fundNo_dividendDate_dividendType
+      
+      // 解析日期字串 (yyyy-MM-ddThh:mm:ss -> yyyy-MM-dd)
+      const dateOnly = dDate.split('T')[0];
+
+      try {
+        const response = await fetch(
+          `${apiClient.getBaseUrl()}/api/Dividends/${fNo}/${dateOnly}/${dType}/upload-ec`,
+          { method: 'POST' }
+        );
+
+        if (response.ok) {
+          success++;
+        } else {
+          failed++;
+          const err = await response.json();
+          errors.push(`${fNo}: ${err.error || err.message || '上傳失敗'}`);
+        }
+      } catch (error) {
+        failed++;
+        errors.push(`${fNo}: ${error instanceof Error ? error.message : '網路錯誤'}`);
+      }
+    }
+
+    setEcUploadResult({ success, failed, errors });
+    setUploadingToEc(false);
+    
+    // 重新查詢以更新狀態
+    handleQueryDividends();
+  };
+
   return (
     <div className="dividend-container">
       <h2>配息管理</h2>
@@ -289,6 +423,12 @@ export function Dividend() {
           onClick={() => setActiveTab('query')}
         >
           查詢
+        </button>
+        <button 
+          className={`tab-btn ${activeTab === 'composition' ? 'active' : ''}`}
+          onClick={() => setActiveTab('composition')}
+        >
+          上傳 EC 官網
         </button>
       </div>
 
@@ -611,6 +751,186 @@ export function Dividend() {
             </div>
           )}
         </section>
+      )}
+
+      {activeTab === 'composition' && (
+        <>
+          <section className="dividend-section">
+            <h3>1. 匯入配息組成檔案 (CSV)</h3>
+            <div className="form-group">
+              <label style={{marginBottom: '10px'}}>選擇 CSV 檔案（包含收益分配比率與本金分配比率）：</label>
+              
+              <div className="file-input-wrapper" style={{ marginBottom: '15px' }}>
+                <input
+                  type="file"
+                  accept=".csv"
+                  onChange={handleCompositionFileChange}
+                  disabled={uploading}
+                  ref={compositionFileInputRef}
+                />
+                <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  onClick={triggerCompositionFileSelect}
+                  disabled={uploading}
+                >
+                  {uploading ? '處理中...' : '選擇檔案'}
+                </button>
+                <span className="file-name">
+                  {compositionFile ? compositionFile.name : '未選擇任何檔案'}
+                </span>
+              </div>
+              
+              <button 
+                onClick={handleCompositionImport} 
+                disabled={!compositionFile || uploading}
+                className="btn btn-primary"
+                style={{ width: '100%', maxWidth: '400px' }}
+              >
+                {uploading ? '匯入中...' : '匯入組成檔案'}
+              </button>
+            </div>
+
+            {compositionImportResult && (
+              <div className={`result-box ${compositionImportResult.success ? 'success' : 'error'}`}>
+                <h4>匯入結果</h4>
+                <p><strong>新增/更新：</strong>{compositionImportResult.updated} 筆</p>
+                <p><strong>失敗：</strong>{compositionImportResult.failed} 筆</p>
+                {compositionImportResult.errors.length > 0 && (
+                  <div className="errors" style={{ marginTop: '10px' }}>
+                    <strong>錯誤訊息：</strong>
+                    <ul>
+                      {compositionImportResult.errors.map((error, index) => (
+                        <li key={index}>{error}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </section>
+
+          <section className="dividend-section">
+            <h3>2. 上傳 EC 官網</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '15px' }}>
+              <div className="form-group">
+                <label>基金代號：</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={queryFundNo}
+                  onChange={(e) => setQueryFundNo(e.target.value)}
+                  placeholder="例如：D109"
+                  maxLength={20}
+                />
+              </div>
+              <div className="form-group">
+                <label>配息基準日：</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  value={queryStartDate}
+                  onChange={(e) => setQueryStartDate(e.target.value)}
+                  max="9999-12-31"
+                />
+              </div>
+              <div className="form-group" style={{ display: 'flex', alignItems: 'flex-end' }}>
+                <button 
+                  onClick={handleQueryDividends} 
+                  disabled={loadingDividends}
+                  className="btn btn-primary"
+                  style={{ width: '100%' }}
+                >
+                  {loadingDividends ? '查詢中...' : '查詢配息資料'}
+                </button>
+              </div>
+            </div>
+
+            {dividends.length > 0 && (
+              <div className="result-box success">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                  <h4>查詢結果（共 {dividends.length} 筆）</h4>
+                  <button 
+                    onClick={handleBatchUploadEc} 
+                    disabled={uploadingToEc || selectedDividends.size === 0}
+                    className="btn btn-success"
+                  >
+                    {uploadingToEc ? '上傳中...' : `上傳選取項目至 EC (${selectedDividends.size})`}
+                  </button>
+                </div>
+
+                {ecUploadResult && (
+                  <div className={`message ${ecUploadResult.failed === 0 ? 'success' : 'error'}`} style={{ marginBottom: '15px' }}>
+                    <p>上傳結果：成功 {ecUploadResult.success} 筆，失敗 {ecUploadResult.failed} 筆</p>
+                    {ecUploadResult.errors.length > 0 && (
+                      <ul>
+                        {ecUploadResult.errors.map((e, i) => <li key={i}>{e}</li>)}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
+                <div style={{ overflowX: 'auto' }}>
+                  <table className="dividend-table">
+                    <thead>
+                      <tr>
+                        <th style={{ width: '40px', textAlign: 'center' }}>
+                          <input 
+                            type="checkbox" 
+                            onChange={(e) => handleSelectAll(e.target.checked)}
+                            checked={dividends.length > 0 && selectedDividends.size === dividends.length}
+                          />
+                        </th>
+                        <th>基金代號</th>
+                        <th>配息基準日</th>
+                        <th>配息頻率</th>
+                        <th className="text-right">配息率</th>
+                        <th className="text-right">本金比率</th>
+                        <th className="text-right">收益比率</th>
+                        <th className="text-center">配息狀態</th>
+                        <th className="text-center">組成狀態</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dividends.map((div, index) => {
+                        const key = `${div.fundNo}_${div.dividendDate}_${div.dividendType}`;
+                        return (
+                          <tr key={index}>
+                            <td style={{ textAlign: 'center' }}>
+                              <input 
+                                type="checkbox" 
+                                checked={selectedDividends.has(key)}
+                                onChange={(e) => handleCheckboxChange(key, e.target.checked)}
+                              />
+                            </td>
+                            <td>{div.fundNo}</td>
+                            <td>{new Date(div.dividendDate).toLocaleDateString('zh-TW')}</td>
+                            <td>{div.dividendType}</td>
+                            <td className="text-right">
+                              {div.divRate?.toLocaleString('zh-TW', { minimumFractionDigits: 6, maximumFractionDigits: 6 }) || '-'}
+                            </td>
+                            <td className="text-right">
+                              {div.capitalRate !== undefined ? (div.capitalRate * 100).toFixed(2) + '%' : '-'}
+                            </td>
+                            <td className="text-right">
+                              {div.interestRate !== undefined ? (div.interestRate * 100).toFixed(2) + '%' : '-'}
+                            </td>
+                            <td className="text-center">
+                              {div.status === 'O' ? <span style={{color:'green'}}>已上傳</span> : <span style={{color:'orange'}}>未上傳</span>}
+                            </td>
+                            <td className="text-center">
+                              {div.statusC === 'O' ? <span style={{color:'green'}}>已上傳</span> : <span style={{color:'orange'}}>未上傳</span>}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </section>
+        </>
       )}
     </div>
   );
