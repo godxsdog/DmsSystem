@@ -5,7 +5,14 @@ public record DividendImportResult(
     int Inserted,
     int Updated,
     int Failed,
-    List<string> Errors);
+    List<string> Errors,
+    List<ImportedRecordKey>? ImportedKeys = null);
+
+public record ImportedRecordKey(
+    string FundNo,
+    DateTime DividendDate,
+    string DividendType);
+
 
 public record DividendConfirmResult(
     bool Success,

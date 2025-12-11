@@ -35,6 +35,7 @@ public class DividendService : IDividendService
         var updated = 0;
         var failed = 0;
         var errors = new List<string>();
+        var importedKeys = new List<ImportedRecordKey>();
 
         await using var connection = _connectionFactory.GetConnection();
         if (connection.State != ConnectionState.Open)
@@ -100,6 +101,8 @@ public class DividendService : IDividendService
                 {
                     inserted++;
                 }
+
+                importedKeys.Add(new ImportedRecordKey(record.FundNo, record.DividendDate, record.DividendType));
             }
             catch (Exception ex)
             {
@@ -110,7 +113,7 @@ public class DividendService : IDividendService
         }
 
         var success = failed == 0;
-        return new DividendImportResult(success, inserted, updated, failed, errors);
+        return new DividendImportResult(success, inserted, updated, failed, errors, importedKeys);
     }
 
     public async Task<DividendConfirmResult> ConfirmAsync(string fundNo, DateOnly dividendDate, string dividendType)
@@ -469,6 +472,7 @@ public class DividendService : IDividendService
         var updated = 0;
         var failed = 0;
         var errors = new List<string>();
+        var importedKeys = new List<ImportedRecordKey>();
 
         await using var connection = _connectionFactory.GetConnection();
         if (connection.State != ConnectionState.Open)
@@ -542,6 +546,7 @@ public class DividendService : IDividendService
                 if (rowsAffected > 0)
                 {
                     updated++;
+                    importedKeys.Add(new ImportedRecordKey(record.FundNo, dividendDate, record.DividendType));
                 }
                 else
                 {
@@ -558,7 +563,7 @@ public class DividendService : IDividendService
         }
 
         var success = failed == 0;
-        return new DividendImportResult(success, 0, updated, failed, errors);
+        return new DividendImportResult(success, 0, updated, failed, errors, importedKeys);
     }
 
     private decimal ParseRate(string? rateStr)

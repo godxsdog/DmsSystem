@@ -2,12 +2,19 @@ import { useState, useRef, useMemo } from 'react';
 import { apiClient } from '../api/client';
 import './Dividend.css';
 
+interface ImportedRecordKey {
+  fundNo: string;
+  dividendDate: string;
+  dividendType: string;
+}
+
 interface DividendImportResult {
   success: boolean;
   inserted: number;
   updated: number;
   failed: number;
   errors: string[];
+  importedKeys?: ImportedRecordKey[];
 }
 
 interface DividendConfirmResult {
@@ -395,10 +402,12 @@ export function Dividend() {
   };
 
   // 組成查詢 (Tab 3)
-  const handleCompQuery = async () => {
+  const handleCompQuery = async (filterByImport: boolean | any = false) => {
     setCompLoading(true);
     setCompError(null);
     setSelectedDividends(new Set()); // 清除選取
+
+    const isFilter = typeof filterByImport === 'boolean' && filterByImport;
 
     try {
       const params = new URLSearchParams();
@@ -414,7 +423,24 @@ export function Dividend() {
       }
 
       const result = await response.json();
-      setCompDividends(result.data || []);
+      let data = result.data || [];
+
+      if (isFilter && compositionImportResult?.importedKeys) {
+        const keySet = new Set(
+          compositionImportResult.importedKeys.map(k => {
+             // Handle potential date format differences (e.g. T00:00:00)
+             const dateStr = k.dividendDate.includes('T') ? k.dividendDate.split('T')[0] : k.dividendDate;
+             return `${k.fundNo}_${dateStr}_${k.dividendType}`;
+          })
+        );
+        
+        data = data.filter((d: FundDiv) => {
+          const dateStr = d.dividendDate.includes('T') ? d.dividendDate.split('T')[0] : d.dividendDate;
+          return keySet.has(`${d.fundNo}_${dateStr}_${d.dividendType}`);
+        });
+      }
+
+      setCompDividends(data);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : '查詢失敗';
       setCompError(errorMessage);
@@ -422,6 +448,24 @@ export function Dividend() {
     } finally {
       setCompLoading(false);
     }
+  };
+
+  const handleQueryImported = async () => {
+    if (!compositionImportResult?.importedKeys || compositionImportResult.importedKeys.length === 0) {
+      alert('無匯入資料可查詢，或匯入結果未包含詳細資訊');
+      return;
+    }
+
+    // Attempt to set startDate from imported data to help the query
+    const dates = compositionImportResult.importedKeys.map(k => k.dividendDate.split('T')[0]);
+    if (dates.length > 0) {
+      setCompStartDate(dates[0]);
+    }
+    // Clear fundNo to ensure we don't filter out imported items from other funds
+    setCompFundNo('');
+
+    // Trigger query with filter
+    await handleCompQuery(true);
   };
 
   // 5A3: 處理勾選
@@ -917,15 +961,26 @@ export function Dividend() {
                   max="9999-12-31"
                 />
               </div>
-              <div className="form-group" style={{ display: 'flex', alignItems: 'flex-end' }}>
+              <div className="form-group" style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', flexWrap: 'wrap' }}>
                 <button 
-                  onClick={handleCompQuery} 
+                  onClick={() => handleCompQuery(false)} 
                   disabled={compLoading}
                   className="btn btn-primary"
-                  style={{ width: '100%' }}
+                  style={{ flex: 1, minWidth: '120px' }}
                 >
                   {compLoading ? '查詢中...' : '查詢配息資料'}
                 </button>
+                {compositionImportResult?.importedKeys && (
+                  <button 
+                    onClick={handleQueryImported}
+                    disabled={compLoading}
+                    className="btn btn-secondary"
+                    style={{ flex: 1, minWidth: '120px', backgroundColor: '#17a2b8', borderColor: '#17a2b8' }}
+                    title="查詢並顯示剛剛匯入的資料項目"
+                  >
+                    查詢匯入資料
+                  </button>
+                )}
               </div>
             </div>
 
