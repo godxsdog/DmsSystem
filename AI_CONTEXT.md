@@ -3,6 +3,7 @@
 > 📋 **最高指導原則**：此文件包含專案的所有核心資訊，每次更新專案時都應同步更新此文件。
 程式有修正都要git push一次 且comment都要寫
 路徑是/Users/kaichanghuang/Documents/Phoenix Code/DmsSystem
+幫我修正後中文comment and push
 ---
 
 ## 🎯 專案概況
