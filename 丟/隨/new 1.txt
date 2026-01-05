@@ -1,0 +1,445 @@
+Timestamp: 2026-01-05 10:24:31.921
+
+Message: 追蹤代號:f3764f15-3070-452a-8853-fdd1584bd5e0,執行方法EC_Login,所傳入參數為:{"ID":"A223190528","Pwd":"bSTnqvrroZCgJffX4cz+NTzH7ANSM+1Rjy4ljCn9Y5WKMdMZTTBWZwoS8JOvLjKk8qYa9XyUa1+5f6z8YIrDf3g64+Jg2AZRLazku9k3OLtNIu8FT73eqo7Xi+3Gyp7nbvqKsbpjmxRthPFzCreixY87Jd52pJfEOZu6tytKyak=","USER_ALIAS":"EcqX0fueaAX2Hb32VX4Mib/Fb7cOuNBiYS6MjnRHldKbLJWaBDuttUvkWYJeJ1cOjJsaH1ulTEv1fb2gSHVNdQv4jQZaE+q6VKXMD9Y3lbEIkUivoM67xQeBZd0PpG3Cnd3P2zkTAf/aY2OXfqlznArj4hgzZvKKo7QqYPi5iIo=","IP_ADR":"10.137.80.63","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T10:24:15.4037312+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:24:31.8585549+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:27:07.211
+
+Message: 追蹤代號:e634bc55-64f9-45fd-b160-7effded11fd8,執行方法SendMobileMsg,所傳入參數為:{"ID_NO":"A177662377","MOBILE":"0911123456","SEND_TYPE":"1","BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":"","HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:26:51.1166067+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:27:06.2116161+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:32:47.654
+
+Message: 追蹤代號:967efac5-883d-4597-adb9-8a99c0b29c29,執行方法GetMobileMsgPwd,所傳入參數為:{"MOBILE":"0911123456","BaseData":{"LangCode":"en-US","UserCode":"Hugo","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"4f2091e0-9d2f-41d6-a53d-687bf7ad9f21","SessionId":"c9701d6f-2653-4ec2-a598-3e44c2181e65","HostName":"127.0.0.1","WebIP":null,"FunctionCode":null,"LocalTime":"2026-01-05T10:32:27.5887519+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":null,"TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:32:42.8730749+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:33:07.812
+
+Message: 追蹤代號:af5e2822-148f-4882-badb-a05f4e34c57c,執行方法OpenAccLogin,所傳入參數為:{"ID_NO":"A177662377","NAME":"台北人","MOBILE":"0911123456","MOBILE_PWD":"752618","DEVICE_TYPE":"2","BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":"","HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:32:49.6051919+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:33:04.6247731+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:36:43.182
+
+Message: 追蹤代號:e7704d5d-78c6-4b55-8265-0af80e897aaa,執行方法SaveOpenAccTempData,所傳入參數為:{"ID_NO":"A177662377","OPEN_TYPE":"1","IS_UPLOAD_PAPERWORK":"N","STEP_ID":"01_1","NEXT_STEP_ID":"02_1","OpenLoginInfo":{"NAME":"台北人","MOBILE_COUNTRY":"TWN","MOBILE":"0911123456"},"CusInfo":null,"CusTaxInfo":null,"CusAccounts":null,"CusKycInfo":null,"UploadFiles":null,"BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:36:25.2254758+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:36:40.2599902+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:36:43.182
+
+Message: 追蹤代號:72a7553f-6162-4ac2-95dd-32993933e03f,執行方法GetCountryData,所傳入參數為:{"BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:36:41.085278+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:36:41.1037815+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:36:43.182
+
+Message: 追蹤代號:cac39cda-13c0-4ded-93d3-730a0b6731c3,執行方法GetAddrData,所傳入參數為:{"BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:36:41.085278+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:36:41.1193944+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:36:43.182
+
+Message: 追蹤代號:6b870742-7712-441e-94c6-b42dc2c80c0a,執行方法GetOpenAccTempData,所傳入參數為:{"ID_NO":"A177662377","BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:36:42.1478253+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:36:42.1663211+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:40:53.554
+
+Message: 追蹤代號:069f4d65-eafe-4bef-8550-0dc1f72ce1df,執行方法SaveOpenAccTempData,所傳入參數為:{"ID_NO":"A177662377","OPEN_TYPE":"1","IS_UPLOAD_PAPERWORK":"N","STEP_ID":"02_1","NEXT_STEP_ID":"02_2","OpenLoginInfo":null,"CusInfo":{"FIRST_NAME":"SFDSF","MIDDLE_NAME":"","LAST_NAME":"SDFSDF","BIRTH_DATE":"1931-03-04T00:00:00Z","NATIONALITY":"TW","BIRTH_COUNTRY":"TWN","TEL_H_COUNTRY":null,"TEL_H_AREA":"","TEL_H_NO":"","TEL_H_EXT":"","TEL_O_COUNTRY":null,"TEL_O_AREA":"","TEL_O_NO":"","TEL_O_EXT":"","FAX_COUNTRY":null,"FAX_AREA":"","FAX_NO":"","FAX_EXT":"","EMAIL":"godx213g123123123123@gmail.com","CONTACT_ADDRESS_COUNTRY":"TWN","POST_CODE":"208","CONTACT_ADDRESS":"11號","REG_ADDRESS_COUNTRY":"TWN","REG_POST_CODE":"208","REG_ADDRESS":"11號","IS_SAME_PERM_ADDR":"Y","CURRENT_ADDRESS_COUNTRY":"TWN","CURRENT_POST_CODE":"208","CURRENT_ADDRESS":"11號","IS_SAME_CURRENT_REG":"Y","IS_SAME_CURRENT_PERM":"N","REP_NATIONALITY_CODE":null,"REPRESENTATIVE":null,"REPRESENTATIVE_ID":null,"REP_NATIONALITY_CODE1":null,"REPRESENTATIVE1":null,"REPRESENTATIVE1_ID":null,"EDM_ACCEPTED":"Y","NAV_EPAPER":"N","SPONSOR_ID":null,"CONTACT_CITY":"新北市","CONTACT_AREA":"金山區","REG_CITY":"新北市","REG_AREA":"金山區","CURRENT_CITY":"新北市","CURRENT_AREA":"金山區"},"CusTaxInfo":null,"CusAccounts":null,"CusKycInfo":null,"UploadFiles":null,"BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:40:37.8895128+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:40:52.9297548+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:40:58.664
+
+Message: 追蹤代號:8a68d159-c2ad-456a-a8ef-10c70429c0b1,執行方法GetCountryData,所傳入參數為:{"BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:40:53.7024335+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:40:53.7110417+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:40:58.664
+
+Message: 追蹤代號:c8b6b111-26c9-448b-a572-76d98ae04b92,執行方法GetOpenAccTempData,所傳入參數為:{"ID_NO":"A177662377","BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:40:53.7024335+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:40:53.7110417+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 10:40:58.664
+
+Message: 追蹤代號:28d741ae-d24f-436b-bd06-ba3fbdc92f50,執行方法GetTaxationType,所傳入參數為:{"BaseData":{"LangCode":null,"UserCode":"A177662377","BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":"836a0844-dd8a-4336-aeb4-1cccf003fe61","SessionId":null,"HostName":"10.137.80.63","WebIP":"10.137.66.164","FunctionCode":null,"LocalTime":"2026-01-05T10:40:53.7024335+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T10:40:53.7266595+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:43:59.665
+
+Message: 追蹤代號:0d1ca421-a463-4615-b893-d2d4f749c399,執行方法EC_Login,所傳入參數為:{"ID":"F225152110","Pwd":"cwy7Arzz99ZPlGJc/wIIHuoDTu/y1If91V51lyTEl8vSIDJGZn4Kedj+HRxqaJfmByjwXa/3mOuKFHDuy7w6rAvp4uBlmY3UFqyekfWU4uETEJUpQj4WDszwwXp8ld57ZUfLZQTM0aDx4/ilmM7qZsf9eHhE60ciRubGhUWMADQ=","USER_ALIAS":"M2/s2n9UKsvFx03ObKKinckOmYlDwr+ZCP2yGJExkZPjnif5NVWIuVCsAelqcPsOIlw8qnFSYZlVxHWpSxujT3nXMlPE1u9m++cn4yN4DN/WlQKcvYhEpxrJTJ/CkZYflPkMRr/NiBwfH13J63HUcQC8tP5JnZnBTwyiRmp/ZN0=","IP_ADR":"10.137.80.63","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:43:43.2854412+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:43:59.6186859+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:04.790
+
+Message: 追蹤代號:46a777f7-b04c-4461-b1fa-0da3526a279a,執行方法GetBFNotice,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:04.5045117+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:04.524964+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:04.790
+
+Message: 追蹤代號:90480df7-1502-411a-b343-7712300910e4,執行方法GetObservationFundList,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:04.520198+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:04.5405874+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:04.790
+
+Message: 追蹤代號:7b6bd95e-d908-49ab-b479-7acd3e9b5017,執行方法GetShoppingCarTmp,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:04.520198+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:04.5405874+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:04.790
+
+Message: 追蹤代號:b2a025aa-1c24-4c74-999b-86938a88132d,執行方法GetBFKYC,所傳入參數為:{"ACCOUNT_NO":177200,"TX_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:04.520198+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:04.5562118+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:09.900
+
+Message: 追蹤代號:4e98485c-1409-4b4c-ae71-40be44e7a747,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:04.5357768+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:05.0406647+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:09.900
+
+Message: 追蹤代號:c089bc5a-5db1-40a8-881a-c33e76197b48,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:09.0045773+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:09.0250475+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:15.025
+
+Message: 追蹤代號:2b47b8ec-f6f2-48b9-9567-828c09f9550f,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:11.1139703+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:11.1344562+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:15.025
+
+Message: 追蹤代號:9e48c952-ec0d-40e3-8eb4-4bbcad9da84e,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:13.3327627+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:13.3532195+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:20.134
+
+Message: 追蹤代號:0228d7fc-8247-446f-a6cc-e19a07955c32,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:15.2546696+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:15.2595097+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:20.134
+
+Message: 追蹤代號:9f4f68e7-9086-48e0-a638-41e3c389da39,執行方法GetFundList,所傳入參數為:{"IS_TRADE":"N","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:17.5046991+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:17.5251497+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:40.275
+
+Message: 追蹤代號:52181e5c-c0ed-4cc6-a04d-a29af39ddfbc,執行方法GetArea,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:24.3329408+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:39.3539171+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:40.275
+
+Message: 追蹤代號:4e94fe47-444b-49e4-99c4-2f5613eaf4a3,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:24.3954323+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:39.4163979+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:40.275
+
+Message: 追蹤代號:2e30838b-39f3-4371-8526-ed98d3cc0f77,執行方法GetObservationFundList,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:24.411058+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:39.43202+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:40.275
+
+Message: 追蹤代號:7099be72-0e2a-4a00-ac6a-0ca318ff4fc8,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:24.411058+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:39.43202+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:40.275
+
+Message: 追蹤代號:9dc2cede-2565-4020-a8d4-9eb12316579f,執行方法GetLossAndGainSetup,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:24.411058+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:39.4945137+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:40.275
+
+Message: 追蹤代號:f7f05c83-c58f-459e-800d-ea2f5ac573bb,執行方法GetInvestment,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:39.6302694+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:40.2445365+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:45.400
+
+Message: 追蹤代號:7cce2faf-92f1-4c3f-b7ea-ac200bc11f92,執行方法GetCurrency,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:40.5052868+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:40.5414135+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:45.400
+
+Message: 追蹤代號:1da44526-1eae-4e1d-8ada-9fa028ee0da5,執行方法GetFundRisk,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:40.6615324+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:40.6820378+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:45.400
+
+Message: 追蹤代號:ccbf9daa-f75b-449b-bd4f-fe6718b246ee,執行方法GetFundName,所傳入參數為:{"FUND_NAME":null,"IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:40.8021509+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:41.0570356+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:45.400
+
+Message: 追蹤代號:49f98fff-a9ca-4ea0-a508-fd12d203158e,執行方法GetFundHouseList,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:40.9271634+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:41.2445325+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:45.400
+
+Message: 追蹤代號:f7d5ba9d-6091-4645-9502-3c9f83b0dc51,執行方法GetShoppingCarTmp,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:41.2553587+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:41.3695423+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:45.400
+
+Message: 追蹤代號:c7c071e4-621f-467b-8b7c-ae310576759f,執行方法GetBFNotice,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:41.5521728+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:41.5726684+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 11:44:45.400
+
+Message: 追蹤代號:ccf14b88-6f69-4bbb-a2d5-27e81372089d,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":null,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T11:44:42.1928109+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T11:44:42.2133039+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:50.650
+
+Message: 追蹤代號:b3a1f120-5b1b-4e21-bdc9-088961722704,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:47.1996896+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:50.5882848+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:50.650
+
+Message: 追蹤代號:92f0068d-c059-4c79-ace2-5ee3c76e001e,執行方法GetLossAndGainSetup,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:47.1840445+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:50.5882848+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:50.650
+
+Message: 追蹤代號:d8074cdd-42d6-4394-9c08-9027b2e317ad,執行方法GetInvestment,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:47.1527406+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:50.5882848+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:50.650
+
+Message: 追蹤代號:8d667680-8420-4840-bdf6-9f7c19956ff7,執行方法GetArea,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:47.1371085+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:50.5882848+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:26c4a179-392d-4993-a4a9-f4097c6c7e09,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:47.1527406+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:51.338316+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:1246b3df-a4f7-418e-9696-ea6e8f45c13f,執行方法GetObservationFundList,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:47.1996896+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:51.9164461+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:37fc5375-4163-4528-b1c6-2fd06aa6b57f,執行方法GetFundName,所傳入參數為:{"FUND_NAME":null,"IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:52.0279168+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:52.1039399+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:1bf85c9d-a96d-4465-8d52-cea4170e813c,執行方法GetFundRisk,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:52.2154183+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:52.5258464+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:f12f615e-96cb-4f1c-ab4e-91a4ad110e31,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":null,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:52.715381+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:52.7289582+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:570b40c8-8db5-4e4b-baa2-0e0aef8a526a,執行方法GetCurrency,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:52.7935041+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:52.8070807+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:9afd23e8-5f00-49a8-9e90-a5dac11296f6,執行方法GetFundHouseList,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:53.0747551+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:53.088345+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:9e320637-6b8a-4ddb-bd95-e468e0626a03,執行方法GetShoppingCarTmp,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:53.0591275+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:53.088345+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:32fa97b3-54b1-4106-8de1-385f4d7c1340,執行方法GetBFNotice,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:53.1997689+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:53.2133437+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:4c3c1e32-0d68-4f1c-93e2-b6d67740e878,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:53.7778988+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:53.7914626+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:04:55.760
+
+Message: 追蹤代號:b5abd6c2-b63f-4468-afdb-95f56365eef6,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:55.4185586+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:55.4477421+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:05:00.869
+
+Message: 追蹤代號:f5e586e7-b372-4b41-80af-f3d0b9735471,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:04:57.6060904+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:04:57.6196354+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:d19d4bb4-b448-44ee-a4b3-b74cbc1c0624,執行方法GetBFNotice,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:01.4391348+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:01.4659755+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:1e992196-4299-4d62-9cdb-ef50aac06513,執行方法GetShoppingCarTmp,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:01.454774+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:01.4659755+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:66cb4eb9-62d2-49b7-ab05-ed8fb3b79394,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:01.7672694+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:01.7784594+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:d200d24a-9f07-4901-b8c5-2de65aa6bb4e,執行方法GetObservationFundList,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:01.7828938+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:01.8409742+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:6a7ca33f-9425-45ad-8584-630af9fcd341,執行方法GetBFKYC,所傳入參數為:{"ACCOUNT_NO":177200,"TX_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:01.7828938+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:01.981591+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:2cfcec3c-c6d0-494b-a426-49cba585e0ef,執行方法GetShoppingCarTmp,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:01.9860253+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:02.2315837+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:278e5f0a-554b-47e0-a6ac-008e3fa4f93b,執行方法GetBFNotice,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:02.1578821+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:02.3409588+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:c164ad8b-6be4-40f9-94cd-9fff82868e16,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:03.5955015+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:03.6065967+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:3ed07d0c-2ff2-42ff-969e-45dc1a9cd3e8,執行方法GetArea,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:03.6266887+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:03.6378314+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:ed776ab6-ed4c-4b09-99e3-b8c3893f943c,執行方法GetInvestment,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:03.6266887+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:03.6378314+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:3eb6176b-3c49-478d-823b-800ab80291ce,執行方法GetBFNotice,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:03.6423382+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:03.7316268+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:d0fd1b54-7006-48d8-9f4b-4e6283f42559,執行方法GetShoppingCarTmp,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:03.6423382+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:03.8409754+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:c7b007fe-f995-4300-a3bf-8bc5ff531c29,執行方法GetLossAndGainSetup,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:03.9079339+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.0129915+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:e640a8d5-d769-4361-9922-11b74798361e,執行方法GetCurrency,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.1423888+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.1534806+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:a7ae26e1-1b6f-464c-9dfe-990395bfca21,執行方法GetFundHouseList,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.1423888+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.247288+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:5af1482b-1ce9-4f44-9315-0d62f5edfda1,執行方法GetFundName,所傳入參數為:{"FUND_NAME":null,"IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.3610613+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.3722931+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:b3b0ebc6-8c5a-401a-87db-2a2a6d2c1ff2,執行方法GetFundRisk,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.3766871+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.3878588+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:a6bd3d99-e6c5-446c-9e64-d56495e4ec61,執行方法GetObservationFundList,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.4548298+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.4816676+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:d1b96c1d-7fdd-46e0-a07f-cb8880f30624,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.5173342+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.52849+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:e2739a1e-9c6a-41fa-8daa-caff67503048,執行方法GetFundList,所傳入參數為:{"IS_TRADE":"N","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.6736031+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:04.8722213+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:06.075
+
+Message: 追蹤代號:cfbda65d-18af-4014-b831-464e09200943,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":null,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:04.9235914+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:05.2316213+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:11.216
+
+Message: 追蹤代號:70e42a35-884b-4c24-a18c-2fa9acf572ad,執行方法GetArea,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:10.5487652+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:10.5597477+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:11.216
+
+Message: 追蹤代號:9c14b277-05b9-4a32-8978-e96ee41833f3,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:10.5799587+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:10.5909897+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:11.216
+
+Message: 追蹤代號:dae6c26c-3865-47f0-b075-33ebd257fc30,執行方法GetInvestment,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:10.5955849+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:10.6691224+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:11.216
+
+Message: 追蹤代號:f268cfbd-fe7d-4ef0-abd5-533f6e912310,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:10.6268356+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:10.9503719+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:f7ef58df-423e-40e2-bf51-9e25cfad49fa,執行方法GetObservationFundList,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:10.6268356+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:12.497258+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:9bf355a3-d6bb-4ba5-945e-f40cbc261d6c,執行方法GetLossAndGainSetup,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:10.6268356+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:12.6066246+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:46851f1a-3997-4c89-a2f8-85616311d72a,執行方法GetCurrency,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:10.7674635+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:13.4973119+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:5bc45617-20f8-4f76-b1df-b76a3cd1c2fc,執行方法GetFundName,所傳入參數為:{"FUND_NAME":null,"IS_TRADE":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:11.0643577+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:13.4973119+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:fc6d0a57-9210-4e4f-9d60-58ce3deb2a1e,執行方法GetFundRisk,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:13.0644072+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:13.8566471+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:b78173d3-25c2-4f7b-b45f-4856f558e353,執行方法GetFundfilter,所傳入參數為:{"AMC_NO":"ALL","INVESTMENT_TYPE":"ALL","FUND_NAME":"","AREA_TYPE":"ALL","CURRENCY_NO":"ALL","RISK_CATEGORY":"ALL","DIVIDEND_FREQ":"ALL","IS_TRADE":null,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:13.9237837+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:13.9347611+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:fcec06b9-2378-4849-911b-5a4b793368eb,執行方法GetFundHouseList,所傳入參數為:{"IS_ALL":"Y","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:13.9862806+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:13.9972857+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:2152cd47-bd6a-4cfd-ab47-5df17381fbf8,執行方法GetShoppingCarTmp,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:14.0019144+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:14.0128827+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:e315bdb7-5031-4814-ac72-5117ed4b5f87,執行方法GetBFNotice,所傳入參數為:{"ACCOUNT_NO":177200,"BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:14.0175437+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:14.1066478+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:22c5ecad-92a5-4308-b8c2-3658f2e0ec1b,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:14.0957382+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:14.1222653+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:16.325
+
+Message: 追蹤代號:68d2db92-4d80-4be0-aef9-813ea8a3767a,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:15.8144492+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:15.8097669+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
+Timestamp: 2026-01-05 12:07:21.434
+
+Message: 追蹤代號:554df5f1-1eb5-4a07-8ffe-83b852d76844,執行方法GetBMSData,所傳入參數為:{"ACCOUNT_NO":177200,"BAL_DATE":"2026-01-05T00:00:00+08:00","BaseData":{"LangCode":null,"UserCode":null,"BF_NO":0,"EC_NAME":null,"CompanyCode":null,"TokenId":null,"SessionId":null,"HostName":"10.137.66.164","WebIP":"10.137.80.63","FunctionCode":null,"LocalTime":"2026-01-05T12:07:17.8926416+08:00","AccountId":"SW","AccountKey":"70539165","ConnectionCode":null,"BrowserInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36","TraceId":null,"ServerTime":"0001-01-01T00:00:00","RequestTime":"2026-01-05T12:07:17.919168+08:00","ResponseTime":"0001-01-01T00:00:00"}}
+
+----------------------------------------
