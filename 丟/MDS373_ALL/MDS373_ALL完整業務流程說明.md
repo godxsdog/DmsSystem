@@ -99,7 +99,7 @@ MDS373 系統是**通路回饋管理系統**，主要用於管理與計算基金
   - 不可設定法人級別基金
 
 ##### 步驟4：費率級距設定（tabpage_4 - dw_rang）
-- **資料來源**：`MDS.CHANNEL_BONUS_DETAIL`
+- **資料來源**：`MDS.CHANNEL_BONUS_DETAIL`ㄕ
 - **關鍵欄位**：
   - `EFFECTIVE_DATE` - 生效日（可設定多個生效日，支援月中調整）
   - `LOW_AMOUNT` - 級距下限
