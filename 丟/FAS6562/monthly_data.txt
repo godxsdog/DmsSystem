@@ -1,0 +1,1562 @@
+string ls_path, ls_tx_month , ls_subta_no
+string ls_file01, ls_file02, ls_file03, ls_file04,ls_file05   //2016.03.28  新增MA境外轉入資料ls_file05  (Clamp Lin)  需求單：001997
+string ls_fund_no, ls_fund_master_no, ls_tmp_value, ls_isin_code, ls_crncy_cd, ls_bas_crncy, ls_global_currency
+date   ld_tx_date
+dec    ldec_g_shares, ldec_g_fum, ldec_shares, ldec_price, ldec_fum, ldec_holder_fum, ldec_exg_rate, ldec_bas_rate, ldec_shares_china
+dec    ldec_usd_rate, ldec_eur_rate
+dec    ldec_rate1, ldec_rate2, ldec_rate3, ldec_rate4, ldec_rate5
+integer li_file_num, ll_row, ll_black_count, ll_count, ll_usd_count, ll_crncy_count,ll_v_count,ll_black_count2
+OLEObject OLE_MyExcel
+
+ls_path=sle_path.text
+ls_tx_month=sle_month.text
+is_subta_no = Left(Trim(ddlb_subta_no.text),2)
+
+ld_tx_date=date(ls_tx_month)
+
+ls_file01='Eastspring_investments_'+string(ld_tx_date,'dd')+'-'+string(ld_tx_date,'mm')+'-'+string(ld_tx_date,'yyyy')+'.XLS'
+ls_file02=mid(trim(string(dec(string(ld_tx_date,'yyyy')) - 1911,'0000')),2,3)+string(ld_tx_date,'mmdd')+'Format#6'+'.XLS'
+ls_file03='SFB Report form_'+string(ld_tx_date,'mmm')+' '+string(ld_tx_date,'yyyy')+'.XLS'
+ls_file04='SFB Report '+string(ld_tx_date,'dd')+'.'+string(ld_tx_date,'mm')+'.'+mid(string(ld_tx_date,'yyyy'),3,2)+'.XLS'
+//ls_file05='MA_'+string(ld_tx_date,'dd')+string(ld_tx_date,'mm')+mid(string(ld_tx_date,'yyyy'),3,2)+'.XLS'                  //2016.03.28  新增MA境外轉入資料  (Clamp Lin)  需求單：001997
+
+// 初始化資料 
+ll_count=0
+
+SELECT count(*)  
+    INTO :ll_count  
+   FROM "FAS"."FUND_INVESTMENT"  
+ WHERE ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   
+ AND   "FAS"."FUND_INVESTMENT"."FUND_NO" NOT Like 'V%' ;     //2016.03.28  新增V基金另外判斷  (Clamp Lin)  需求單：001997
+ 
+//if ll_count>0 then
+//	if MessageBox("警告", String(ld_tx_date, "YYYY/MM/DD") + " 資料已轉入! 重新轉入會清除舊資料, 確定要重新執行轉入作業?", Exclamation!, YesNo!, 2) = 2 then	
+//		Rollback;
+//		Return
+//	else
+//		DELETE "FAS"."FUND_INVESTMENT"  
+// 		WHERE ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;		
+//		 
+//		 f_sql_code()
+//	end if	
+//end if
+
+
+if cb_del_data.checked=true then
+	DELETE FROM "FAS"."FUND_INVESTMENT"  WHERE "TX_DATE" =:ld_tx_date;
+	
+	if f_sql_code()<>0 then
+		f_error('初始化資料錯誤, 作業取消!')
+		Rollback;
+		return	
+	end if
+end if
+
+if ll_count=0 then 
+DECLARE	month_cur CURSOR FOR
+/*
+  SELECT "FAS"."FUND"."FUND_NO"
+	 FROM "FAS"."FUND"
+	WHERE (FAS.FUND.CLEAR_DATE >= :ld_tx_date OR FAS."FUND"."CLEAR_DATE" is null) AND
+			  ( FAS.FUND.elimination_date >= :ld_tx_date OR FAS.FUND.elimination_date IS NULL) AND 
+			  FAS."FUND"."FUND_CATEGORY" = '2' AND
+			  FAS."FUND"."OFFERING_TYPE" = '1'
+  ORDER BY FAS.FUND.ORDINAL ;
+  
+   SELECT "FAS"."FUND"."FUND_NO"
+	 FROM "FAS"."FUND"
+	WHERE ( FAS.FUND.elimination_date >= :ld_tx_date OR FAS.FUND.elimination_date IS NULL) AND 
+			  FAS."FUND"."FUND_CATEGORY" = '2' AND
+			  FAS."FUND"."OFFERING_TYPE" = '1'
+  ORDER BY FAS.FUND.ORDINAL ;
+  */
+  
+  SELECT FUND_NO 
+  FROM (
+	  SELECT FAS.FUND.FUND_NO, FAS.FUND.ORDINAL
+		 FROM FAS.FUND
+		WHERE (FAS.FUND.CLEAR_DATE >= :ld_tx_date OR FAS.FUND.CLEAR_DATE is null) AND
+			  ( FAS.FUND.elimination_date >=:ld_tx_date OR FAS.FUND.elimination_date IS NULL) AND 
+			  FAS.FUND.FUND_CATEGORY = '2' AND FAS.FUND.OFFERING_TYPE = '1' AND
+			  FAS.FUND.FUND_NO IN ('S111','S11')
+		 UNION ALL
+	  SELECT FAS.FUND.FUND_NO, FAS.FUND.ORDINAL
+		 FROM FAS.FUND
+		WHERE (FAS.FUND.CLEAR_DATE >= :ld_tx_date OR FAS.FUND.CLEAR_DATE is null) AND
+			  ( FAS.FUND.elimination_date >= :ld_tx_date OR FAS.FUND.elimination_date IS NULL) AND 
+			  FAS.FUND.FUND_CATEGORY = '2' AND FAS.FUND.OFFERING_TYPE = '1'
+	) ORDER BY ORDINAL ;
+
+OPEN month_cur;
+	
+FETCH month_cur INTO :ls_fund_no;
+	
+do while f_sql_code() = 0
+	  INSERT INTO "FAS"."FUND_INVESTMENT"  
+    			           ( "FUND_NO",   
+     				     "TX_DATE" )  
+ 		   VALUES ( :ls_fund_no,   
+    				         :ld_tx_date )  ;
+								 
+	if f_sql_code()<>0 then
+		f_error('初始化資料錯誤, 作業取消!')
+		CLOSE month_cur;
+		Rollback;
+		return	
+	end if
+	FETCH month_cur INTO :ls_fund_no;		
+loop
+CLOSE month_cur;		
+end if
+
+if cbx_1.checked=true then
+// File01 Eastspring_investments
+li_file_num = fileopen(ls_path+ls_file01,LineMode!,Read!,LockRead!,Replace!)
+
+if li_file_num= -1 then 
+	f_error('FILE01-'+ls_path+ls_file01+'-路徑錯誤, 或是檔案不存在!')
+	return
+else
+	fileclose(li_file_num)
+end if
+
+OLE_MyExcel = CREATE OLEObject
+OLE_MyExcel.ConnectToNewObject("excel.Application")
+OLE_MyExcel.visible=false
+
+ll_row=0
+ll_black_count=0
+ll_black_count2=0
+OLE_MyExcel.Workbooks.Open(ls_path+ls_file01)
+OLE_MyExcel.Worksheets('Sheet1').Activate	
+ll_row = 17
+do
+	ll_row++
+	// isin code
+	setnull(ls_tmp_value)
+	setnull(ls_fund_no)
+	setnull(ls_fund_master_no)
+	
+	//OLE_MyExcel.cells[ll_row,11].copy
+	//ls_tmp_value=Clipboard()
+	//ls_tmp_value=trim(ls_tmp_value)
+	
+	//ls_isin_code=ls_tmp_value
+	
+	ls_isin_code=trim(f_nvl(OLE_MyExcel.ActiveSheet.Cells(ll_row,11).value,''))
+	
+	if ls_isin_code='LU0315179316' then
+		ls_isin_code=ls_isin_code
+	end if
+
+	if isnull(ls_isin_code) or lena(trim(ls_isin_code)) - 2<=0 then
+		ll_black_count++
+		Continue
+	else
+		//ls_isin_code=mid(ls_isin_code,1,lena(trim(ls_isin_code)) - 2)
+		ll_black_count=0
+	end if
+	
+	sle_status.text='File01 - '+string(ll_row)+'-'+ls_isin_code+'-'+string(ll_black_count)
+	
+	
+	
+	//2018.3.8 No.002824 與Peggy討論若為S111則寫死不檢查停止交易日,否則其子基金資料會無法轉入
+	if ls_isin_code = 'LU1430594728' or ls_isin_code = 'LU0232407691' then 
+		select fund_no, fund_master_no , currency_no , subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd , :ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( fund_category = '2' )
+			 and ( offering_type = '1' ) ;
+	else	 
+		select fund_no, fund_master_no , currency_no , subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd , :ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 //and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( clear_date is null or to_char(clear_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') ) 
+			 and ( fund_category = '2' )
+			 and ( offering_type = '1' ) ;
+	end if
+		
+	if f_sql_code()<>0 then
+		Continue
+	end if
+	
+	select currency_no, global_currency
+	   into :ls_bas_crncy, :ls_global_currency
+	  from fas.fund
+	where fund_no = :ls_fund_master_no;	
+	
+	if f_sql_code()<>0 then
+		f_error('FILE01-'+ls_isin_code+'-取得母基金計價幣別錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+	     return
+	end if	
+
+	// 全球規模
+	if ls_fund_no=ls_fund_master_no then    // 為母基金時, 取得全球規模/全球單位數
+		ldec_g_shares=0
+		ldec_g_fum=0
+		/*ldec_g_shares
+	    	setnull(ls_tmp_value)	
+		OLE_MyExcel.cells[ll_row,14].copy
+		ls_tmp_value=Clipboard()
+		ls_tmp_value=trim(ls_tmp_value)			
+		
+		if isnumber(ls_tmp_value) then
+			ldec_g_shares=dec(ls_tmp_value)
+		else
+			ldec_g_shares=0
+		end if	
+		
+	    	setnull(ls_tmp_value)	
+		OLE_MyExcel.cells[ll_row,15].copy
+		ls_tmp_value=Clipboard()
+		ls_tmp_value=trim(ls_tmp_value)			
+		
+		if isnumber(ls_tmp_value) then
+			ldec_g_fum=dec(ls_tmp_value)
+		else
+			ldec_g_fum=0
+		end if	
+		*/
+		ldec_g_shares=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,14).value)
+		ldec_g_fum=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,15).value)
+		
+		
+		if ldec_g_shares=0 or ldec_g_fum=0 then
+			f_error('FILE01-'+'取得基金全球規模及單位數錯誤, 作業取消!')
+			Rollback;
+			OLE_MyExcel.Workbooks.Close
+			OLE_MyExcel.DisConnectObject()
+			Destroy OLE_MyExcel	    
+	    		return			
+		end if	
+	end if	
+	
+	
+	
+	// 子基金規模
+	ldec_shares=0
+	ldec_price=0
+	ldec_fum=0
+	
+	/*
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,8].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_price=dec(ls_tmp_value)
+	else
+		ldec_price=0
+	end if	
+		
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,9].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_shares=dec(ls_tmp_value)
+	else
+		ldec_shares=0
+	end if	
+		
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,10].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_fum=dec(ls_tmp_value)
+	else
+		ldec_fum=0
+	end if			
+	*/
+	
+	if ldec_g_shares=0 or ldec_g_fum=0 then
+		select FUM_GLOBAL,ISSUE_SHARES
+			into :ldec_g_fum,
+				  :ldec_g_shares
+		  from FAS.FUND_INVESTMENT 
+		 where tx_date=:ld_tx_date and fund_no like :ls_fund_master_no;
+	end if
+	
+	ldec_price=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,8).value)
+	ldec_shares=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,9).value)
+	ldec_fum=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,10).value)
+		
+	if ldec_shares=0 or ldec_fum=0 or ldec_price=0 then
+		f_error('FILE01-'+'取得基金規模, 單位數及盤價錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return			
+	end if	
+	
+	// 2016/03/22 NO.001977 Anita 子基金規模調整為Price*Shares H*I by Doris
+//	if ls_crncy_cd<>ls_bas_crncy then
+//		ldec_fum=round(ldec_shares*ldec_price,2)
+//	end if	
+	ldec_fum=round(ldec_shares*ldec_price,2)
+	
+	ldec_exg_rate=0
+	ldec_bas_rate=0
+	ldec_holder_fum=0
+	ldec_shares_china=0
+	
+	SELECT "FAS"."V_CURRENCY_RATE"."EX_RATE"  
+   	    INTO :ldec_exg_rate  
+       FROM "FAS"."V_CURRENCY_RATE"  
+     WHERE ( FAS."V_CURRENCY_RATE"."FUND_NO" = :ls_fund_no ) AND  
+                ( FAS."V_CURRENCY_RATE"."TX_DATE" = :ld_tx_date )   ;
+					 
+	if f_sql_code()<>0 then
+		f_error('FILE01-'+'取得轉換匯率錯誤1, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if
+	
+	//2018.3.7 No.002824 與PeggyHsiao討論若母基金為S111則寫死用子基金之匯率計算(因S111為星幣且已停止交易)
+	if ls_fund_master_no = 'S111' then
+		ldec_bas_rate = ldec_exg_rate
+	else						
+		SELECT "FAS"."V_CURRENCY_RATE"."EX_RATE"  
+			INTO :ldec_bas_rate  
+			 FROM "FAS"."V_CURRENCY_RATE"  
+		  WHERE ( FAS."V_CURRENCY_RATE"."FUND_NO" = :ls_fund_master_no ) AND  
+						  ( FAS."V_CURRENCY_RATE"."TX_DATE" = :ld_tx_date )   ;
+	end if
+					
+	if f_sql_code()<>0 then
+		f_error('FILE01-'+'取得轉換匯率錯誤2, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	
+	
+//     SELECT sum(decode(tx_type,'A',shares,'B',0 - shares, 'C', shares_in,'D',0 - shares, shares))
+//		INTO :ldec_shares_china
+//        FROM fas.non_purchase									
+//       WHERE tx_date <=:ld_tx_date									
+//          AND  fund_no =:ls_fund_no	;
+     SELECT sum(A.sum_shares+A.shares_in+A.shares)
+	 INTO :ldec_shares_china
+     FROM
+     (
+       SELECT nvl(sum(decode(tx_type,'A',shares,'B',0 - shares)),0) sum_shares,0 shares_in,0 shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no =:ls_fund_no	
+       UNION ALL 
+       SELECT 0 sum_shares,shares_in,0 shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no_in =:ls_fund_no
+	  AND  tx_type = 'C'
+       UNION ALL 
+       SELECT 0 sum_shares,0 share_in,0 - shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no =:ls_fund_no
+	  AND  tx_type = 'C'
+     ) A	 ;
+	
+ 	if f_sql_code()<>0 then
+		f_error('FILE01-'+ls_fund_no+' 取得中壽持有單位數錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	 
+	
+	ldec_shares_china=dec(f_nvl(ldec_shares_china,0))
+
+	select round((sum(shares) + :ldec_shares_china)*max(b.nav),0)*max(v.ex_rate)/:ldec_bas_rate
+   	   into :ldec_holder_fum
+ 	  from fas.certificate a,
+   	         (select fund_no, nav from fas.nav where nav_date=:ld_tx_date) b,
+			fas.fund f,
+			(select fund_no, ex_rate from fas.v_currency_rate where tx_date=:ld_tx_date) v,
+			( select id from fas.holder where nvl(obu_valid,'N')<>'Y') h
+  	    where a.fund_no = f.fund_no
+      	   and a.fund_no = b.fund_no
+	       and a.fund_no = v.fund_no 
+		   and a.id = h.id
+	       and f.fund_no = :ls_fund_no 
+           and a.issue_date<=:ld_tx_date
+	       and ( a.cancel_date>:ld_tx_date or a.cancel_date is null)	 ;
+	
+	if f_sql_code()<>0 then
+		f_error('FILE01-'+'取得國內投資人持有基金規模錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	 
+	
+	ldec_holder_fum=dec(f_nvl(ldec_holder_fum,0))
+	
+	ll_count=0
+	
+	SELECT count(*)  
+        INTO :ll_count  
+       FROM "FAS"."FUND_INVESTMENT"  
+     WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" = :ls_fund_no ) AND  
+                ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+	
+	//2018.3.7 No.002824 與PeggyHsiao討論S111寫死不轉入(因S111為星幣且已停止交易)
+	if ll_count=0 and ls_fund_no <> 'S111' then
+		  INSERT INTO "FAS"."FUND_INVESTMENT"  
+    					      ( "FUND_NO",   
+           				   "TX_DATE",   
+           				   "PCT_DERIVATIVE",   
+           				   "PCT_DOMESTIC",   
+           				   "PCT_CHINA",   
+           				   "PCT_H_SHARES_RED_CHIPS",   
+           				   "FUM",   
+           				   "FUM_GLOBAL",   
+           				   "LONG_POSITION",   
+           			       "SHORT_POSITION",   
+           				  "ISSUE_SHARES",   
+           				  "ORG_CURRENCY_NO",   
+           			       "FUM_TOTAL" )  
+  			   VALUES ( :ls_fund_no,   
+           				    :ld_tx_date,   
+           					0,   
+           					0,   
+           					0,   
+           					0,   
+           					:ldec_fum,   
+           					:ldec_g_fum,   
+           					0,   
+           					0,   
+           					:ldec_g_shares,   
+//           				:ls_bas_crncy,   								  
+							:ls_global_currency,
+           					:ldec_holder_fum )  ;
+	else	
+		  UPDATE "FAS"."FUND_INVESTMENT"  
+ 			    SET "FUM" = :ldec_fum,   
+			           "FUM_GLOBAL" = :ldec_g_fum,   
+//				      "ORG_CURRENCY_NO" = :ls_bas_crncy,   
+					 "ORG_CURRENCY_NO" = :ls_global_currency,
+       				  "FUM_TOTAL" = :ldec_holder_fum,   
+        				  "ISSUE_SHARES" = :ldec_g_shares  
+  		    WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" = :ls_fund_no ) AND  
+         			  ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+	end if
+	
+	 ldec_g_shares=0 
+	 ldec_g_fum=0
+	
+	if f_sql_code()<>0 then
+		f_error('FILE01-'+'更新資料發生錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if	 	
+	
+	//程式跑兩次 terry
+	if ll_black_count>20 then
+		ll_black_count=ll_black_count + 1
+		ll_row = 17
+	end if
+	
+loop until ll_black_count>20 and ll_black_count>1
+
+OLE_MyExcel.Workbooks.Close
+OLE_MyExcel.DisConnectObject()
+Destroy OLE_MyExcel	    
+end if
+
+if cbx_2.checked=true then
+// File02 Format#6
+li_file_num = fileopen(ls_path+ls_file02,LineMode!,Read!,LockRead!,Replace!)
+if li_file_num= -1 then 
+	f_error('FILE02-'+ls_path+ls_file02+'-路徑錯誤, 或是檔案不存在, 作業取消!')
+	return
+else
+	fileclose(li_file_num)
+end if
+
+OLE_MyExcel = CREATE OLEObject
+OLE_MyExcel.ConnectToNewObject("excel.Application")
+OLE_MyExcel.visible=false
+
+ll_row=0
+ll_black_count=0
+OLE_MyExcel.Workbooks.Open(ls_path+ls_file02)
+OLE_MyExcel.Worksheets('Sheet 1').Activate	
+
+do
+	ll_row++
+	// isin code
+	setnull(ls_tmp_value)
+	setnull(ls_fund_no)
+	setnull(ls_fund_master_no)
+	
+	OLE_MyExcel.cells[ll_row,2].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)
+	
+	ls_isin_code=ls_tmp_value
+
+	if isnull(ls_isin_code) or lena(trim(ls_isin_code)) - 2<=0 then
+		ll_black_count++
+		Continue
+	else
+		ls_isin_code=mid(ls_isin_code,1,lena(trim(ls_isin_code)) - 2)
+		ll_black_count=0
+	end if
+	
+	sle_status.text='File02 - '+string(ll_row)+'-'+ls_isin_code+'-'+string(ll_black_count)
+	
+	select fund_no, fund_master_no , currency_no , subta_no
+	   into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd, :ls_subta_no
+	  from fas.fund
+	where isin_code = :ls_isin_code
+	    and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+	    and ( clear_date is null or to_char(clear_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+	    and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') )
+		and ( fund_category = '2' )
+		and ( offering_type = '1' ) ;
+	
+	if f_sql_code()<>0 then
+		Continue
+	end if
+	
+	select currency_no, global_currency
+	   into :ls_bas_crncy, :ls_global_currency
+	  from fas.fund
+	where fund_no = :ls_fund_master_no;	
+	
+	if f_sql_code()<>0 then
+		f_error('FILE02-'+ls_isin_code+'-取得母基金計價幣別錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+	     return
+	end if	
+	
+	ll_usd_count=0
+	ll_crncy_count=0
+	
+	SELECT count(distinct currency_no)  
+   	    INTO :ll_usd_count  
+       FROM "FAS"."FUND"  
+     WHERE ( FAS."FUND"."FUND_MASTER_NO" = :ls_fund_master_no ) AND  
+                 ( FAS."FUND"."CURRENCY_NO" = 'USD' )   ;
+					  
+	SELECT count(distinct currency_no)  
+   	    INTO :ll_crncy_count  
+       FROM "FAS"."FUND"  
+     WHERE ( FAS."FUND"."FUND_MASTER_NO" = :ls_fund_master_no )  ;	
+	  
+	// 全球規模
+	if ls_fund_no=ls_fund_master_no then    // 為母基金時, 取得全球規模/全球單位數
+		ldec_g_shares=0
+		ldec_g_fum=0
+		/*
+	    	setnull(ls_tmp_value)	
+		OLE_MyExcel.cells[ll_row,6].copy
+		ls_tmp_value=Clipboard()
+		ls_tmp_value=trim(ls_tmp_value)			
+		
+		if isnumber(ls_tmp_value) then
+			ldec_g_shares=dec(ls_tmp_value)
+		else
+			ldec_g_shares=0
+		end if	
+		
+	    	setnull(ls_tmp_value)	
+		OLE_MyExcel.cells[ll_row,7].copy
+		ls_tmp_value=Clipboard()
+		ls_tmp_value=trim(ls_tmp_value)			
+		
+		if isnumber(ls_tmp_value) then
+			ldec_g_fum=dec(ls_tmp_value)
+		else
+			ldec_g_fum=0
+		end if	
+		*/
+		
+		ldec_g_shares=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,6).value)
+		ldec_g_fum=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,7).value)
+		
+		if ldec_g_shares=0 or ldec_g_fum=0 then
+			f_error('FILE02-'+'取得基金全球規模及單位數錯誤, 作業取消!')
+			Rollback;
+			OLE_MyExcel.Workbooks.Close
+			OLE_MyExcel.DisConnectObject()
+			Destroy OLE_MyExcel	    
+	    		return			
+		end if	
+	end if	
+	
+	if ll_usd_count>0 or ls_global_currency='USD' then
+	   ldec_eur_rate=0
+	   ldec_usd_rate=0
+		
+	  SELECT "FAS"."CURRENCY_RATE"."EX_RATE"  
+   		 INTO :ldec_eur_rate  
+    		FROM "FAS"."CURRENCY_RATE"  
+   	  WHERE ( FAS."CURRENCY_RATE"."CURRENCY_NO" = 'EUR' ) AND  
+		  		( FAS.CURRENCY_RATE.SUBTA_NO = :ls_subta_no) and
+        			( FAS."CURRENCY_RATE"."TX_DATE" = (  SELECT max(FAS."CURRENCY_RATE"."TX_DATE")  
+               								                                FROM "FAS"."CURRENCY_RATE"  
+                                       								       WHERE ( FAS."CURRENCY_RATE"."CURRENCY_NO" = 'EUR' ) AND  
+																				 ( FAS.CURRENCY_RATE.SUBTA_NO = :ls_subta_no) AND
+                                                    									 ( FAS."CURRENCY_RATE"."TX_DATE" <= :ld_tx_date ) ) )   ;
+																										  
+		if f_sql_code()<>0 then
+			f_error('FILE02-'+'取得基金全球規模歐元轉換匯率, 作業取消!')
+			Rollback;
+			OLE_MyExcel.Workbooks.Close
+			OLE_MyExcel.DisConnectObject()
+			Destroy OLE_MyExcel	    
+	    		return						
+		end if
+		
+	  SELECT "FAS"."CURRENCY_RATE"."EX_RATE"  
+   		 INTO :ldec_usd_rate  
+    		FROM "FAS"."CURRENCY_RATE"  
+   	  WHERE ( FAS."CURRENCY_RATE"."CURRENCY_NO" = 'USD' ) AND  
+		  		( FAS.CURRENCY_RATE.SUBTA_NO = :ls_subta_no) and
+        			( FAS."CURRENCY_RATE"."TX_DATE" = (  SELECT max(FAS."CURRENCY_RATE"."TX_DATE")  
+               								                                FROM "FAS"."CURRENCY_RATE"  
+                                       								       WHERE ( FAS."CURRENCY_RATE"."CURRENCY_NO" = 'USD' ) AND  
+		  																		( FAS.CURRENCY_RATE.SUBTA_NO = :ls_subta_no) and
+                                                    									 ( FAS."CURRENCY_RATE"."TX_DATE" <= :ld_tx_date ) ) )   ;
+																										  
+		if f_sql_code()<>0 then
+			f_error('FILE02-'+'取得基金全球規模美元轉換匯率, 作業取消!')
+			Rollback;
+			OLE_MyExcel.Workbooks.Close
+			OLE_MyExcel.DisConnectObject()
+			Destroy OLE_MyExcel	    
+	    		return						
+		end if
+		
+		ldec_g_fum=round(ldec_g_fum*ldec_eur_rate/ldec_usd_rate,2)
+	end if
+	
+	// 子基金規模
+	ldec_shares=0
+	ldec_price=0
+	ldec_fum=0
+	/*
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,4].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_price=dec(ls_tmp_value)
+	else
+		ldec_price=0
+	end if	
+	
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,5].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_shares=dec(ls_tmp_value)
+	else
+		ldec_shares=0
+	end if	
+	*/
+	
+	ldec_price=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,4).value)
+	ldec_shares=dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,5).value)
+
+	ldec_fum=round(ldec_shares*ldec_price,2)
+	
+	ldec_exg_rate=0
+	ldec_bas_rate=0
+	ldec_holder_fum=0
+	ldec_shares_china=0
+	
+	SELECT "FAS"."V_CURRENCY_RATE"."EX_RATE"  
+   	    INTO :ldec_exg_rate  
+       FROM "FAS"."V_CURRENCY_RATE"  
+     WHERE ( FAS."V_CURRENCY_RATE"."FUND_NO" = :ls_fund_no ) AND  
+                ( FAS."V_CURRENCY_RATE"."TX_DATE" = :ld_tx_date )   ;
+					 
+	if f_sql_code()<>0 then
+		f_error('FILE02-'+'取得轉換匯率錯誤1, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if
+					
+	SELECT "FAS"."V_CURRENCY_RATE"."EX_RATE"  
+		INTO :ldec_bas_rate  
+		 FROM "FAS"."V_CURRENCY_RATE"  
+	  WHERE ( FAS."V_CURRENCY_RATE"."FUND_NO" = :ls_fund_master_no ) AND  
+					  ( FAS."V_CURRENCY_RATE"."TX_DATE" = :ld_tx_date )   ;
+	
+						 
+	if f_sql_code()<>0 then
+		f_error('FILE02-'+'取得轉換匯率錯誤2, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	
+	
+	if ll_usd_count>0 or ls_global_currency='USD' then
+		ldec_bas_rate=ldec_usd_rate
+	end if	
+	
+//     SELECT sum(decode(tx_type,'A',shares,'B',0 - shares, 'C', shares_in,'D',0 - shares, shares))
+//		INTO :ldec_shares_china
+//        FROM fas.non_purchase									
+//       WHERE tx_date <=:ld_tx_date									
+//          AND  fund_no =:ls_fund_no	;
+     SELECT sum(A.sum_shares+A.shares_in+A.shares)
+	 INTO :ldec_shares_china
+     FROM
+     (
+       SELECT nvl(sum(decode(tx_type,'A',shares,'B',0 - shares)),0) sum_shares,0 shares_in,0 shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no =:ls_fund_no	
+       UNION ALL 
+       SELECT 0 sum_shares,shares_in,0 shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no_in =:ls_fund_no
+	  AND  tx_type = 'C'
+       UNION ALL 
+       SELECT 0 sum_shares,0 share_in,0 - shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no =:ls_fund_no
+	   AND  tx_type = 'C'
+     ) A	 ;
+	
+ if f_sql_code()<>0 then
+		f_error('FILE02-'+ls_fund_no+' 取得中壽持有單位數錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	 
+	
+	ldec_shares_china=dec(f_nvl(ldec_shares_china,0))
+
+	select round((sum(shares) + :ldec_shares_china)*max(b.nav),0)*max(v.ex_rate)/:ldec_bas_rate
+   	   into :ldec_holder_fum
+ 	  from fas.certificate a,
+   	         (select fund_no, nav from fas.nav where nav_date=:ld_tx_date) b,
+			fas.fund f,
+			(select fund_no, ex_rate from fas.v_currency_rate where tx_date=:ld_tx_date) v,
+			( select id from fas.holder where nvl(obu_valid,'N')<>'Y') h
+  	    where a.fund_no = f.fund_no
+      	   and a.fund_no = b.fund_no
+	       and a.fund_no = v.fund_no 
+		   and a.id = h.id
+	       and f.fund_no = :ls_fund_no 
+           and a.issue_date<=:ld_tx_date
+	       and ( a.cancel_date>:ld_tx_date or a.cancel_date is null)	 ;
+    
+	
+	if f_sql_code()<>0 then
+		f_error('FILE02-'+'取得國內投資人持有基金規模錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	 
+	
+	ldec_holder_fum=dec(f_nvl(ldec_holder_fum,0))
+	
+	ll_count=0
+	
+	SELECT count(*)  
+        INTO :ll_count  
+       FROM "FAS"."FUND_INVESTMENT"  
+     WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" = :ls_fund_no ) AND  
+                ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+
+	if ll_count=0 and ls_fund_no <> 'S111' then
+		  INSERT INTO "FAS"."FUND_INVESTMENT"  
+    					      ( "FUND_NO",   
+           				   "TX_DATE",   
+           				   "PCT_DERIVATIVE",   
+           				   "PCT_DOMESTIC",   
+           				   "PCT_CHINA",   
+           				   "PCT_H_SHARES_RED_CHIPS",   
+           				   "FUM",   
+           				   "FUM_GLOBAL",   
+           				   "LONG_POSITION",   
+           			       "SHORT_POSITION",   
+           				  "ISSUE_SHARES",   
+           				  "ORG_CURRENCY_NO",   
+           			       "FUM_TOTAL" )  
+  			   VALUES ( :ls_fund_no,   
+           				    :ld_tx_date,   
+           					0,   
+           					0,   
+           					0,   
+           					0,   
+           					:ldec_fum,   
+           					:ldec_g_fum,   
+           					0,   
+           					0,   
+           					:ldec_g_shares,   
+//           				decode(:ll_usd_count,1,'USD',:ls_bas_crncy),   
+							:ls_global_currency,
+           					:ldec_holder_fum )  ;
+	else	
+		  UPDATE "FAS"."FUND_INVESTMENT"  
+ 			    SET "FUM" = :ldec_fum,   
+			           "FUM_GLOBAL" = :ldec_g_fum,   
+//				      "ORG_CURRENCY_NO" = decode(:ll_usd_count,1,'USD',:ls_bas_crncy),  
+					 "ORG_CURRENCY_NO" = :ls_global_currency,
+       				  "FUM_TOTAL" = :ldec_holder_fum,   
+        				  "ISSUE_SHARES" = :ldec_g_shares  
+  		    WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" = :ls_fund_no ) AND  
+         			  ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+	end if
+	
+	if f_sql_code()<>0 then
+		f_error('FILE02-'+'更新資料發生錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if	 	
+loop until ll_black_count>20
+
+OLE_MyExcel.Workbooks.Close
+OLE_MyExcel.DisConnectObject()
+Destroy OLE_MyExcel	  
+
+DECLARE cs_fas6562_master_fum CURSOR FOR  
+  SELECT "FAS"."FUND_INVESTMENT"."FUND_NO",   
+	          "FAS"."FUND_INVESTMENT"."FUM_GLOBAL",   
+   		      "FAS"."FUND_INVESTMENT"."ISSUE_SHARES",   
+   		      "FAS"."FUND_INVESTMENT"."ORG_CURRENCY_NO"  
+    FROM "FAS"."FUND_INVESTMENT",   
+             "FAS"."FUND"  
+ WHERE ( "FAS"."FUND_INVESTMENT"."FUND_NO" = "FAS"."FUND"."FUND_NO" ) and  
+            ( ( FAS."FUND_INVESTMENT"."FUND_NO" = FAS."FUND"."FUND_MASTER_NO" ) AND  
+              ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date ) )   ;
+				  
+OPEN cs_fas6562_master_fum;
+FETCH cs_fas6562_master_fum into :ls_fund_master_no, :ldec_g_fum, :ldec_g_shares, :ls_bas_crncy;
+
+do while f_sql_code()=0
+	UPDATE "FAS"."FUND_INVESTMENT"  
+   	      SET "FUM_GLOBAL" = :ldec_g_fum,   
+         	    "ISSUE_SHARES" = :ldec_g_shares,
+			    "ORG_CURRENCY_NO" = :ls_bas_crncy
+	 WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" in (  SELECT "FAS"."FUND"."FUND_NO"  
+   	                                                                                FROM "FAS"."FUND"  
+         	                                                                      WHERE ( FAS."FUND"."FUND_MASTER_NO" = :ls_fund_master_no) ) ) AND  
+            	    ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;	
+	
+	if f_sql_code()<0 then
+		f_error('更新基金全球規模錯誤, 作業取消!')
+		CLOSE cs_fas6562_master_fum;
+		Rollback;
+	     return
+	end if			
+	
+	FETCH cs_fas6562_master_fum into :ls_fund_master_no, :ldec_g_fum, :ldec_g_shares, :ls_bas_crncy;
+loop
+CLOSE cs_fas6562_master_fum;
+end if
+
+if cbx_3.checked=true then
+// File03 SFB Report from
+li_file_num = fileopen(ls_path+ls_file03,LineMode!,Read!,LockRead!,Replace!)
+if li_file_num= -1 then 
+	f_error('FILE03-'+ls_path+ls_file03+'-路徑錯誤, 或是檔案不存在, 作業取消!')
+	return
+else
+	fileclose(li_file_num)
+end if
+
+OLE_MyExcel = CREATE OLEObject
+OLE_MyExcel.ConnectToNewObject("excel.Application")
+OLE_MyExcel.visible=false
+
+ll_row=0
+ll_black_count=0
+OLE_MyExcel.Workbooks.Open(ls_path+ls_file03)
+OLE_MyExcel.Worksheets('SFB Report ').Activate	
+
+do
+	ll_row++
+	// isin code
+	setnull(ls_tmp_value)
+	setnull(ls_fund_no)
+	setnull(ls_fund_master_no)
+	
+	OLE_MyExcel.cells[ll_row,1].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)
+	
+	ls_isin_code=ls_tmp_value
+
+	if isnull(ls_isin_code) or lena(trim(ls_isin_code)) - 2<=0 then
+		ll_black_count++
+		Continue
+	else
+		ls_isin_code=mid(ls_isin_code,1,lena(trim(ls_isin_code)) - 2)
+		ll_black_count=0
+	end if
+	
+	sle_status.text='File03 - '+string(ll_row)+'-'+ls_isin_code+'-'+string(ll_black_count)
+	
+	//2018.3.8 No.002824 與Peggy討論若為S111則寫死不檢查停止交易日,否則其子基金資料會無法轉入
+	if ls_isin_code = 'LU1430594728' or ls_isin_code = 'LU0232407691' then 
+		select fund_no, fund_master_no , currency_no , subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd , :ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( fund_category = '2' )
+			 and ( offering_type = '1' ) ;
+	else	 
+		select fund_no, fund_master_no , currency_no , subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd , :ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 //and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( clear_date is null or to_char(clear_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') ) 
+			 and ( fund_category = '2' )
+			 and ( offering_type = '1' ) ;
+	end if
+		
+	if f_sql_code()<>0 then
+		Continue
+	end if
+	
+	select currency_no
+	   into :ls_bas_crncy
+	  from fas.fund
+	where fund_no = :ls_fund_master_no;	
+	
+	if f_sql_code()<>0 then
+		f_error('FILE02-'+ls_isin_code+'-取得母基金計價幣別錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+	     return
+	end if	
+	
+	ldec_rate1=0
+	ldec_rate2=0
+	ldec_rate3=0
+	ldec_rate4=0
+	ldec_rate5=0
+	
+	/*
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,3].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate1=dec(ls_tmp_value)
+	else
+		ldec_rate1=0
+	end if	
+	
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,4].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate2=dec(ls_tmp_value)
+	else
+		ldec_rate2=0
+	end if		
+	
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,5].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate3=dec(ls_tmp_value)
+	else
+		ldec_rate3=0
+	end if			
+
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,6].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate4=dec(ls_tmp_value)
+	else
+		ldec_rate4=0
+	end if		
+	
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,7].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate5=dec(ls_tmp_value)
+	else
+		ldec_rate5=0
+	end if		
+	*/
+	
+	
+	ldec_rate1=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,3).value)*100,2)
+	ldec_rate2=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,4).value)*100,2)
+	ldec_rate3=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,5).value)*100,2)
+	ldec_rate4=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,6).value)*100,2)
+	ldec_rate5=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,7).value)*100,2)
+	
+	
+	
+	
+	//2018.3.07 No.002824 自105/05月起申報月報不用申報H股,故改填入為0
+	//    "PCT_H_SHARES_RED_CHIPS" = :ldec_rate5,
+     UPDATE "FAS"."FUND_INVESTMENT"  
+		  SET "LONG_POSITION" = :ldec_rate1,   
+			    "SHORT_POSITION" = :ldec_rate2,   
+			    "PCT_DOMESTIC" = :ldec_rate3,   
+       		    "PCT_CHINA" = :ldec_rate4,   
+        		    "PCT_H_SHARES_RED_CHIPS" = 0,
+			    "PCT_DERIVATIVE" = :ldec_rate1+:ldec_rate2			
+      WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" in ( select fas.fund.fund_no from fas.fund where fas.fund.fund_master_no = :ls_fund_master_no ) ) AND  
+    			    ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+	
+	if f_sql_code()<>0 then
+		f_error('FILE03-'+'更新資料發生錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if	 	
+loop until ll_black_count>20
+
+OLE_MyExcel.Workbooks.Close
+OLE_MyExcel.DisConnectObject()
+Destroy OLE_MyExcel	    
+end if
+
+if cbx_4.checked=true then
+// SFB Report
+li_file_num = fileopen(ls_path+ls_file04,LineMode!,Read!,LockRead!,Replace!)
+if li_file_num= -1 then 
+	f_error('FILE04-'+ls_path+ls_file04+'-路徑錯誤, 或是檔案不存在, 作業取消!')
+	return
+else
+	fileclose(li_file_num)
+end if
+
+OLE_MyExcel = CREATE OLEObject
+OLE_MyExcel.ConnectToNewObject("excel.Application")
+OLE_MyExcel.visible=false
+
+ll_row=0
+ll_black_count=0
+OLE_MyExcel.Workbooks.Open(ls_path+ls_file04)
+OLE_MyExcel.Worksheets('SEB Report '+string(ld_tx_date,'mmmm')+' '+right(string(ld_tx_date,'yyyy'),2)).Activate	
+
+do
+	ll_row++
+	// isin code
+	setnull(ls_tmp_value)
+	setnull(ls_fund_no)
+	setnull(ls_fund_master_no)
+	
+	OLE_MyExcel.cells[ll_row,1].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=trim(ls_tmp_value)
+	
+	ls_isin_code=ls_tmp_value
+
+	if isnull(ls_isin_code) or lena(trim(ls_isin_code)) - 2<=0 then
+		ll_black_count++
+		Continue
+	else
+		ls_isin_code=mid(ls_isin_code,1,lena(trim(ls_isin_code)) - 2)
+		ll_black_count=0
+	end if
+	
+	sle_status.text='File04 - '+string(ll_row)+'-'+ls_isin_code+'-'+string(ll_black_count)
+	
+	//2018.3.8 No.002824 與Peggy討論若為S111則寫死不檢查停止交易日,否則其子基金資料會無法轉入
+	if ls_isin_code = 'LU1430594728' or ls_isin_code = 'LU0232407691' then 
+		select fund_no, fund_master_no , currency_no , subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd , :ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( fund_category = '2' )
+			 and ( offering_type = '1' ) ;
+	else	 
+		select fund_no, fund_master_no , currency_no , subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd , :ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 //and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( clear_date is null or to_char(clear_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') ) 
+			 and ( fund_category = '2' )
+			 and ( offering_type = '1' ) ;
+	end if
+		
+	if f_sql_code()<>0 then
+		Continue
+	end if
+	
+	select currency_no
+	   into :ls_bas_crncy
+	  from fas.fund
+	where fund_no = :ls_fund_master_no;	
+	
+	if f_sql_code()<>0 then
+		f_error('FILE04-'+ls_isin_code+'-取得母基金計價幣別錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+	     return
+	end if	
+	
+	ldec_rate1=0
+	ldec_rate2=0
+	ldec_rate3=0
+	ldec_rate4=0
+	ldec_rate5=0
+	
+	/*
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,14].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate1=dec(ls_tmp_value)
+	else
+		ldec_rate1=0
+	end if	
+	
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,15].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)	
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate2=dec(ls_tmp_value)
+	else
+		ldec_rate2=0
+	end if		
+	
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,16].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate3=dec(ls_tmp_value)
+	else
+		ldec_rate3=0
+	end if			
+
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,17].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)	
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate4=dec(ls_tmp_value)
+	else
+		ldec_rate4=0
+	end if		
+	
+    	setnull(ls_tmp_value)	
+	OLE_MyExcel.cells[ll_row,18].copy
+	ls_tmp_value=Clipboard()
+	ls_tmp_value=mid(trim(ls_tmp_value),1,POS(trim(ls_tmp_value),'%') - 1)			
+		
+	if isnumber(ls_tmp_value) then
+		ldec_rate5=dec(ls_tmp_value)
+	else
+		ldec_rate5=0
+	end if		
+	*/
+	
+	ldec_rate1=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,14).value)*100,2)
+	ldec_rate2=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,15).value)*100,2)
+	ldec_rate3=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,16).value)*100,2)
+	ldec_rate4=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,17).value)*100,2)
+	ldec_rate5=round(dec(OLE_MyExcel.ActiveSheet.Cells(ll_row,18).value)*100,2)
+	
+	//2018.3.07 No.002824 自105/05月起申報月報不用申報H股,故改填入為0
+	//    "PCT_H_SHARES_RED_CHIPS" = :ldec_rate5,
+     UPDATE "FAS"."FUND_INVESTMENT"  
+		  SET "LONG_POSITION" = :ldec_rate1,   
+			    "SHORT_POSITION" = :ldec_rate2,   
+			    "PCT_DOMESTIC" = :ldec_rate3,   
+       		    "PCT_CHINA" = :ldec_rate4,   
+        		    "PCT_H_SHARES_RED_CHIPS" = 0,
+			    "PCT_DERIVATIVE" = :ldec_rate1+:ldec_rate2			
+      WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" in ( select fas.fund.fund_no from fas.fund where fas.fund.fund_master_no = :ls_fund_master_no ) ) AND  
+    			    ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+	
+	if f_sql_code()<>0 then
+		f_error('FILE04-'+'更新資料發生錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if	 	
+loop until ll_black_count>20
+
+OLE_MyExcel.Workbooks.Close
+OLE_MyExcel.DisConnectObject()
+Destroy OLE_MyExcel	    
+end if
+
+
+ //2016.03.28  新增MA境外轉入資料  (Clamp Lin)  需求單：001997
+if cbx_5.checked=true then
+	
+	IF GetFileOpenName("選擇檔案",is_pathname,is_filename1,'*','全部檔案(*),*') = 1 THEN
+		is_filename=is_filename1
+		sle_1.text = is_pathname
+	END IF
+	
+	ll_v_count = 0
+	
+	SELECT count(*)  
+    INTO :ll_v_count 
+	FROM "FAS"."FUND_INVESTMENT"  
+    WHERE ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   
+    AND   "FAS"."FUND_INVESTMENT"."FUND_NO" Like 'V%' ;
+	 
+	if ll_v_count=0 then 
+		DECLARE	month_v_cur CURSOR FOR
+		SELECT "FAS"."FUND"."FUND_NO"
+		FROM "FAS"."FUND"
+		WHERE (FAS.FUND.CLEAR_DATE >= :ld_tx_date OR FAS."FUND"."CLEAR_DATE" is null) AND
+		( FAS.FUND.elimination_date >= :ld_tx_date OR FAS.FUND.elimination_date IS NULL) AND 
+		  FAS."FUND"."FUND_CATEGORY" = '2' AND
+		  FAS."FUND"."OFFERING_TYPE" = '1'  AND
+		  FAS.FUND.FUND_NO like 'V%'
+		  ORDER BY FAS.FUND.ORDINAL ;
+		  
+		  OPEN month_v_cur;
+		  
+		  FETCH month_v_cur INTO :ls_fund_no;
+		  
+		  do while f_sql_code() = 0
+			
+			INSERT INTO "FAS"."FUND_INVESTMENT"  
+    			           ( "FUND_NO",   
+     				     "TX_DATE" )  
+			VALUES ( :ls_fund_no,   
+    				         :ld_tx_date )  ;
+								 
+			if f_sql_code()<>0 then
+				f_error('初始化資料錯誤, 作業取消!')
+				CLOSE month_v_cur;
+				Rollback;
+				return	
+			end if
+			
+			FETCH month_v_cur INTO :ls_fund_no;	
+		loop
+		CLOSE month_v_cur;		
+	end if
+
+// MA Report
+li_file_num = fileopen(is_pathname,LineMode!,Read!,LockRead!,Replace!)
+if li_file_num= -1 then 
+    f_error('FILE05-'+is_pathname+'-路徑錯誤, 或是檔案不存在, 作業取消!')
+	return
+else
+	fileclose(li_file_num)
+end if
+
+OLE_MyExcel = CREATE OLEObject
+OLE_MyExcel.ConnectToNewObject("excel.Application")
+OLE_MyExcel.visible=false
+
+ll_row=2
+ll_black_count=0
+OLE_MyExcel.Workbooks.Open(is_pathname)
+
+do
+	ll_row++
+	
+	OLE_MyExcel.Range("C" + string(ll_row)).Select
+	ls_isin_code = OLE_MyExcel.ActiveCell.FormulaR1C1 
+
+	if isnull(ls_isin_code) or lena(trim(ls_isin_code)) - 2<=0 then
+		ll_black_count++
+		Continue
+	end if
+	
+	sle_status.text='File05 - '+string(ll_row)+'-'+ls_isin_code+'-'+string(ll_black_count)
+	
+	//2018.3.8 No.002824 與Peggy討論若為S111則寫死不檢查停止交易日,否則其子基金資料會無法轉入
+	if ls_isin_code = 'LU1430594728' then 
+		select fund_no, fund_master_no , currency_no ,subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd,:ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') ) ;  
+	else
+		select fund_no, fund_master_no , currency_no ,subta_no
+			into :ls_fund_no, :ls_fund_master_no, :ls_crncy_cd,:ls_subta_no
+		  from fas.fund
+		where isin_code = :ls_isin_code
+			 and ( elimination_date is null or to_char(elimination_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') )
+			 and ( clear_date is null or to_char(clear_date,'yyyy/mm')>to_char(:ld_tx_date,'yyyy/mm') ) 
+			 and ( to_char(first_red_date,'yyyy/mm')<=to_char(:ld_tx_date,'yyyy/mm') ) ;  
+	end if	
+	
+	if f_sql_code()<>0 then
+		Continue
+	end if
+	
+	ldec_fum = 0
+	ldec_g_shares=0
+	ldec_g_fum=0
+	
+	//子基金規模
+	OLE_MyExcel.Range("E" + string(ll_row)).Select
+	ldec_fum = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) 
+	
+	//全球基金規模幣別
+	OLE_MyExcel.Range("T" + string(ll_row)).Select
+	ls_global_currency = OLE_MyExcel.ActiveCell.FormulaR1C1 
+	
+	//已經發行基金單位數
+	OLE_MyExcel.Range("AH" + string(ll_row)).Select
+	ldec_g_shares = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) 
+	
+   //全球基金規模 
+	OLE_MyExcel.Range("U" + string(ll_row)).Select
+	ldec_g_fum = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) 
+	
+	ldec_rate1=0
+	ldec_rate2=0
+	ldec_rate3=0
+	ldec_rate4=0
+	ldec_rate5=0
+	
+	OLE_MyExcel.Range("V" + string(ll_row)).Select
+	ldec_rate1 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) *100
+		
+	OLE_MyExcel.Range("W" + string(ll_row)).Select
+	ldec_rate2 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) *100
+	
+	OLE_MyExcel.Range("Q" + string(ll_row)).Select
+	ldec_rate3 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) *100
+	
+	OLE_MyExcel.Range("R" + string(ll_row)).Select
+	ldec_rate4 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) *100
+	
+	OLE_MyExcel.Range("S" + string(ll_row)).Select
+	ldec_rate5 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) *100
+	
+//子基金幣別匯率
+//	SELECT "FAS"."V_CURRENCY_RATE"."EX_RATE"  
+//   	    INTO :ldec_bas_rate  
+//       FROM "FAS"."V_CURRENCY_RATE"  
+//     WHERE ( FAS."V_CURRENCY_RATE"."FUND_NO" = :ls_fund_master_no ) AND  
+//                 ( FAS."V_CURRENCY_RATE"."TX_DATE" = :ld_tx_date )   ;
+	  SELECT "FAS"."CURRENCY_RATE"."EX_RATE"  
+   		 INTO :ldec_bas_rate  
+    		FROM "FAS"."CURRENCY_RATE"  
+   	  WHERE ( FAS."CURRENCY_RATE"."CURRENCY_NO" = :ls_global_currency ) AND  
+		  		( FAS.CURRENCY_RATE.SUBTA_NO = :ls_subta_no) and
+        			( FAS."CURRENCY_RATE"."TX_DATE" = (  SELECT max(FAS."CURRENCY_RATE"."TX_DATE")  
+               								                                FROM "FAS"."CURRENCY_RATE"  
+                                       								       WHERE ( FAS."CURRENCY_RATE"."CURRENCY_NO" = :ls_global_currency ) AND  
+																				 ( FAS.CURRENCY_RATE.SUBTA_NO = :ls_subta_no) AND
+                                                    									 ( FAS."CURRENCY_RATE"."TX_DATE" <= :ld_tx_date ) ) )   ;
+																										  						 
+	if f_sql_code()<>0 then
+		f_error('FILE05-'+'取得母基金轉換匯率錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	
+//
+     SELECT sum(A.sum_shares+A.shares_in+A.shares)
+	 INTO :ldec_shares_china
+     FROM
+     (
+       SELECT nvl(sum(decode(tx_type,'A',shares,'B',0 - shares)),0) sum_shares,0 shares_in,0 shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no =:ls_fund_no	
+       UNION ALL 
+       SELECT 0 sum_shares,shares_in,0 shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no_in =:ls_fund_no
+	   AND  tx_type = 'C'
+       UNION ALL 
+       SELECT 0 sum_shares,0 share_in,0 - shares
+       FROM fas.non_purchase									
+       WHERE tx_date <=:ld_tx_date									
+       AND  fund_no =:ls_fund_no
+	  AND  tx_type = 'C'
+     ) A	 ;
+	
+     if f_sql_code()<>0 then
+		f_error('FILE05-'+ls_fund_no+' 取得中壽持有單位數錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	 
+	
+	ldec_shares_china=dec(f_nvl(ldec_shares_china,0))
+//國內投資人持有基金規模
+    IF ls_global_currency <> ls_crncy_cd THEN
+	    SELECT (sum(shares) + :ldec_shares_china)*max(b.nav)*max(v.ex_rate)/:ldec_bas_rate
+   	    INTO :ldec_holder_fum
+ 	    FROM fas.certificate a,
+   	             (SELECT fund_no, nav FROM fas.nav WHERE nav_date=:ld_tx_date) b,
+		      	fas.fund f,
+			    (SELECT fund_no, ex_rate FROM fas.v_currency_rate WHERE tx_date=:ld_tx_date) v,
+			    ( SELECT id FROM fas.holder WHERE nvl(obu_valid,'N')<>'Y') h
+  	    WHERE a.fund_no = f.fund_no
+      	    AND a.fund_no = b.fund_no
+	        AND a.fund_no = v.fund_no 
+		   AND a.id = h.id
+	       AND f.fund_no = :ls_fund_no 
+            AND a.issue_date<=:ld_tx_date
+	        AND ( a.cancel_date>:ld_tx_date OR a.cancel_date is null)	 ;
+    ELSE
+	   SELECT (sum(shares) + :ldec_shares_china)*max(b.nav)
+   	   INTO :ldec_holder_fum
+ 	   FROM fas.certificate a,
+   	            (SELECT fund_no, nav FROM fas.nav WHERE nav_date=:ld_tx_date) b,
+			   fas.fund f,
+			   (SELECT fund_no, ex_rate FROM fas.v_currency_rate WHERE tx_date=:ld_tx_date) v,
+			   ( SELECT id FROM fas.holder WHERE nvl(obu_valid,'N')<>'Y') h
+  	   WHERE a.fund_no = f.fund_no
+      	   AND a.fund_no = b.fund_no
+	       AND a.fund_no = v.fund_no 
+		  AND a.id = h.id
+	      AND f.fund_no = :ls_fund_no 
+           AND a.issue_date<=:ld_tx_date
+	      AND ( a.cancel_date>:ld_tx_date OR a.cancel_date is null)	 ;
+    END IF
+    
+	
+	if f_sql_code()<>0 then
+		f_error('FILE05-'+'取得國內投資人持有基金規模錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+		return					
+	end if	 
+	
+	ldec_holder_fum=dec(f_nvl(ldec_holder_fum,0))
+//更新子基金相關資料	
+	UPDATE "FAS"."FUND_INVESTMENT"  
+ 	     SET "FUM" = :ldec_fum,   
+       				  "FUM_TOTAL" = :ldec_holder_fum,   
+        				  "ISSUE_SHARES" = :ldec_g_shares,
+					 "ORG_CURRENCY_NO" = :ls_global_currency
+  		    WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" = :ls_fund_no ) AND  
+         			  ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+						  
+	if f_sql_code()<>0 then
+		f_error('FILE05-'+'更新資料發生錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if	 
+	
+	//更新母基金相關資料				
+	//2018.3.07 No.002824 自105/05月起申報月報不用申報H股,故改填入為0
+	//    "PCT_H_SHARES_RED_CHIPS" = :ldec_rate5,
+     UPDATE "FAS"."FUND_INVESTMENT"  
+		  SET "LONG_POSITION" = :ldec_rate1,   
+			    "SHORT_POSITION" = :ldec_rate2,   
+			    "PCT_DOMESTIC" = :ldec_rate3,   
+       		    "PCT_CHINA" = :ldec_rate4,   
+        		    "PCT_H_SHARES_RED_CHIPS" = 0,
+			    "PCT_DERIVATIVE" = :ldec_rate1+:ldec_rate2,
+			    "FUM_GLOBAL" = :ldec_g_fum   
+      WHERE ( FAS."FUND_INVESTMENT"."FUND_NO" in ( select fas.fund.fund_no from fas.fund where fas.fund.fund_master_no = :ls_fund_master_no ) ) AND  
+    			    ( FAS."FUND_INVESTMENT"."TX_DATE" = :ld_tx_date )   ;
+	
+	if f_sql_code()<>0 then
+		f_error('FILE05-'+'更新資料發生錯誤, 作業取消!')
+		Rollback;
+		OLE_MyExcel.Workbooks.Close
+		OLE_MyExcel.DisConnectObject()
+		Destroy OLE_MyExcel	    
+    		return					
+	end if	 	
+	
+loop until ll_black_count>1
+
+OLE_MyExcel.Workbooks.Close
+OLE_MyExcel.DisConnectObject()
+Destroy OLE_MyExcel	    
+end if
+//結束新增
+
+f_info('作業完成!')
+Commit;
+f_change_condition(dw_1," to_char(tx_date,'yyyy/mm/dd')='" + string(ld_tx_date,'yyyy/mm/dd') + "' and subta_no = '" +is_subta_no+ "' ")
+
+return
