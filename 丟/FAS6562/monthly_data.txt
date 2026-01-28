@@ -1312,6 +1312,375 @@ if cbx_5.checked = true then
 	Destroy OLE_MyExcel
 end if
 
+// ============================================
+// FILE 06: Letter of Declaration with ISIN
+// ============================================
+if cbx_6.checked = true then
+	IF GetFileOpenName("選擇Letter of Declaration檔案", is_pathname, is_filename1, 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx', 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx') = 1 THEN
+		is_filename = is_filename1
+		sle_file06.text = is_pathname
+	ELSE
+		f_error('FILE06-未選擇檔案, 作業取消!')
+		return
+	END IF
+	
+	// Letter of Declaration with ISIN Report
+	li_file_num = fileopen(is_pathname, LineMode!, Read!, LockRead!, Replace!)
+	
+	if li_file_num = -1 then
+		f_error('FILE06-' + is_pathname + '-路徑錯誤, 或是檔案不存在, 作業取消!')
+		return
+	else
+		fileclose(li_file_num)
+	end if
+	
+	OLE_MyExcel = CREATE OLEObject
+	OLE_MyExcel.ConnectToNewObject("excel.Application")
+	OLE_MyExcel.visible = false
+	
+	ll_row = 2  // 從第3行開始 (第1行是日期, 第2行是表頭)
+	ll_black_count = 0
+	OLE_MyExcel.Workbooks.Open(is_pathname)
+	OLE_MyExcel.Worksheets(1).Activate
+	
+	do
+		ll_row++
+		
+		// 初始化變數
+		setnull(ls_isin_code)
+		setnull(ls_fund_no)
+		string ls_fund_name
+		dec ldec_fund_size, ldec_derivative_enhance, ldec_limit_40
+		dec ldec_derivative_hedge, ldec_denominator, ldec_limit_100
+		dec ldec_invest_taiwan, ldec_limit_50, ldec_invest_china, ldec_limit_20
+		
+		// 取得 ISIN CODE (Column A)
+		OLE_MyExcel.Range("A" + string(ll_row)).Select
+		ls_isin_code = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		
+		if isnull(ls_isin_code) or len(trim(ls_isin_code)) <= 0 then
+			ll_black_count++
+			Continue
+		else
+			ll_black_count = 0
+		end if
+		
+		sle_status.text = 'File06 - ' + string(ll_row) + '-' + ls_isin_code + '-' + string(ll_black_count)
+		
+		// 查詢基金編號
+		select fund_no
+		  into :ls_fund_no
+		  from fas.fund
+		 where isin_code = :ls_isin_code
+		   and (elimination_date is null or to_char(elimination_date, 'yyyy/mm') > to_char(:ld_tx_date, 'yyyy/mm'))
+		   and (clear_date is null or to_char(clear_date, 'yyyy/mm') > to_char(:ld_tx_date, 'yyyy/mm'))
+		   and (fund_category = '2')
+		   and (offering_type = '1');
+		
+		if f_sql_code() <> 0 then
+			Continue
+		end if
+		
+		// 讀取 Fund Name (Column B)
+		OLE_MyExcel.Range("B" + string(ll_row)).Select
+		ls_fund_name = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		
+		// 讀取 Fund Size (Column C)
+		OLE_MyExcel.Range("C" + string(ll_row)).Select
+		ldec_fund_size = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 For enhancing performance (Column D)
+		OLE_MyExcel.Range("D" + string(ll_row)).Select
+		ldec_derivative_enhance = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Limit 40% (Column E)
+		OLE_MyExcel.Range("E" + string(ll_row)).Select
+		ldec_limit_40 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 For hedging purpose (Column F)
+		OLE_MyExcel.Range("F" + string(ll_row)).Select
+		ldec_derivative_hedge = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Denominator (Column G)
+		OLE_MyExcel.Range("G" + string(ll_row)).Select
+		ldec_denominator = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Limit 100% (Column H)
+		OLE_MyExcel.Range("H" + string(ll_row)).Select
+		ldec_limit_100 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Investments in Taiwan (Column I)
+		OLE_MyExcel.Range("I" + string(ll_row)).Select
+		ldec_invest_taiwan = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Limit 50% (Column J)
+		OLE_MyExcel.Range("J" + string(ll_row)).Select
+		ldec_limit_50 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Investments in China (Column K)
+		OLE_MyExcel.Range("K" + string(ll_row)).Select
+		ldec_invest_china = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Limit 20% (Column L)
+		OLE_MyExcel.Range("L" + string(ll_row)).Select
+		ldec_limit_20 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 插入或更新資料到 fas.new_agent_6562_temp1
+		ll_count = 0
+		SELECT count(*)
+		  INTO :ll_count
+		  FROM fas.new_agent_6562_temp1
+		 WHERE fund_no = :ls_fund_no
+		   AND tx_date = :ld_tx_date;
+		
+		if ll_count = 0 then
+			INSERT INTO fas.new_agent_6562_temp1
+				( fund_no,
+				  tx_date,
+				  isin_code,
+				  fund_name,
+				  fund_size,
+				  derivative_enhance,
+				  limit_40_pct,
+				  derivative_hedge,
+				  denominator,
+				  limit_100_pct,
+				  invest_taiwan,
+				  limit_50_pct,
+				  invest_china,
+				  limit_20_pct )
+			VALUES ( :ls_fund_no,
+					 :ld_tx_date,
+					 :ls_isin_code,
+					 :ls_fund_name,
+					 :ldec_fund_size,
+					 :ldec_derivative_enhance,
+					 :ldec_limit_40,
+					 :ldec_derivative_hedge,
+					 :ldec_denominator,
+					 :ldec_limit_100,
+					 :ldec_invest_taiwan,
+					 :ldec_limit_50,
+					 :ldec_invest_china,
+					 :ldec_limit_20 );
+		else
+			UPDATE fas.new_agent_6562_temp1
+			   SET fund_name = :ls_fund_name,
+				   fund_size = :ldec_fund_size,
+				   derivative_enhance = :ldec_derivative_enhance,
+				   limit_40_pct = :ldec_limit_40,
+				   derivative_hedge = :ldec_derivative_hedge,
+				   denominator = :ldec_denominator,
+				   limit_100_pct = :ldec_limit_100,
+				   invest_taiwan = :ldec_invest_taiwan,
+				   limit_50_pct = :ldec_limit_50,
+				   invest_china = :ldec_invest_china,
+				   limit_20_pct = :ldec_limit_20
+			 WHERE fund_no = :ls_fund_no
+			   AND tx_date = :ld_tx_date;
+		end if
+		
+		if f_sql_code() <> 0 then
+			f_error('FILE06-' + '更新資料發生錯誤, 作業取消!')
+			Rollback;
+			OLE_MyExcel.Workbooks.Close
+			OLE_MyExcel.DisConnectObject()
+			Destroy OLE_MyExcel
+			return
+		end if
+		
+	loop until ll_black_count > 20
+	
+	OLE_MyExcel.Workbooks.Close
+	OLE_MyExcel.DisConnectObject()
+	Destroy OLE_MyExcel
+end if
+
+// ============================================
+// FILE 07: SITCA AUM
+// ============================================
+if cbx_7.checked = true then
+	IF GetFileOpenName("選擇SITCA AUM檔案", is_pathname, is_filename1, 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx', 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx') = 1 THEN
+		is_filename = is_filename1
+		sle_file07.text = is_pathname
+	ELSE
+		f_error('FILE07-未選擇檔案, 作業取消!')
+		return
+	END IF
+	
+	// SITCA AUM Report
+	li_file_num = fileopen(is_pathname, LineMode!, Read!, LockRead!, Replace!)
+	
+	if li_file_num = -1 then
+		f_error('FILE07-' + is_pathname + '-路徑錯誤, 或是檔案不存在, 作業取消!')
+		return
+	else
+		fileclose(li_file_num)
+	end if
+	
+	OLE_MyExcel = CREATE OLEObject
+	OLE_MyExcel.ConnectToNewObject("excel.Application")
+	OLE_MyExcel.visible = false
+	
+	ll_row = 2  // 從第3行開始 (第1行是標題, 第2行是表頭)
+	ll_black_count = 0
+	OLE_MyExcel.Workbooks.Open(is_pathname)
+	OLE_MyExcel.Worksheets(1).Activate
+	
+	do
+		ll_row++
+		
+		// 初始化變數
+		setnull(ls_isin_code)
+		setnull(ls_fund_no)
+		string ls_fund_abbr, ls_fund_name, ls_fbc
+		integer li_no
+		dec ldec_fund_size_product_ccy, ldec_fx_rate, ldec_nav_reporting_ccy
+		dec ldec_invest_amt_taiwan, ldec_fund_size_by_share_class
+		dec ldec_fund_size_global_aa, ldec_invest_pct
+		
+		// 取得 ISIN CODE (Column D)
+		OLE_MyExcel.Range("D" + string(ll_row)).Select
+		ls_isin_code = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		
+		if isnull(ls_isin_code) or len(trim(ls_isin_code)) <= 0 then
+			ll_black_count++
+			Continue
+		else
+			ll_black_count = 0
+		end if
+		
+		sle_status.text = 'File07 - ' + string(ll_row) + '-' + ls_isin_code + '-' + string(ll_black_count)
+		
+		// 查詢基金編號
+		select fund_no
+		  into :ls_fund_no
+		  from fas.fund
+		 where isin_code = :ls_isin_code
+		   and (elimination_date is null or to_char(elimination_date, 'yyyy/mm') > to_char(:ld_tx_date, 'yyyy/mm'))
+		   and (clear_date is null or to_char(clear_date, 'yyyy/mm') > to_char(:ld_tx_date, 'yyyy/mm'))
+		   and (fund_category = '2')
+		   and (offering_type = '1');
+		
+		if f_sql_code() <> 0 then
+			Continue
+		end if
+		
+		// 讀取 Fund Abbr. (Column A)
+		OLE_MyExcel.Range("A" + string(ll_row)).Select
+		ls_fund_abbr = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		
+		// 讀取 NO (Column B)
+		OLE_MyExcel.Range("B" + string(ll_row)).Select
+		li_no = integer(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Fund Name (Column C)
+		OLE_MyExcel.Range("C" + string(ll_row)).Select
+		ls_fund_name = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		
+		// 讀取 FBC (Column E)
+		OLE_MyExcel.Range("E" + string(ll_row)).Select
+		ls_fbc = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		
+		// 讀取 Fund Size as of 31 October 2025 (Product ccy) (Column F)
+		OLE_MyExcel.Range("F" + string(ll_row)).Select
+		ldec_fund_size_product_ccy = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 FX Rate (Column G)
+		OLE_MyExcel.Range("G" + string(ll_row)).Select
+		ldec_fx_rate = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 NAV (in reporting ccy) (Column H)
+		OLE_MyExcel.Range("H" + string(ll_row)).Select
+		ldec_nav_reporting_ccy = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Investment Amount of Taiwan Investors (USD) (Column I)
+		OLE_MyExcel.Range("I" + string(ll_row)).Select
+		ldec_invest_amt_taiwan = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Fund Size as of 31 October 2025 (USD and by share class) (Column J)
+		OLE_MyExcel.Range("J" + string(ll_row)).Select
+		ldec_fund_size_by_share_class = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Fund Size as of 31 October 2025 (USD) 全球基金規模AA (Column K)
+		OLE_MyExcel.Range("K" + string(ll_row)).Select
+		ldec_fund_size_global_aa = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 讀取 Investment Amount of Taiwan Investors/Fund Size (Column L)
+		OLE_MyExcel.Range("L" + string(ll_row)).Select
+		ldec_invest_pct = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		
+		// 插入或更新資料到 fas.new_agent_6562_temp2
+		ll_count = 0
+		SELECT count(*)
+		  INTO :ll_count
+		  FROM fas.new_agent_6562_temp2
+		 WHERE fund_no = :ls_fund_no
+		   AND tx_date = :ld_tx_date;
+		
+		if ll_count = 0 then
+			INSERT INTO fas.new_agent_6562_temp2
+				( fund_no,
+				  tx_date,
+				  fund_abbr,
+				  seq_no,
+				  fund_name,
+				  isin_code,
+				  fbc,
+				  fund_size_product_ccy,
+				  fx_rate,
+				  nav_reporting_ccy,
+				  invest_amt_taiwan_usd,
+				  fund_size_by_share_class,
+				  fund_size_global_aa,
+				  invest_pct )
+			VALUES ( :ls_fund_no,
+					 :ld_tx_date,
+					 :ls_fund_abbr,
+					 :li_no,
+					 :ls_fund_name,
+					 :ls_isin_code,
+					 :ls_fbc,
+					 :ldec_fund_size_product_ccy,
+					 :ldec_fx_rate,
+					 :ldec_nav_reporting_ccy,
+					 :ldec_invest_amt_taiwan,
+					 :ldec_fund_size_by_share_class,
+					 :ldec_fund_size_global_aa,
+					 :ldec_invest_pct );
+		else
+			UPDATE fas.new_agent_6562_temp2
+			   SET fund_abbr = :ls_fund_abbr,
+				   seq_no = :li_no,
+				   fund_name = :ls_fund_name,
+				   fbc = :ls_fbc,
+				   fund_size_product_ccy = :ldec_fund_size_product_ccy,
+				   fx_rate = :ldec_fx_rate,
+				   nav_reporting_ccy = :ldec_nav_reporting_ccy,
+				   invest_amt_taiwan_usd = :ldec_invest_amt_taiwan,
+				   fund_size_by_share_class = :ldec_fund_size_by_share_class,
+				   fund_size_global_aa = :ldec_fund_size_global_aa,
+				   invest_pct = :ldec_invest_pct
+			 WHERE fund_no = :ls_fund_no
+			   AND tx_date = :ld_tx_date;
+		end if
+		
+		if f_sql_code() <> 0 then
+			f_error('FILE07-' + '更新資料發生錯誤, 作業取消!')
+			Rollback;
+			OLE_MyExcel.Workbooks.Close
+			OLE_MyExcel.DisConnectObject()
+			Destroy OLE_MyExcel
+			return
+		end if
+		
+	loop until ll_black_count > 20
+	
+	OLE_MyExcel.Workbooks.Close
+	OLE_MyExcel.DisConnectObject()
+	Destroy OLE_MyExcel
+end if
+
 // 作業完成
 f_info('作業完成!')
 Commit;
