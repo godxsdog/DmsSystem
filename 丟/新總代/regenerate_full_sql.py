@@ -476,11 +476,19 @@ def main():
         if col(r, 'BRANCH_NO'):
             set_val('BRANCH_NO', f"'{col(r, 'BRANCH_NO')}'")
         if col(r, 'RED_BRANCH_NO'):
-            set_val('RED_BRANCH_NO', f"'{col(r, 'RED_BRANCH_NO')}'")
+            red_branch = col(r, 'RED_BRANCH_NO')
+            # 修正: RED_BRANCH_NO 最大 4 字元，若超過則設為空
+            if len(red_branch) > 4:
+                red_branch = ''
+            set_val('RED_BRANCH_NO', f"'{red_branch}'")
         if col(r, 'DIVIDEND_BANK_NO'):
             set_val('DIVIDEND_BANK_NO', f"'{col(r, 'DIVIDEND_BANK_NO')}'")
         if col(r, 'DIVIDEND_BRANCH_NO'):
-            set_val('DIVIDEND_BRANCH_NO', f"'{col(r, 'DIVIDEND_BRANCH_NO')}'")
+            div_branch = col(r, 'DIVIDEND_BRANCH_NO')
+            # 修正: DIVIDEND_BRANCH_NO 最大 4 字元，若超過則設為空
+            if len(div_branch) > 4:
+                div_branch = ''
+            set_val('DIVIDEND_BRANCH_NO', f"'{div_branch}'")
         if col(r, 'RED_AC_CODE'):
             red_ac = col(r, 'RED_AC_CODE')
             # 修正: RED_AC_CODE 如果太長（ISIN），截斷或設為空
