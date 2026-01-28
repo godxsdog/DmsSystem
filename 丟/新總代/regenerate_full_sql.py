@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-完全重新產生 NEW_C_FAS.FUND_INSERT.sql
+完全重新產生 NEW_C_FAS.FUND_INSERT.sql (Synthetic Template Version)
 來源：CG基金清單all_FAS191 1.csv (所有列)
-範本：取自原 SQL 檔的 C9 (第 14 行)，但會解析並替換所有變動欄位
+範本：人工合成 (Synthetic)，不依賴現有 SQL 檔的內容，避免繼承錯誤。
 """
 import csv
 import os
@@ -24,6 +24,17 @@ def parse_date(s):
         return f"to_date('{y}-{mo}-{d} 00:00:00','YYYY-MM-DD HH24:MI:SS')"
     return "to_date('1900-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')"
 
+def parse_time(s):
+    # s format: 11:00 -> to_date('1900-01-01 11:00:00', ...)
+    if not s: return "null"
+    if ':' in s:
+        # assume HH:MM
+        parts = s.split(':')
+        h = parts[0].zfill(2)
+        m = parts[1].zfill(2)
+        return f"to_date('1900-01-01 {h}:{m}:00','YYYY-MM-DD HH24:MI:SS')"
+    return "null"
+
 def esc(s):
     if s is None or s == '': return ''
     return str(s).replace("'", "''")
@@ -43,82 +54,79 @@ def fund_type_map(kind2):
     if '債券' in k or 'Bond' in k: return 'B'
     return 'E'
 
-# 簡易 SQL Values 解析器 (處理引號與逗號)
-def parse_sql_values(val_str):
-    values = []
-    current = []
-    in_quote = False
-    i = 0
-    while i < len(val_str):
-        c = val_str[i]
-        if c == "'":
-            # 檢查是否為跳脫引號 ''
-            if in_quote and i + 1 < len(val_str) and val_str[i+1] == "'":
-                current.append("'")
-                i += 1
-            else:
-                in_quote = not in_quote
-        elif c == ',' and not in_quote:
-            values.append("".join(current))
-            current = []
-            i += 1
-            continue
-        current.append(c)
-        i += 1
-    values.append("".join(current))
-    return values
-
 def main():
     # 1. 讀取 CSV
     with open(CSV_PATH, 'r', encoding='utf-8') as f:
         rows = list(csv.DictReader(f))
 
-    # 2. 讀取 SQL 以取得 Header 與 C9 範本
-    # 嘗試用 UTF-8 讀取，若失敗則用 CP950 (為了容錯，雖然現在可能是壞掉的 UTF-8)
-    try:
-        with open(SQL_PATH, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-    except UnicodeDecodeError:
-        with open(SQL_PATH, 'r', encoding='cp950') as f:
-            lines = f.readlines()
-
-    header_insert = ""
-    template_line = ""
-    
-    for line in lines:
-        if "Insert into FAS.FUND" in line and not header_insert:
-            # 取得 insert header (直到 values 前)
-            header_insert = line.split(" values (")[0] + " values ("
-        if "values ('C9'" in line:
-            template_line = line
-            break
-            
-    if not template_line:
-        print("Error: Could not find C9 template line.")
-        return
-
-    # 解析 C9 範本的值
-    # template_line 格式: ... values ('C9', ... );
-    val_part = template_line.split(" values (", 1)[1].rsplit(");", 1)[0]
-    template_vals = parse_sql_values(val_part)
-    
-    # 取得欄位名稱列表以確定 Index
-    # header_insert 格式: Insert into FAS.FUND (COL1,COL2,...) values (
-    col_str = header_insert.split("(")[1].split(") values")[0]
-    cols = [c.strip() for c in col_str.split(",")]
+    # 2. 定義欄位列表 (從原始檔案 header 取得，這裡是硬編碼以確保順序正確)
+    # 這是從之前讀取到的 Insert header 複製過來的
+    cols_str = "FUND_NO,NAME,SNAME,FUND_TYPE,MAX_SHARE,INCEPTION_DATE,CUSTODIAN,CO_NO,TERM_NO,ID,PAY_DAY,IS_PERIODIC,FORMULA_RED_FEE,PREV_DATE,AC_DATE,VISA_DATE,LAST_CER_NO,LAST_S_STAT_NO,LAST_P_STAT_NO,IS_POSTED,FIRST_RED_DATE,MF_RATE,IS_EC,IS_VC,BEHIND_DAYS,IS_CCC,IS_SSS,ORDINAL,ENAME,SSNAME,CUSTODIAN_RECIPIENT,CUSTODIAN_FAX,MIN_AMOUNT,MAX_CHANGE,TAX_NO,MEDIA_NO,VAT,CTCB_FUND_NO,CTCB_AC_CODE,PERIOD_MIN,CLEAR_DATE,UWCB_FUND_NO,UWCB_AC_CODE,IS_EC_PERIODIC,EC_PERIOD_MIN,EC_MIN_AMOUNT,CUSTODIAN_BANK_NO,TW_RATE,VARIABLE_MF,NAV_DECIMAL,EMP_NO,LAST_MODIFIED,AREA_TYPE,IS_MAX_SHARE,BANK_NO,BRANCH_NO,CURRENCY_NO,FUND_TYPE2,OFFERING_TYPE,AMT_DECIMAL,SHARE_DECIMAL,MIN_RED_SHARE,MIN_BAL_SHARE,PUR_CUT_OFF,RED_CUT_OFF,CALENDAR_CODE,FUND_CATEGORY,SHARE_CLASS,ISIN_CODE,AMC_NO,RED_NAV_DAY,MIN_BAL_AMOUNT,EC_DIFF,EC_DEDUCTION,EC_REMITTANCE,EC_ATM,DEXIA_CODE,FEE_RATE,RESET_PERIOD,EARLY_RED_MIN_DAYS,EARLY_RED_FEE_RATE,IS_PERFORMANCE_FEE,ANNUALIZED_ROI,ROUNDING_SHARE,T0_CODE,HSBC_CODE,MIN_INITIAL_PURCHASE,MIN_RED_AMOUNT,PUR_NAV_DAY,IS_EC_PURCHASE,IS_EC_REDEMPTION,EC_PUR_CUT_OFF,EC_RED_CUT_OFF,LAUNCH_DATE,INVESTMENT_LINK,DIVIDEND_FREQ,AC_NAME,TX_CALENDAR_CODE,MIN_INITIAL_PURCHASE_NTD,MIN_AMOUNT_NTD,PERIOD_MIN_NTD,MIN_RED_AMOUNT_NTD,MIN_BAL_AMOUNT_NTD,EC_PERIOD_MIN_NTD,EC_MIN_AMOUNT_NTD,REDEMPTION_RULE,IS_EC_SWITCH_IN,IS_WIRE_FEE,RISK_CATEGORY,CORE_SATELLITE,TDCC_CODE,END_COLLECTION_DATE,SITCA_FUND_TYPE,ELIMINATION_DATE,EC_RSP_NEW,EC_RSP_UPDATE,FUND_GROUP,DIVIDEND_RATE,DIVIDEND_MIN,RSP_CHANGE,FAX_PUR_CUT_OFF,FUND_SET,TSCD_NAV_UPLOAD_TYPE,FUND_MASTER_NO,DIVIDEND_DESC,GLOBAL_CURRENCY,HEDGING_TYPE,CREATED_BY,CREATION_DATE,REVIEWED_BY,REVIEW_DATE,STATUS,IS_EC_DRSP,EC_DRSP_NEW,EC_DRSP_UPDATE,RED_BANK_NO,RED_BRANCH_NO,RED_AC_CODE,DIVIDEND_BANK_NO,DIVIDEND_BRANCH_NO,DIVIDEND_AC_CODE,BANK_WIRE_FEE,IS_TDCC,TDCC_DEBIT_CUT_OFF,TDCC_REMIT_CUT_OFF,TDCC_RED_CUT_OFF,SUBTA_NO,NTD_RSP_RANGE,ORG_RSP_RANGE,INVESTMENT_TYPE,SERVICE_CHARGE_TYPE,DUE_EXCHANGE_TYPE,DUE_EXCHANGE_FUND,BEL_BASE,BEL_YEAR,BEL_EXG_DAY,SALES_DATE,OPERATION_FEE_RATE,MATURITY_DATE,IS_PURCHASE,RECEIPT_FREQ,RECEIPT_CALENDAR_CODE,RECEIPT_DAY,PUR_DISCOUNT,SF_RATE,CF_RATE,OF_RATE,SALES_TYPE,IS_MAX_SHARE_RATE1,IS_MAX_SHARE_RATE2,REGISTRATION,IS_ROBO"
+    cols = [c.strip() for c in cols_str.split(",")]
     col_idx = {name: i for i, name in enumerate(cols)}
-
-    # 定義要替換的欄位與對應邏輯
-    # 這些欄位會從 CSV 取得，其餘保留 C9 範本值
     
+    # 建立預設值 Template (全 null)
+    # 常數預設值
+    defaults = {
+        'CUSTODIAN': "'JPM J.P. Morgan SE, Luxembourg Branch'",
+        'PAY_DAY': '3',
+        'IS_PERIODIC': "'N'",
+        'AC_DATE': "to_date('2024-11-15 00:00:00','YYYY-MM-DD HH24:MI:SS')",
+        'LAST_CER_NO': '0',
+        'LAST_S_STAT_NO': '0',
+        'LAST_P_STAT_NO': '0',
+        'IS_EC': "'N'",
+        'IS_VC': "'N'",
+        'BEHIND_DAYS': '1',
+        'OFFERING_TYPE': "'1'",
+        'AMT_DECIMAL': '2',
+        'SHARE_DECIMAL': '3',
+        'FUND_CATEGORY': "'2'",
+        'AMC_NO': "'05'",
+        'IS_EC_PURCHASE': "'N'",
+        'IS_EC_REDEMPTION': "'N'",
+        'IS_EC_SWITCH_IN': "'N'",
+        'IS_WIRE_FEE': "'N'",
+        'CORE_SATELLITE': "'S'",
+        'IS_ROBO': "'N'",
+        'SALES_TYPE': "'0'",
+        'REGISTRATION': "'LU'",
+        'SERVICE_CHARGE_TYPE': "'1'",
+        'DUE_EXCHANGE_TYPE': "'N'",
+        'BEL_BASE': "'3'",
+        'BEL_YEAR': '0',
+        'BEL_EXG_DAY': '0',
+        'IS_POSTED': 'null', # 修正: 原本 C9 是 null?
+        'ORDINAL': 'null',
+        'MIN_RED_SHARE': '0',
+        'MIN_BAL_SHARE': '0',
+        'PUR_CUT_OFF': '0', # C9 has 0
+        'RED_NAV_DAY': '0',
+        'MIN_BAL_AMOUNT': '0',
+        'EC_DIFF': "'N'",
+        'EC_DEDUCTION': "'N'",
+        'EC_REMITTANCE': "'N'",
+        # 補上更多可能的常數...
+        'IS_TDCC': "'Y'", # C9 has Y
+        'SUBTA_NO': "'5'", # C9 has 5
+        'INVESTMENT_LINK': "'N'", # C9 has N (before DIVIDEND_FREQ?)
+        'DIVIDEND_FREQ': "'Q'", # C9 has Q? C1 has '本基金...'? No, C9 values had Q.
+    }
+
     new_lines = []
     # 寫入檔頭
     new_lines.append("REM INSERTING into FAS.FUND")
     new_lines.append("SET DEFINE OFF;")
+    header_insert = f"Insert into FAS.FUND ({cols_str}) values ("
 
     for i, r in enumerate(rows):
-        # 複製一份範本值
-        vals = list(template_vals)
+        # 初始值全為 'null'
+        vals = ['null'] * len(cols)
+        
+        # 填入常數預設值
+        for k, v in defaults.items():
+            if k in col_idx:
+                vals[col_idx[k]] = v
         
         # 準備資料
         fund_no = f'C{i+1}'
@@ -137,7 +145,7 @@ def main():
         curr = currency_map(col(r, '幣別'))
         share_class = esc(col(r, '級別'))
         cal_code = esc(col(r, '收益分配設定'))
-        ac_name = esc(col(r, '基金淨值日設定')) # 其實 CSV 欄位名稱是 "基金淨值日設定" 但 script 用來填 AC_NAME
+        ac_name = esc(col(r, '基金淨值日設定'))
         min_init = col(r, '首次申購原幣下限') or '10000'
         min_amt = col(r, '再次申購原幣下限') or '1000'
         area = area_map(col(r, '投資區域'))
@@ -145,8 +153,17 @@ def main():
         risk = col(r, '風險收益等級') or 'RR3'
         fund_master = col(r, '買回基金主帳戶')
         fund_master = f"'{esc(fund_master)}'" if fund_master else 'null'
+        
+        # 時間欄位
+        tdcc_debit = parse_time(col(r, '扣款時間'))
+        tdcc_remit = parse_time(col(r, '匯款時間'))
+        tdcc_red = parse_time(col(r, '贖回時間')) # 欄位名稱是贖回時間? CSV header "贖回時間" (line 1 last col)
 
-        # 替換值 (使用 col_idx 查找位置)
+        # 邏輯推導欄位
+        sitca = "'AA2'" if ftype == 'E' else "'AC21'"
+        op_fee = fee_rate
+
+        # 替換值
         def set_val(col_name, v):
             if col_name in col_idx:
                 vals[col_idx[col_name]] = v
@@ -160,42 +177,45 @@ def main():
         set_val('INCEPTION_DATE', inception)
         set_val('MF_RATE', mf_rate)
         set_val('FEE_RATE', fee_rate)
-        set_val('SF_RATE', sf_rate) # 原 script 沒換? 補上
-        set_val('OF_RATE', of_rate) # 原 script 沒換? 補上
+        set_val('SF_RATE', sf_rate)
+        set_val('OF_RATE', of_rate)
+        set_val('OPERATION_FEE_RATE', op_fee) # 對應保管費率
         set_val('CURRENCY_NO', f"'{curr}'")
         set_val('GLOBAL_CURRENCY', f"'{curr}'")
         set_val('SHARE_CLASS', f"'{share_class}'")
         set_val('CALENDAR_CODE', f"'{cal_code}'")
-        set_val('FUND_GROUP', f"'{cal_code}'") # Gen script mapped logic
+        set_val('FUND_GROUP', f"'{cal_code}'")
         set_val('AC_NAME', f"N'{ac_name}'")
-        set_val('TX_CALENDAR_CODE', f"'{ac_name}'") # Gen script mapped logic
+        set_val('TX_CALENDAR_CODE', f"'{ac_name}'")
         set_val('MIN_INITIAL_PURCHASE', min_init)
         set_val('MIN_AMOUNT', min_amt)
         set_val('AREA_TYPE', f"'{area}'")
         set_val('FUND_TYPE', f"'{ftype}'")
         set_val('INVESTMENT_TYPE', f"'{ftype}'")
+        # FUND_TYPE2 保持 null
         
         set_val('RISK_CATEGORY', f"'{risk}'")
         set_val('ISIN_CODE', f"'{isin}'")
         set_val('DIVIDEND_DESC', f"N'{div_desc}'" if div_desc else "null")
         set_val('FUND_MASTER_NO', fund_master)
+        
+        set_val('SITCA_FUND_TYPE', sitca)
+        
+        set_val('TDCC_DEBIT_CUT_OFF', tdcc_debit)
+        set_val('TDCC_REMIT_CUT_OFF', tdcc_remit)
+        set_val('TDCC_RED_CUT_OFF', tdcc_red)
+        
+        # LAUNCH_DATE (same as INCEPTION_DATE?) C9 used to_date 1900...
+        # Let's check CSV "開賣日"?
+        launch_date = parse_date(col(r, '開賣日'))
+        set_val('LAUNCH_DATE', launch_date)
 
-        # 組裝 Values String
-        # 注意：vals 裡面的字串已經包含需要的引號 (例如 "'C1'") 或 to_date(...)
-        # parse_sql_values 讀進來時去除了外層引號嗎? 不，parse_sql_values 保留內容。
-        # 範本內容 'C9' -> 解析為 'C9' (含引號)。
-        # 因此 set_val 時也要給含引號的字串。
-        
-        # 修正 parse_sql_values 的行為：
-        # 我的 parse_sql_values 實作會保留內容，所以 'C9' 會被讀成 'C9'。
-        # 因此 set_val 正確。
-        
         line_val = ",".join(vals)
         new_lines.append(header_insert + line_val + ");")
 
     with open(SQL_PATH, 'w', encoding='utf-8') as f:
         f.write('\n'.join(new_lines))
-        f.write('\n') # EOF newline
+        f.write('\n')
 
     print(f'Regenerated {len(rows)} INSERT rows to {SQL_PATH}')
 
