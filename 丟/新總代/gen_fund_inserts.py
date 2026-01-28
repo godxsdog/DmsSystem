@@ -43,14 +43,9 @@ def main():
     with open(CSV_PATH, 'r', encoding='utf-8') as f:
         rows = list(csv.DictReader(f))
 
-    try:
-        with open(SQL_PATH, 'r', encoding='utf-8') as f:
-            sql_lines = f.readlines()
-        sql_enc = 'utf-8'
-    except UnicodeDecodeError:
-        with open(SQL_PATH, 'r', encoding='cp950') as f:
-            sql_lines = f.readlines()
-        sql_enc = 'cp950'
+    with open(SQL_PATH, 'r', encoding='utf-8') as f:
+        sql_lines = f.readlines()
+    sql_enc = 'utf-8'
 
     # 用第 14 行（C9）當範本，取出 "Insert into ... values (" 之前與 ");" 之後，只替換 values 內容
     template_line = sql_lines[13]  # 0-based, line 14
