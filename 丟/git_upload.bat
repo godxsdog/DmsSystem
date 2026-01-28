@@ -1,20 +1,20 @@
 @echo off
-:: 1. 切換目錄
+:: 1. Change Directory
 cd /d C:\Users\kentkhuang\source\repos\godxsdog\DmsSystem
 
-:: 2. 加入所有變更
-git add .
-
-:: 3. 取得今天日期並 Commit
-:: 這會抓取系統日期，格式通常為 YYYY-MM-DD
+:: 2. Format Date and Time (YYYYMMDD_HHMMSS)
 set "datestr=%date:~0,4%%date:~5,2%%date:~8,2%"
-git commit -m "Auto Upload: %datestr%"
+set "t=%time: =0%"
+set "timestr=%t:~0,2%%t:~3,2%%t:~6,2%"
+set "full_datetime=%datestr%_%timestr%"
 
-:: 4. 推送到遠端
+:: 3. Git Commands
+git add .
+git commit -m "%full_datetime%"
 git push -u origin
 
 echo.
 echo ================================
-echo    上傳完成！請按任意鍵結束。
+echo    Upload Complete: %full_datetime%
 echo ================================
 pause
