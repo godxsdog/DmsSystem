@@ -100,10 +100,8 @@ def main():
         'ORDINAL': 'null',
         'MIN_RED_SHARE': '0',
         'MIN_BAL_SHARE': '0',
-        'PUR_CUT_OFF': '0', # C9 has 0
-        'RED_NAV_DAY': '0',
         'MIN_BAL_AMOUNT': '0',
-        'EC_DIFF': "'N'",
+        'RED_NAV_DAY': '0',
         'EC_DEDUCTION': "'N'",
         'EC_REMITTANCE': "'N'",
         # 補上更多可能的常數...
