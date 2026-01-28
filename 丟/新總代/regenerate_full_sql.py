@@ -211,7 +211,7 @@ def main():
         'CUSTODIAN_RECIPIENT': "''", # 境外基金通常不需要聯絡人
         'EMP_NO': "'A00907'", # D18 範例值
         'VAT': "'14692623A'", # D18 範例值
-        'STATUS': "'R'", # D18: R (已審核)
+        'STATUS': 'null', # 用戶要求設為 null
         'REVIEWED_BY': "'A01096'", # D18 範例審核人員
         'FUND_SET': "'05'", # D18: 05
         'TDCC_CODE': "''", # 境外基金集保代碼（IS_TDCC='N'時設為空）
