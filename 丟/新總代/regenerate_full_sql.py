@@ -150,6 +150,10 @@ def main():
         ftype = fund_type_map(col(r, '基金種類2'))
         risk = col(r, '風險收益等級') or 'RR3'
         fund_master = col(r, '買回基金主帳戶')
+        # 修正: 若 FUND_MASTER_NO 超過 5 碼 (例如誤填 ISIN)，則設為 null，避免 ORA-12899
+        if fund_master and len(fund_master) > 5:
+            fund_master = None
+        
         fund_master = f"'{esc(fund_master)}'" if fund_master else 'null'
         
         # 時間欄位
