@@ -15,6 +15,67 @@ SQL_PATH = os.path.join(BASE, 'NEW_C_FAS.FUND_INSERT.sql')
 def col(d, k):
     return d.get(k, '').strip() if isinstance(d, dict) else ''
 
+def yn_map(s):
+    """將中文是/否轉換為 Y/N"""
+    if not s:
+        return ''
+    s = s.strip()
+    if s in ['是', 'Y', 'y', 'YES', 'yes']:
+        return 'Y'
+    if s in ['否', 'N', 'n', 'NO', 'no']:
+        return 'N'
+    return s
+
+def redemption_rule_map(s):
+    """贖回計價方式對應"""
+    if not s:
+        return 'C'
+    if '總單位數' in s or '價金' in s:
+        return 'C'
+    if '先進先出' in s or 'FIFO' in s:
+        return 'F'
+    return 'C'
+
+def core_satellite_map(s):
+    """核心/衛星對應 (CSV 中 "是" 表示衛星基金)"""
+    if not s:
+        return 'S'
+    s = s.strip()
+    # 根據 D18 範例與 CSV 實際情況，"是" 對應 S (衛星)
+    if s in ['是', 'S', 'Satellite', '衛星']:
+        return 'S'
+    if s in ['否', 'C', 'Core', '核心']:
+        return 'C'
+    return 'S'
+
+def offering_type_map(s):
+    """募集類型對應"""
+    if not s:
+        return '1'
+    if '公開募集' in s or 'public' in s.lower():
+        return '1'
+    if '私募' in s or 'private' in s.lower():
+        return '2'
+    return s if s in ['1', '2'] else '1'
+
+def service_charge_map(s):
+    """收費類型對應"""
+    if not s:
+        return '1'
+    if '前收' in s or 'front' in s.lower():
+        return '1'
+    if '後收' in s or 'back' in s.lower():
+        return '2'
+    return s if s in ['1', '2'] else '1'
+
+def sales_type_map(s):
+    """銷售類型對應"""
+    if not s:
+        return '0'
+    if '正常銷售' in s or 'normal' in s.lower():
+        return '0'
+    return s if s in ['0', '1', '2'] else '0'
+
 def parse_date(s):
     if not s: return "to_date('1900-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')"
     s = s.strip().replace(' ', '')
@@ -53,6 +114,15 @@ def fund_type_map(kind2):
     k = str(kind2).strip()
     if '債券' in k or 'Bond' in k: return 'B'
     return 'E'
+
+def fund_type2_map(fund_type):
+    """推導 FUND_TYPE2 (基金種類 + 區域代碼)"""
+    # 境外基金通常加 9，例如 E9, B9
+    if fund_type == 'E':
+        return 'E9'
+    if fund_type == 'B':
+        return 'B9'
+    return f'{fund_type}9'
 
 def div_freq_map(s):
     if not s: return 'N' # Default None
@@ -105,68 +175,109 @@ def main():
     col_idx = {name: i for i, name in enumerate(cols)}
     
     # 建立預設值 Template (全 null)
-    # 常數預設值
+    # 常數預設值 (參考 D18 範例資料)
     defaults = {
         'CUSTODIAN': "'JPM J.P. Morgan SE, Luxembourg Branch'",
-        'PAY_DAY': '3',
-        'IS_PERIODIC': "'N'",
-        'AC_DATE': "to_date('2024-11-15 00:00:00','YYYY-MM-DD HH24:MI:SS')",
-        'LAST_CER_NO': '0',
-        'LAST_S_STAT_NO': '0',
-        'LAST_P_STAT_NO': '0',
-        'IS_EC': "'N'",
-        'IS_VC': "'N'",
+        'CO_NO': "'10'",
+        'TERM_NO': "'01'",
+        'PAY_DAY': '5', # D18: 5
         'BEHIND_DAYS': '1',
-        'OFFERING_TYPE': "'1'",
-        'AMT_DECIMAL': '2',
-        'SHARE_DECIMAL': '3',
-        'FUND_CATEGORY': "'2'",
-        'AMC_NO': "'05'",
-        'IS_EC_PURCHASE': "'N'",
-        'IS_EC_REDEMPTION': "'N'",
-        'IS_EC_SWITCH_IN': "'N'",
-        'IS_WIRE_FEE': "'N'",
-        'CORE_SATELLITE': "'S'",
-        'IS_ROBO': "'N'",
-        'SALES_TYPE': "'0'",
-        'REGISTRATION': "'LU'",
-        'SERVICE_CHARGE_TYPE': "'1'",
-        'DUE_EXCHANGE_TYPE': "'N'",
+        'AC_DATE': "to_date('2024-11-15 00:00:00','YYYY-MM-DD HH24:MI:SS')",
+        'LAST_CER_NO': '0', # D18: 345, 但這是流水號，設為 0
+        'LAST_S_STAT_NO': '0', # D18: 200522, 但這是流水號，設為 0
+        'LAST_P_STAT_NO': '0', # D18: 124035, 但這是流水號，設為 0
+        'IS_POSTED': "'P'", # D18: P (已過帳)
+        'ORDINAL': 'null', # D18: 18, 但這是序號，維持 null
+        
+        # 費率與小數位數
+        'AMT_DECIMAL': '0', # D18: 0
+        'NAV_DECIMAL': '2', # D18: 2
+        'FUND_CATEGORY': "'1'", # D18: 1 (境外股票型)
+        'OFFERING_TYPE': "'1'", # D18: 1
+        'MIN_RED_SHARE': '0',
+        'MIN_BAL_SHARE': '300', # D18: 300
+        'PERIOD_MIN': '3000', # D18: 3000
+        'EC_PERIOD_MIN': '3000', # D18: 3000
+        'EC_MIN_AMOUNT': '3000', # D18: 3000
+        
+        # 銀行資訊 (可從 CSV 讀取或使用預設值)
+        'CUSTODIAN_BANK_NO': "'007'", # D18: 007
+        'BANK_NO': "'007'", # D18: 007
+        'BRANCH_NO': "'0937'", # D18: 0937
+        'RED_BANK_NO': "'007'", # D18: 007
+        
+        # 文字欄位預設值
+        'CUSTODIAN_FAX': "'2382-0511'", # D18 範例值
+        'CUSTODIAN_RECIPIENT': "''", # 境外基金通常不需要聯絡人
+        'EMP_NO': "'A00907'", # D18 範例值
+        'VAT': "'14692623A'", # D18 範例值
+        'STATUS': "'R'", # D18: R (已審核)
+        'REVIEWED_BY': "'A01096'", # D18 範例審核人員
+        'FUND_SET': "'05'", # D18: 05
+        'TDCC_CODE': "''", # 境外基金集保代碼（IS_TDCC='N'時設為空）
+        'REDEMPTION_RULE': "'C'", # D18: C
+        'ROUNDING_SHARE': "'O'", # D18: O
+        'T0_CODE': "''", # D18: 4F0DIO02, 但每檔不同，設為空
+        'UWCB_FUND_NO': "''", # D18: 34509, 但可能每檔不同
+        'UWCB_AC_CODE': "''", # D18: 015016020912, 但可能每檔不同
+        
+        # 費率
+        'TW_RATE': '0.0175', # D18: 0.0175
+        'EARLY_RED_MIN_DAYS': '7', # D18: 7
+        'EARLY_RED_FEE_RATE': '0.001', # D18: 0.001
+        'IS_MAX_SHARE_RATE1': '0.6', # D18: 0.6
+        'IS_MAX_SHARE_RATE2': '0.7', # D18: 0.7
+        
+        # 金額範圍
+        'NTD_RSP_RANGE': '1000', # D18: 1000
+        'ORG_RSP_RANGE': '1000', # D18: 1000
+        
+        # 其他常數
         'BEL_BASE': "'3'",
         'BEL_YEAR': '0',
         'BEL_EXG_DAY': '0',
-        'IS_POSTED': 'null',
-        'ORDINAL': 'null',
-        'MIN_RED_SHARE': '0',
-        'MIN_BAL_SHARE': '0',
-        'MIN_BAL_AMOUNT': '0',
-        'RED_NAV_DAY': '0',
-        'EC_DEDUCTION': "'N'",
-        'EC_REMITTANCE': "'N'",
-        'EC_ATM': "'N'", # 補上缺少的欄位
-        'IS_TDCC': "'Y'",
-        'SUBTA_NO': "'5'",
-        'INVESTMENT_LINK': "'N'",
-        'IS_PERFORMANCE_FEE': "'N'", # 補上缺少的欄位
-        'ANNUALIZED_ROI': "'N'", # 補上缺少的欄位
-        'HEDGING_TYPE': "'N'", # 補上缺少的欄位
+        'MAX_CHANGE': '7', # D18: 7
+        'MAX_SHARE': '999999999', # 最大發行單位數預設值
         
-        # 補回必須欄位 (參考匯出2.csv D18 範例與境外基金特性)
-        'CO_NO': "'10'",
-        'TERM_NO': "'01'",
-        'IS_CCC': "'N'",
-        'IS_SSS': "'N'",
-        'IS_EC_PERIODIC': "'N'",
+        # Y/N 布林欄位 (依 D18 範例設定)
+        'IS_PERIODIC': "'Y'", # D18: Y
+        'IS_EC': "'Y'", # D18: Y
+        'IS_VC': "'N'",
+        'IS_CCC': "'Y'", # D18: Y
+        'IS_SSS': "'Y'", # D18: Y
+        'IS_EC_PERIODIC': "'Y'", # D18: Y
         'VARIABLE_MF': "'N'",
-        'IS_MAX_SHARE': "'N'",
-        'EC_RSP_NEW': "'N'",
-        'EC_RSP_UPDATE': "'N'",
-        'RSP_CHANGE': "'N'",
-        'TSCD_NAV_UPLOAD_TYPE': "'Y'", # 境外基金通常為 Y
-        'IS_EC_DRSP': "'N'",
-        'EC_DRSP_NEW': "'N'",
-        'EC_DRSP_UPDATE': "'N'",
+        'IS_MAX_SHARE': "'Y'", # D18: Y
+        'IS_EC_PURCHASE': "'Y'", # D18: Y
+        'IS_EC_REDEMPTION': "'Y'", # D18: Y
+        'IS_EC_SWITCH_IN': "'Y'", # D18: Y
+        'IS_WIRE_FEE': "'Y'", # D18: Y
+        'EC_DEDUCTION': "'Y'", # D18: Y
+        'EC_REMITTANCE': "'N'",
+        'EC_ATM': "'N'",
+        'IS_TDCC': "'N'", # D18: N (境外基金不用集保)
+        'INVESTMENT_LINK': "'Y'", # D18: Y
+        'IS_PERFORMANCE_FEE': "'N'",
+        'ANNUALIZED_ROI': "'N'",
+        'HEDGING_TYPE': "'N'",
+        'EC_RSP_NEW': "'Y'", # D18: Y
+        'EC_RSP_UPDATE': "'Y'", # D18: Y
+        'RSP_CHANGE': "'Y'", # D18: Y
+        'TSCD_NAV_UPLOAD_TYPE': "'N'", # D18: N (注意與之前 Y 不同)
+        'IS_EC_DRSP': "'Y'", # D18: Y
+        'EC_DRSP_NEW': "'Y'", # D18: Y
+        'EC_DRSP_UPDATE': "'Y'", # D18: Y
         'IS_PURCHASE': "'Y'",
+        'IS_ROBO': "'N'",
+        'DUE_EXCHANGE_TYPE': "'N'",
+        'DIVIDEND_FREQ': "'N'", # D18: N
+        
+        # 其他欄位
+        'SUBTA_NO': "'01'", # D18: 01 (非 5)
+        'SERVICE_CHARGE_TYPE': "'1'",
+        'SALES_TYPE': "'0'",
+        'REGISTRATION': "'TW'", # D18: TW (注意與之前 LU 不同，應從 CSV 讀取)
+        'PUR_NAV_DAY': '0', # D18: 0
     }
 
     new_lines = []
@@ -198,6 +309,18 @@ def main():
         of_rate = col(r, 'OF_RATE') or '0' # 其他費用率
         curr = currency_map(col(r, 'CURRENCY_NO')) # 幣別
         
+        # 從 CSV 讀取更多欄位 (如果有值就覆蓋預設值，使用映射函數處理中文)
+        registration = col(r, 'REGISTRATION') or 'LU'
+        share_decimal = col(r, 'SHARE_DECIMAL') or '3'
+        amt_decimal = col(r, 'AMT_DECIMAL') or '2'
+        nav_decimal = col(r, 'NAV_DECIMAL') or '2'
+        offering_type = offering_type_map(col(r, 'OFFERING_TYPE'))
+        service_charge_type = service_charge_map(col(r, 'SERVICE_CHARGE_TYPE'))
+        sales_type = sales_type_map(col(r, 'SALES_TYPE'))
+        pay_day = col(r, 'PAY_DAY') or '5'
+        behind_days = col(r, 'BEHIND_DAYS') or '1'
+        early_red_min = col(r, 'EARLY_RED_MIN_DAYS') or '7'
+        
         # 修正: SHARE_CLASS 需去除括號並嘗試對應代碼
         share_class = share_class_map(col(r, 'SHARE_CLASS')) 
         
@@ -218,9 +341,13 @@ def main():
         
         min_init = col(r, 'MIN_INITIAL_PURCHASE') or '10000'
         min_amt = col(r, 'MIN_AMOUNT') or '1000'
+        min_bal_amt = col(r, 'MIN_BAL_AMOUNT') or '0'
+        dividend_min = col(r, 'DIVIDEND_MIN') or 'null'
         area = area_map(col(r, 'AREA_TYPE')) # 投資區域
         ftype = fund_type_map(col(r, 'FUND_TYPE')) # 基金種類2
         risk = col(r, 'RISK_CATEGORY') or 'RR3'
+        core_sat = core_satellite_map(col(r, 'CORE_SATELLITE')) # 使用映射函數
+        redemption_rule = redemption_rule_map(col(r, 'REDEMPTION_RULE'))
         
         fund_master = col(r, 'FUND_MASTER_NO') # 主基金 (原買回基金主帳戶) -> FUND_MASTER_NO
         # 修正: 若 FUND_MASTER_NO 超過 5 碼 (例如誤填 ISIN)，則設為 null
@@ -257,26 +384,62 @@ def main():
         set_val('MF_RATE', mf_rate)
         set_val('FEE_RATE', fee_rate)
         set_val('SF_RATE', sf_rate)
+        set_val('CF_RATE', sf_rate)  # CF_RATE 使用與 SF_RATE 相同的值
         set_val('OF_RATE', of_rate)
         set_val('OPERATION_FEE_RATE', op_fee) 
         set_val('CURRENCY_NO', f"'{curr}'")
         set_val('GLOBAL_CURRENCY', f"'{curr}'")
         set_val('SHARE_CLASS', f"'{share_class}'")
         
+        # 從 CSV 讀取的數字與文字欄位
+        set_val('REGISTRATION', f"'{registration}'")
+        set_val('SHARE_DECIMAL', share_decimal)
+        set_val('AMT_DECIMAL', amt_decimal)
+        set_val('NAV_DECIMAL', nav_decimal)
+        set_val('OFFERING_TYPE', f"'{offering_type}'")
+        set_val('SERVICE_CHARGE_TYPE', f"'{service_charge_type}'")
+        set_val('SALES_TYPE', f"'{sales_type}'")
+        set_val('PAY_DAY', pay_day)
+        set_val('BEHIND_DAYS', behind_days)
+        set_val('EARLY_RED_MIN_DAYS', early_red_min)
+        
         set_val('CALENDAR_CODE', f"'{cal_code}'")
         set_val('FUND_GROUP', f"'{fund_group}'")
         set_val('DIVIDEND_FREQ', f"'{div_freq}'")
+        
+        # 從 CSV 讀取所有 Y/N 布林欄位 (將中文轉換為 Y/N)
+        yn_fields = ['IS_PERIODIC', 'IS_EC', 'IS_VC', 'IS_CCC', 'IS_SSS', 
+                     'IS_EC_PERIODIC', 'VARIABLE_MF', 'IS_MAX_SHARE', 
+                     'IS_EC_PURCHASE', 'IS_EC_REDEMPTION', 'IS_EC_SWITCH_IN', 
+                     'IS_WIRE_FEE', 'EC_DEDUCTION', 'EC_REMITTANCE', 'EC_ATM',
+                     'IS_TDCC', 'INVESTMENT_LINK', 'IS_PERFORMANCE_FEE', 
+                     'ANNUALIZED_ROI', 'HEDGING_TYPE', 'EC_RSP_NEW', 'EC_RSP_UPDATE',
+                     'RSP_CHANGE', 'TSCD_NAV_UPLOAD_TYPE', 'IS_EC_DRSP', 
+                     'EC_DRSP_NEW', 'EC_DRSP_UPDATE', 'IS_PURCHASE', 'IS_ROBO',
+                     'DUE_EXCHANGE_TYPE']
+        
+        for yn_field in yn_fields:
+            val = yn_map(col(r, yn_field))  # 使用 yn_map 轉換中文
+            if val in ['Y', 'N']:
+                set_val(yn_field, f"'{val}'")
         
         set_val('AC_NAME', f"N'{ac_name}'")
         set_val('TX_CALENDAR_CODE', f"'{tx_cal_code}'") # 使用正確的 TX_CALENDAR_CODE
         
         set_val('MIN_INITIAL_PURCHASE', min_init)
         set_val('MIN_AMOUNT', min_amt)
+        set_val('MIN_BAL_AMOUNT', min_bal_amt)
+        if dividend_min != 'null':
+            set_val('DIVIDEND_MIN', dividend_min)
+        else:
+            set_val('DIVIDEND_MIN', 'null')
         set_val('AREA_TYPE', f"'{area}'")
         set_val('FUND_TYPE', f"'{ftype}'")
         set_val('INVESTMENT_TYPE', f"'{ftype}'")
+        set_val('FUND_TYPE2', f"'{fund_type2_map(ftype)}'")
         
         set_val('RISK_CATEGORY', f"'{risk}'")
+        set_val('CORE_SATELLITE', f"'{core_sat}'")
         set_val('ISIN_CODE', f"'{isin}'")
         set_val('DIVIDEND_DESC', f"N'{div_desc}'" if div_desc else "null")
         set_val('FUND_MASTER_NO', fund_master)
@@ -289,6 +452,101 @@ def main():
         
         launch_date = parse_date(col(r, 'SALES_DATE')) # 開賣日
         set_val('LAUNCH_DATE', launch_date)
+        
+        # 補上其他從 CSV 讀取的欄位
+        # 從 CSV 讀取數字欄位（如有值則覆蓋預設值）
+        if col(r, 'ORDINAL'):
+            set_val('ORDINAL', col(r, 'ORDINAL'))
+        if col(r, 'AMC_NO'):
+            amc_no = col(r, 'AMC_NO')
+            if amc_no and amc_no.isdigit():
+                amc_no = amc_no.zfill(2)
+            set_val('AMC_NO', f"'{amc_no}'")
+        if col(r, 'MAX_SHARE'):
+            set_val('MAX_SHARE', col(r, 'MAX_SHARE'))
+        if col(r, 'EC_DIFF'):
+            ec_diff = col(r, 'EC_DIFF')
+            set_val('EC_DIFF', ec_diff if ec_diff else '0')
+        if col(r, 'TDCC_CODE'):
+            set_val('TDCC_CODE', f"'{col(r, 'TDCC_CODE')}'")
+        if col(r, 'RED_NAV_DAY'):
+            set_val('RED_NAV_DAY', col(r, 'RED_NAV_DAY'))
+        if col(r, 'BANK_NO'):
+            set_val('BANK_NO', f"'{col(r, 'BANK_NO')}'")
+        if col(r, 'BRANCH_NO'):
+            set_val('BRANCH_NO', f"'{col(r, 'BRANCH_NO')}'")
+        if col(r, 'RED_BRANCH_NO'):
+            set_val('RED_BRANCH_NO', f"'{col(r, 'RED_BRANCH_NO')}'")
+        if col(r, 'DIVIDEND_BANK_NO'):
+            set_val('DIVIDEND_BANK_NO', f"'{col(r, 'DIVIDEND_BANK_NO')}'")
+        if col(r, 'DIVIDEND_BRANCH_NO'):
+            set_val('DIVIDEND_BRANCH_NO', f"'{col(r, 'DIVIDEND_BRANCH_NO')}'")
+        if col(r, 'RED_AC_CODE'):
+            red_ac = col(r, 'RED_AC_CODE')
+            # 修正: RED_AC_CODE 如果太長（ISIN），截斷或設為空
+            if len(red_ac) > 20:
+                red_ac = red_ac[:20]
+            set_val('RED_AC_CODE', f"'{red_ac}'" if red_ac else 'null')
+        if col(r, 'DIVIDEND_AC_CODE'):
+            set_val('DIVIDEND_AC_CODE', f"'{col(r, 'DIVIDEND_AC_CODE')}'")
+        if col(r, 'ROUNDING_SHARE'):
+            set_val('ROUNDING_SHARE', f"'{col(r, 'ROUNDING_SHARE')}'")
+        
+        # 使用映射函數
+        set_val('REDEMPTION_RULE', f"'{redemption_rule}'")
+        
+        if col(r, 'PUR_NAV_DAY'):
+            set_val('PUR_NAV_DAY', col(r, 'PUR_NAV_DAY'))
+        if col(r, 'EARLY_RED_MIN_DAYS'):
+            set_val('EARLY_RED_MIN_DAYS', col(r, 'EARLY_RED_MIN_DAYS'))
+        if col(r, 'SUBTA_NO'):
+            set_val('SUBTA_NO', f"'{col(r, 'SUBTA_NO')}'")
+        if col(r, 'BANK_WIRE_FEE'):
+            set_val('BANK_WIRE_FEE', col(r, 'BANK_WIRE_FEE'))
+        if col(r, 'MIN_RED_AMOUNT'):
+            set_val('MIN_RED_AMOUNT', col(r, 'MIN_RED_AMOUNT'))
+        if col(r, 'REGISTRATION'):
+            set_val('REGISTRATION', f"'{col(r, 'REGISTRATION')}'")
+        
+        # RED_BANK_NO: CSV 中可能是保管機構名稱而非代碼，使用預設值或從 BANK_NO 複製
+        # 根據 D18，RED_BANK_NO 應該是銀行代碼 (007)，與 BANK_NO 相同
+        red_bank = col(r, 'BANK_NO') or '007'  # 預設 007
+        set_val('RED_BANK_NO', f"'{red_bank}'")
+        
+        # 金額 NTD 欄位
+        min_init_ntd = col(r, 'MIN_INITIAL_PURCHASE_NTD') or col(r, 'MIN_INITIAL_PURCHASE') or '3000'
+        min_amt_ntd = col(r, 'MIN_AMOUNT_NTD') or col(r, 'MIN_AMOUNT') or '3000'
+        period_min_ntd = col(r, 'PERIOD_MIN_NTD') or '3000'
+        min_red_amt_ntd = col(r, 'MIN_RED_AMOUNT_NTD') or '0'
+        min_bal_amt_ntd = col(r, 'MIN_BAL_AMOUNT_NTD') or col(r, 'MIN_BAL_AMOUNT') or '0'
+        ec_period_min_ntd = col(r, 'EC_PERIOD_MIN_NTD') or col(r, 'EC_PERIOD_MIN') or '3000'
+        ec_min_amt_ntd = col(r, 'EC_MIN_AMOUNT_NTD') or col(r, 'EC_MIN_AMOUNT') or '3000'
+        
+        set_val('MIN_INITIAL_PURCHASE_NTD', min_init_ntd)
+        set_val('MIN_AMOUNT_NTD', min_amt_ntd)
+        set_val('PERIOD_MIN_NTD', period_min_ntd)
+        set_val('MIN_RED_AMOUNT_NTD', min_red_amt_ntd)
+        set_val('MIN_BAL_AMOUNT_NTD', min_bal_amt_ntd)
+        set_val('EC_PERIOD_MIN_NTD', ec_period_min_ntd)
+        set_val('EC_MIN_AMOUNT_NTD', ec_min_amt_ntd)
+        
+        # 日期欄位
+        pur_cutoff = parse_date(col(r, 'PUR_CUT_OFF'))
+        red_cutoff = parse_date(col(r, 'RED_CUT_OFF'))
+        ec_pur_cutoff = parse_date(col(r, 'EC_PUR_CUT_OFF'))
+        ec_red_cutoff = parse_date(col(r, 'EC_RED_CUT_OFF'))
+        first_red = parse_date(col(r, 'FIRST_RED_DATE'))
+        
+        if pur_cutoff != 'null':
+            set_val('PUR_CUT_OFF', pur_cutoff)
+        if red_cutoff != 'null':
+            set_val('RED_CUT_OFF', red_cutoff)
+        if ec_pur_cutoff != 'null':
+            set_val('EC_PUR_CUT_OFF', ec_pur_cutoff)
+        if ec_red_cutoff != 'null':
+            set_val('EC_RED_CUT_OFF', ec_red_cutoff)
+        if first_red != 'null':
+            set_val('FIRST_RED_DATE', first_red)
 
         line_val = ",".join(vals)
         new_lines.append(header_insert + line_val + ");")
