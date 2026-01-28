@@ -146,6 +146,23 @@ def main():
         'IS_TDCC': "'Y'",
         'SUBTA_NO': "'5'",
         'INVESTMENT_LINK': "'N'",
+        
+        # 補回必須欄位 (參考匯出2.csv D18 範例與境外基金特性)
+        'CO_NO': "'10'",
+        'TERM_NO': "'01'",
+        'IS_CCC': "'N'",
+        'IS_SSS': "'N'",
+        'IS_EC_PERIODIC': "'N'",
+        'VARIABLE_MF': "'N'",
+        'IS_MAX_SHARE': "'N'",
+        'EC_RSP_NEW': "'N'",
+        'EC_RSP_UPDATE': "'N'",
+        'RSP_CHANGE': "'N'",
+        'TSCD_NAV_UPLOAD_TYPE': "'Y'", # 境外基金通常為 Y
+        'IS_EC_DRSP': "'N'",
+        'EC_DRSP_NEW': "'N'",
+        'EC_DRSP_UPDATE': "'N'",
+        'IS_PURCHASE': "'Y'",
     }
 
     new_lines = []
