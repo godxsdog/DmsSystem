@@ -75,6 +75,25 @@ def fund_group_map(kind2):
     if '平衡' in k: return 'OL' # Offshore Balanced
     return 'OE' # Default
 
+def share_class_map(s):
+    if not s: return ''
+    # 1. 移除括號內容 (例如 "B (美元)" -> "B")
+    s = re.sub(r'\s*\(.*?\)', '', s).strip()
+    
+    # 2. 對照表
+    mapping = {
+        'Azdm': '019', 'Azdmc1': '020', 'Aadmc1': '006', 'A': '001', 'Aadm': '005',
+        'Adq': '010', 'Ae': '011', 'Aedm': '012', 'B': '021', 'C': '022',
+        'D': '023', 'E': '024', 'Admc1': '009', 'Andmc1': '016', 'Andm': '015',
+        'Aj': '013', 'AM': '002', 'AMH': '003', 'HC': '025', 'S': '029',
+        'SD': '030', 'As': '017', 'IA': '027', 'IB': '028', 'Cdm': '031',
+        'T3': '038', 'Aadq': '007', 'I': '026', 'IC': '032', 'CI': '033',
+        'SA': '035', 'G': '036', 'Admc3': '039', 'Adm': '008', 'T3dmc1': '037',
+        'TISA': '040', 'Az': '018', 'Aa': '004', 'An': '014', 'X': '034'
+    }
+    
+    return mapping.get(s, s) # 若無對應，回傳原值 (已縮短)
+
 def main():
     # 1. 讀取 CSV
     with open(CSV_PATH, 'r', encoding='utf-8') as f:
@@ -157,7 +176,9 @@ def main():
         sf_rate = col(r, 'CF_RATE') or '0' # 分銷費率 mapped to CF_RATE
         of_rate = col(r, 'OF_RATE') or '0' # 其他費用率
         curr = currency_map(col(r, 'CURRENCY_NO')) # 幣別
-        share_class = esc(col(r, 'SHARE_CLASS')) # 級別
+        
+        # 修正: SHARE_CLASS 需去除括號並嘗試對應代碼
+        share_class = share_class_map(col(r, 'SHARE_CLASS')) 
         
         # 修正: CALENDAR_CODE 應對應 'CALENDAR_CODE' (基金淨值日設定)
         cal_code = esc(col(r, 'CALENDAR_CODE'))
