@@ -68,6 +68,13 @@ def sales_type_map(s):
     if '未開賣' in s: return '2'
     return '0' # Default
 
+def fund_group_map(kind2):
+    k = str(kind2).strip()
+    if '債券' in k: return 'OB' # Offshore Bond
+    if '股票' in k: return 'OE' # Offshore Equity
+    if '平衡' in k: return 'OL' # Offshore Balanced
+    return 'OE' # Default
+
 def main():
     # 1. 讀取 CSV
     with open(CSV_PATH, 'r', encoding='utf-8') as f:
@@ -161,6 +168,9 @@ def main():
         div_freq_raw = col(r, 'DIVIDEND_FREQ')
         div_freq = div_freq_map(div_freq_raw)
         
+        # 修正: FUND_GROUP (2 chars) logic
+        fund_group = fund_group_map(col(r, 'FUND_TYPE'))
+        
         ac_name = esc(col(r, 'AC_NAME')) # 基金專戶名稱
         tx_cal_code = esc(col(r, 'TX_CALENDAR_CODE')) # 基金交易日設定
         
@@ -212,7 +222,7 @@ def main():
         set_val('SHARE_CLASS', f"'{share_class}'")
         
         set_val('CALENDAR_CODE', f"'{cal_code}'")
-        set_val('FUND_GROUP', f"'{cal_code}'")
+        set_val('FUND_GROUP', f"'{fund_group}'")
         set_val('DIVIDEND_FREQ', f"'{div_freq}'")
         
         set_val('AC_NAME', f"N'{ac_name}'")
