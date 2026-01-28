@@ -143,9 +143,13 @@ def main():
         'RED_NAV_DAY': '0',
         'EC_DEDUCTION': "'N'",
         'EC_REMITTANCE': "'N'",
+        'EC_ATM': "'N'", # 補上缺少的欄位
         'IS_TDCC': "'Y'",
         'SUBTA_NO': "'5'",
         'INVESTMENT_LINK': "'N'",
+        'IS_PERFORMANCE_FEE': "'N'", # 補上缺少的欄位
+        'ANNUALIZED_ROI': "'N'", # 補上缺少的欄位
+        'HEDGING_TYPE': "'N'", # 補上缺少的欄位
         
         # 補回必須欄位 (參考匯出2.csv D18 範例與境外基金特性)
         'CO_NO': "'10'",
