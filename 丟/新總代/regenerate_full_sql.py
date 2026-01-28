@@ -482,7 +482,11 @@ def main():
                 red_branch = ''
             set_val('RED_BRANCH_NO', f"'{red_branch}'")
         if col(r, 'DIVIDEND_BANK_NO'):
-            set_val('DIVIDEND_BANK_NO', f"'{col(r, 'DIVIDEND_BANK_NO')}'")
+            div_bank = col(r, 'DIVIDEND_BANK_NO')
+            # 修正: DIVIDEND_BANK_NO 最大 3 字元，若超過則設為空（參考 D18）
+            if len(div_bank) > 3:
+                div_bank = ''
+            set_val('DIVIDEND_BANK_NO', f"'{div_bank}'")
         if col(r, 'DIVIDEND_BRANCH_NO'):
             div_branch = col(r, 'DIVIDEND_BRANCH_NO')
             # 修正: DIVIDEND_BRANCH_NO 最大 4 字元，若超過則設為空
