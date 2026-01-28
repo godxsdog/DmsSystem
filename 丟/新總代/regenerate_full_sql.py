@@ -54,13 +54,26 @@ def fund_type_map(kind2):
     if '債券' in k or 'Bond' in k: return 'B'
     return 'E'
 
+def div_freq_map(s):
+    if not s: return 'N' # Default None
+    if '季' in s: return 'Q'
+    if '月' in s: return 'M'
+    if '年' in s: return 'A'
+    if '半年' in s: return 'S'
+    return 'N'
+
+def sales_type_map(s):
+    if '正常' in s: return '0'
+    if '暫停' in s: return '1'
+    if '未開賣' in s: return '2'
+    return '0' # Default
+
 def main():
     # 1. 讀取 CSV
     with open(CSV_PATH, 'r', encoding='utf-8') as f:
         rows = list(csv.DictReader(f))
 
     # 2. 定義欄位列表 (從原始檔案 header 取得，這裡是硬編碼以確保順序正確)
-    # 這是從之前讀取到的 Insert header 複製過來的
     cols_str = "FUND_NO,NAME,SNAME,FUND_TYPE,MAX_SHARE,INCEPTION_DATE,CUSTODIAN,CO_NO,TERM_NO,ID,PAY_DAY,IS_PERIODIC,FORMULA_RED_FEE,PREV_DATE,AC_DATE,VISA_DATE,LAST_CER_NO,LAST_S_STAT_NO,LAST_P_STAT_NO,IS_POSTED,FIRST_RED_DATE,MF_RATE,IS_EC,IS_VC,BEHIND_DAYS,IS_CCC,IS_SSS,ORDINAL,ENAME,SSNAME,CUSTODIAN_RECIPIENT,CUSTODIAN_FAX,MIN_AMOUNT,MAX_CHANGE,TAX_NO,MEDIA_NO,VAT,CTCB_FUND_NO,CTCB_AC_CODE,PERIOD_MIN,CLEAR_DATE,UWCB_FUND_NO,UWCB_AC_CODE,IS_EC_PERIODIC,EC_PERIOD_MIN,EC_MIN_AMOUNT,CUSTODIAN_BANK_NO,TW_RATE,VARIABLE_MF,NAV_DECIMAL,EMP_NO,LAST_MODIFIED,AREA_TYPE,IS_MAX_SHARE,BANK_NO,BRANCH_NO,CURRENCY_NO,FUND_TYPE2,OFFERING_TYPE,AMT_DECIMAL,SHARE_DECIMAL,MIN_RED_SHARE,MIN_BAL_SHARE,PUR_CUT_OFF,RED_CUT_OFF,CALENDAR_CODE,FUND_CATEGORY,SHARE_CLASS,ISIN_CODE,AMC_NO,RED_NAV_DAY,MIN_BAL_AMOUNT,EC_DIFF,EC_DEDUCTION,EC_REMITTANCE,EC_ATM,DEXIA_CODE,FEE_RATE,RESET_PERIOD,EARLY_RED_MIN_DAYS,EARLY_RED_FEE_RATE,IS_PERFORMANCE_FEE,ANNUALIZED_ROI,ROUNDING_SHARE,T0_CODE,HSBC_CODE,MIN_INITIAL_PURCHASE,MIN_RED_AMOUNT,PUR_NAV_DAY,IS_EC_PURCHASE,IS_EC_REDEMPTION,EC_PUR_CUT_OFF,EC_RED_CUT_OFF,LAUNCH_DATE,INVESTMENT_LINK,DIVIDEND_FREQ,AC_NAME,TX_CALENDAR_CODE,MIN_INITIAL_PURCHASE_NTD,MIN_AMOUNT_NTD,PERIOD_MIN_NTD,MIN_RED_AMOUNT_NTD,MIN_BAL_AMOUNT_NTD,EC_PERIOD_MIN_NTD,EC_MIN_AMOUNT_NTD,REDEMPTION_RULE,IS_EC_SWITCH_IN,IS_WIRE_FEE,RISK_CATEGORY,CORE_SATELLITE,TDCC_CODE,END_COLLECTION_DATE,SITCA_FUND_TYPE,ELIMINATION_DATE,EC_RSP_NEW,EC_RSP_UPDATE,FUND_GROUP,DIVIDEND_RATE,DIVIDEND_MIN,RSP_CHANGE,FAX_PUR_CUT_OFF,FUND_SET,TSCD_NAV_UPLOAD_TYPE,FUND_MASTER_NO,DIVIDEND_DESC,GLOBAL_CURRENCY,HEDGING_TYPE,CREATED_BY,CREATION_DATE,REVIEWED_BY,REVIEW_DATE,STATUS,IS_EC_DRSP,EC_DRSP_NEW,EC_DRSP_UPDATE,RED_BANK_NO,RED_BRANCH_NO,RED_AC_CODE,DIVIDEND_BANK_NO,DIVIDEND_BRANCH_NO,DIVIDEND_AC_CODE,BANK_WIRE_FEE,IS_TDCC,TDCC_DEBIT_CUT_OFF,TDCC_REMIT_CUT_OFF,TDCC_RED_CUT_OFF,SUBTA_NO,NTD_RSP_RANGE,ORG_RSP_RANGE,INVESTMENT_TYPE,SERVICE_CHARGE_TYPE,DUE_EXCHANGE_TYPE,DUE_EXCHANGE_FUND,BEL_BASE,BEL_YEAR,BEL_EXG_DAY,SALES_DATE,OPERATION_FEE_RATE,MATURITY_DATE,IS_PURCHASE,RECEIPT_FREQ,RECEIPT_CALENDAR_CODE,RECEIPT_DAY,PUR_DISCOUNT,SF_RATE,CF_RATE,OF_RATE,SALES_TYPE,IS_MAX_SHARE_RATE1,IS_MAX_SHARE_RATE2,REGISTRATION,IS_ROBO"
     cols = [c.strip() for c in cols_str.split(",")]
     col_idx = {name: i for i, name in enumerate(cols)}
@@ -96,7 +109,7 @@ def main():
         'BEL_BASE': "'3'",
         'BEL_YEAR': '0',
         'BEL_EXG_DAY': '0',
-        'IS_POSTED': 'null', # 修正: 原本 C9 是 null?
+        'IS_POSTED': 'null',
         'ORDINAL': 'null',
         'MIN_RED_SHARE': '0',
         'MIN_BAL_SHARE': '0',
@@ -104,11 +117,9 @@ def main():
         'RED_NAV_DAY': '0',
         'EC_DEDUCTION': "'N'",
         'EC_REMITTANCE': "'N'",
-        # 補上更多可能的常數...
-        'IS_TDCC': "'Y'", # C9 has Y
-        'SUBTA_NO': "'5'", # C9 has 5
-        'INVESTMENT_LINK': "'N'", # C9 has N (before DIVIDEND_FREQ?)
-        'DIVIDEND_FREQ': "'Q'", # C9 has Q? C1 has '本基金...'? No, C9 values had Q.
+        'IS_TDCC': "'Y'",
+        'SUBTA_NO': "'5'",
+        'INVESTMENT_LINK': "'N'",
     }
 
     new_lines = []
@@ -118,52 +129,61 @@ def main():
     header_insert = f"Insert into FAS.FUND ({cols_str}) values ("
 
     for i, r in enumerate(rows):
-        # 初始值全為 'null'
         vals = ['null'] * len(cols)
         
-        # 填入常數預設值
         for k, v in defaults.items():
             if k in col_idx:
                 vals[col_idx[k]] = v
         
-        # 準備資料
+        # 準備資料 (使用新表頭)
         fund_no = f'C{i+1}'
-        name = esc(col(r, '基金中文名稱'))
-        sname = esc(col(r, '基金簡稱'))
-        ename = esc(col(r, '基金英文名稱'))
-        ssname = esc(col(r, '基金簡簡稱'))
-        div_desc = esc(col(r, '配息說明(前台查詢用)'))
-        fid = esc(col(r, 'Fund Code'))
-        isin = esc(col(r, 'ISIN Code'))
-        inception = parse_date(col(r, '成立日'))
-        mf_rate = col(r, '經理費率') or '0'
-        fee_rate = col(r, '保管費率') or '0'
-        sf_rate = col(r, '分銷費率') or '0'
-        of_rate = col(r, '其他費用率') or '0'
-        curr = currency_map(col(r, '幣別'))
-        share_class = esc(col(r, '級別'))
-        cal_code = esc(col(r, '收益分配設定'))
-        ac_name = esc(col(r, '基金淨值日設定'))
-        min_init = col(r, '首次申購原幣下限') or '10000'
-        min_amt = col(r, '再次申購原幣下限') or '1000'
-        area = area_map(col(r, '投資區域'))
-        ftype = fund_type_map(col(r, '基金種類2'))
-        risk = col(r, '風險收益等級') or 'RR3'
-        fund_master = col(r, '買回基金主帳戶')
-        # 修正: 若 FUND_MASTER_NO 超過 5 碼 (例如誤填 ISIN)，則設為 null，避免 ORA-12899
+        name = esc(col(r, 'NAME')) # 基金中文名稱
+        sname = esc(col(r, 'SNAME')) # 基金簡稱
+        ename = esc(col(r, 'ENAME')) # 基金英文名稱
+        ssname = esc(col(r, 'SSNAME')) # 基金簡簡稱
+        div_desc = esc(col(r, 'DIVIDEND_DESC')) # 配息說明
+        fid = esc(col(r, 'ID')) # Fund Code
+        isin = esc(col(r, 'ISIN_CODE')) # ISIN Code
+        inception = parse_date(col(r, 'INCEPTION_DATE')) # 成立日
+        mf_rate = col(r, 'MF_RATE') or '0'
+        fee_rate = col(r, 'SF_RATE') or '0' # 保管費率 mapped to SF_RATE in CSV
+        sf_rate = col(r, 'CF_RATE') or '0' # 分銷費率 mapped to CF_RATE
+        of_rate = col(r, 'OF_RATE') or '0' # 其他費用率
+        curr = currency_map(col(r, 'CURRENCY_NO')) # 幣別
+        share_class = esc(col(r, 'SHARE_CLASS')) # 級別
+        
+        # 修正: CALENDAR_CODE 應對應 'CALENDAR_CODE' (基金淨值日設定)
+        cal_code = esc(col(r, 'CALENDAR_CODE'))
+        if len(cal_code) > 5 or not all(ord(c) < 128 for c in cal_code):
+            cal_code = ''
+            
+        # 修正: DIVIDEND_FREQ 應對應 'DIVIDEND_FREQ' (收益分配設定)
+        div_freq_raw = col(r, 'DIVIDEND_FREQ')
+        div_freq = div_freq_map(div_freq_raw)
+        
+        ac_name = esc(col(r, 'AC_NAME')) # 基金專戶名稱
+        tx_cal_code = esc(col(r, 'TX_CALENDAR_CODE')) # 基金交易日設定
+        
+        min_init = col(r, 'MIN_INITIAL_PURCHASE') or '10000'
+        min_amt = col(r, 'MIN_AMOUNT') or '1000'
+        area = area_map(col(r, 'AREA_TYPE')) # 投資區域
+        ftype = fund_type_map(col(r, 'FUND_TYPE')) # 基金種類2
+        risk = col(r, 'RISK_CATEGORY') or 'RR3'
+        
+        fund_master = col(r, 'FUND_MASTER_NO') # 主基金 (原買回基金主帳戶) -> FUND_MASTER_NO
+        # 修正: 若 FUND_MASTER_NO 超過 5 碼 (例如誤填 ISIN)，則設為 null
         if fund_master and len(fund_master) > 5:
             fund_master = None
-        
         fund_master = f"'{esc(fund_master)}'" if fund_master else 'null'
         
         # 時間欄位
-        tdcc_debit = parse_time(col(r, '扣款時間'))
-        tdcc_remit = parse_time(col(r, '匯款時間'))
-        tdcc_red = parse_time(col(r, '贖回時間')) # 欄位名稱是贖回時間? CSV header "贖回時間" (line 1 last col)
+        tdcc_debit = parse_time(col(r, 'TDCC_DEBIT_CUT_OFF')) # 扣款時間
+        tdcc_remit = parse_time(col(r, 'TDCC_REMIT_CUT_OFF')) # 匯款時間
+        tdcc_red = parse_time(col(r, 'TDCC_RED_CUT_OFF')) # 贖回時間
 
         # 邏輯推導欄位
         sitca = "'AA2'" if ftype == 'E' else "'AC21'"
-        op_fee = fee_rate
+        op_fee = fee_rate # OPERATION_FEE_RATE (保管費率)
 
         # 替換值
         def set_val(col_name, v):
@@ -175,26 +195,34 @@ def main():
         set_val('SNAME', f"N'{sname}'")
         set_val('ENAME', f"N'{ename}'")
         set_val('SSNAME', f"N'{ssname}'")
+        
+        # ID 截斷修正
+        if fid and len(fid) > 10:
+             fid = fid[:10]
         set_val('ID', f"'{fid}'")
+        
         set_val('INCEPTION_DATE', inception)
         set_val('MF_RATE', mf_rate)
         set_val('FEE_RATE', fee_rate)
         set_val('SF_RATE', sf_rate)
         set_val('OF_RATE', of_rate)
-        set_val('OPERATION_FEE_RATE', op_fee) # 對應保管費率
+        set_val('OPERATION_FEE_RATE', op_fee) 
         set_val('CURRENCY_NO', f"'{curr}'")
         set_val('GLOBAL_CURRENCY', f"'{curr}'")
         set_val('SHARE_CLASS', f"'{share_class}'")
+        
         set_val('CALENDAR_CODE', f"'{cal_code}'")
         set_val('FUND_GROUP', f"'{cal_code}'")
+        set_val('DIVIDEND_FREQ', f"'{div_freq}'")
+        
         set_val('AC_NAME', f"N'{ac_name}'")
-        set_val('TX_CALENDAR_CODE', f"'{ac_name}'")
+        set_val('TX_CALENDAR_CODE', f"'{tx_cal_code}'") # 使用正確的 TX_CALENDAR_CODE
+        
         set_val('MIN_INITIAL_PURCHASE', min_init)
         set_val('MIN_AMOUNT', min_amt)
         set_val('AREA_TYPE', f"'{area}'")
         set_val('FUND_TYPE', f"'{ftype}'")
         set_val('INVESTMENT_TYPE', f"'{ftype}'")
-        # FUND_TYPE2 保持 null
         
         set_val('RISK_CATEGORY', f"'{risk}'")
         set_val('ISIN_CODE', f"'{isin}'")
@@ -207,9 +235,7 @@ def main():
         set_val('TDCC_REMIT_CUT_OFF', tdcc_remit)
         set_val('TDCC_RED_CUT_OFF', tdcc_red)
         
-        # LAUNCH_DATE (same as INCEPTION_DATE?) C9 used to_date 1900...
-        # Let's check CSV "開賣日"?
-        launch_date = parse_date(col(r, '開賣日'))
+        launch_date = parse_date(col(r, 'SALES_DATE')) # 開賣日
         set_val('LAUNCH_DATE', launch_date)
 
         line_val = ",".join(vals)
