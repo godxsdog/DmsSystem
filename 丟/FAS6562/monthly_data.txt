@@ -2,11 +2,19 @@
 string ls_path, ls_tx_month, ls_subta_no
 string ls_file01, ls_file02, ls_file03, ls_file04, ls_file05   // 2016.03.28 新增MA境外轉入資料ls_file05 (Clamp Lin) 需求單：001997
 string ls_fund_no, ls_fund_master_no, ls_tmp_value, ls_isin_code, ls_crncy_cd, ls_bas_crncy, ls_global_currency
+string ls_fund_name, ls_fund_abbr, ls_fbc  // FILE06 & FILE07 使用
 date   ld_tx_date
 dec    ldec_g_shares, ldec_g_fum, ldec_shares, ldec_price, ldec_fum, ldec_holder_fum, ldec_exg_rate, ldec_bas_rate, ldec_shares_china
 dec    ldec_usd_rate, ldec_eur_rate
 dec    ldec_rate1, ldec_rate2, ldec_rate3, ldec_rate4, ldec_rate5
+dec    ldec_fund_size, ldec_derivative_enhance, ldec_limit_40  // FILE06 使用
+dec    ldec_derivative_hedge, ldec_denominator, ldec_limit_100  // FILE06 使用
+dec    ldec_invest_taiwan, ldec_limit_50, ldec_invest_china, ldec_limit_20  // FILE06 使用
+dec    ldec_fund_size_product_ccy, ldec_fx_rate, ldec_nav_reporting_ccy  // FILE07 使用
+dec    ldec_invest_amt_taiwan, ldec_fund_size_by_share_class  // FILE07 使用
+dec    ldec_fund_size_global_aa, ldec_invest_pct  // FILE07 使用
 integer li_file_num, ll_row, ll_black_count, ll_count, ll_usd_count, ll_crncy_count, ll_v_count, ll_black_count2
+integer li_no  // FILE07 使用
 OLEObject OLE_MyExcel
 
 // 初始化路徑與月份
@@ -1318,7 +1326,7 @@ end if
 if cbx_6.checked = true then
 	IF GetFileOpenName("選擇Letter of Declaration檔案", is_pathname, is_filename1, 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx', 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx') = 1 THEN
 		is_filename = is_filename1
-		sle_file06.text = is_pathname
+		// sle_file06.text = is_pathname  // 如需顯示檔案路徑，請在界面定義 sle_file06
 	ELSE
 		f_error('FILE06-未選擇檔案, 作業取消!')
 		return
@@ -1349,10 +1357,17 @@ if cbx_6.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		string ls_fund_name
-		dec ldec_fund_size, ldec_derivative_enhance, ldec_limit_40
-		dec ldec_derivative_hedge, ldec_denominator, ldec_limit_100
-		dec ldec_invest_taiwan, ldec_limit_50, ldec_invest_china, ldec_limit_20
+		setnull(ls_fund_name)
+		ldec_fund_size = 0
+		ldec_derivative_enhance = 0
+		ldec_limit_40 = 0
+		ldec_derivative_hedge = 0
+		ldec_denominator = 0
+		ldec_limit_100 = 0
+		ldec_invest_taiwan = 0
+		ldec_limit_50 = 0
+		ldec_invest_china = 0
+		ldec_limit_20 = 0
 		
 		// 取得 ISIN CODE (Column A)
 		OLE_MyExcel.Range("A" + string(ll_row)).Select
@@ -1426,6 +1441,8 @@ if cbx_6.checked = true then
 		ldec_limit_20 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
 		// 插入或更新資料到 fas.new_agent_6562_temp1
+		// 注意：以下欄位名稱需要根據實際資料表結構調整
+		// 如果資料表尚未建立，請先執行 CREATE TABLE 語法
 		ll_count = 0
 		SELECT count(*)
 		  INTO :ll_count
@@ -1502,7 +1519,7 @@ end if
 if cbx_7.checked = true then
 	IF GetFileOpenName("選擇SITCA AUM檔案", is_pathname, is_filename1, 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx', 'Excel Files (*.xls;*.xlsx), *.xls;*.xlsx') = 1 THEN
 		is_filename = is_filename1
-		sle_file07.text = is_pathname
+		// sle_file07.text = is_pathname  // 如需顯示檔案路徑，請在界面定義 sle_file07
 	ELSE
 		f_error('FILE07-未選擇檔案, 作業取消!')
 		return
@@ -1533,11 +1550,17 @@ if cbx_7.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		string ls_fund_abbr, ls_fund_name, ls_fbc
-		integer li_no
-		dec ldec_fund_size_product_ccy, ldec_fx_rate, ldec_nav_reporting_ccy
-		dec ldec_invest_amt_taiwan, ldec_fund_size_by_share_class
-		dec ldec_fund_size_global_aa, ldec_invest_pct
+		setnull(ls_fund_abbr)
+		setnull(ls_fund_name)
+		setnull(ls_fbc)
+		li_no = 0
+		ldec_fund_size_product_ccy = 0
+		ldec_fx_rate = 0
+		ldec_nav_reporting_ccy = 0
+		ldec_invest_amt_taiwan = 0
+		ldec_fund_size_by_share_class = 0
+		ldec_fund_size_global_aa = 0
+		ldec_invest_pct = 0
 		
 		// 取得 ISIN CODE (Column D)
 		OLE_MyExcel.Range("D" + string(ll_row)).Select
@@ -1611,6 +1634,8 @@ if cbx_7.checked = true then
 		ldec_invest_pct = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
 		// 插入或更新資料到 fas.new_agent_6562_temp2
+		// 注意：以下欄位名稱需要根據實際資料表結構調整
+		// 如果資料表尚未建立，請先執行 CREATE TABLE 語法
 		ll_count = 0
 		SELECT count(*)
 		  INTO :ll_count
