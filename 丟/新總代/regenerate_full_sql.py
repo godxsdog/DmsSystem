@@ -210,6 +210,15 @@ def esc(s):
     if s is None or s == '': return ''
     return str(s).replace("'", "''")
 
+def clean_share_class(s):
+    """清理級別字段：只保留英文字母和數字，刪除中文、括號、空格等"""
+    if not s:
+        return ''
+    import re
+    # 只保留英文字母 (a-zA-Z) 和數字 (0-9)
+    cleaned = re.sub(r'[^a-zA-Z0-9]', '', str(s))
+    return cleaned.strip()
+
 def currency_map(s):
     m = {'歐元':'EUR','美元':'USD','澳幣':'AUD'}
     return m.get(str(s).strip(), 'USD' if s and '美元' in str(s) else 'EUR')
@@ -439,8 +448,8 @@ def main():
         behind_days = col(r, 'BEHIND_DAYS') or '1'
         early_red_min = col(r, 'EARLY_RED_MIN_DAYS') or '7'
         
-        # SHARE_CLASS 直接使用 CSV 的原始值（級別欄位），例如 B, Bgdm, Bh 等
-        share_class = esc(col(r, 'SHARE_CLASS')) 
+        # SHARE_CLASS 清理級別字段：只保留英文字母和數字，刪除中文、括號、空格
+        share_class = esc(clean_share_class(col(r, 'SHARE_CLASS'))) 
         
         # 修正: CALENDAR_CODE 應對應 'CALENDAR_CODE' (基金淨值日設定)
         cal_code = esc(col(r, 'CALENDAR_CODE'))
