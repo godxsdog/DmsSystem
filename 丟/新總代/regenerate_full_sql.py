@@ -9,11 +9,121 @@ import os
 import re
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-CSV_PATH = os.path.join(BASE, 'CG基金清單all_FAS191 1.csv')
+CSV_PATH = os.path.join(BASE, 'CG基金清單all_FAS191.csv')
 SQL_PATH = os.path.join(BASE, 'NEW_C_FAS.FUND_INSERT.sql')
 
 def col(d, k):
-    return d.get(k, '').strip() if isinstance(d, dict) else ''
+    """從 CSV 行中讀取欄位，支援中英文欄位名稱映射"""
+    if not isinstance(d, dict):
+        return ''
+    
+    # 中文到英文的欄位名稱映射
+    chinese_to_english = {
+        '基金代號': 'FUND_NO',
+        '基金中文名稱': 'NAME',
+        '基金簡稱': 'SNAME',
+        '基金英文名稱': 'ENAME',
+        '基金簡簡稱': 'SSNAME',
+        'Fund Code': 'ID',
+        'ISIN Code': 'ISIN_CODE',
+        '基金經理公司': 'AMC_NO',
+        '基金專戶名稱': 'AC_NAME',
+        '基金保管機構': 'CUSTODIAN',
+        '基金註冊地': 'REGISTRATION',
+        '避險級別': 'HEDGING_TYPE',
+        '全球資產公告幣別': 'GLOBAL_CURRENCY',
+        '銷售狀態': 'SALES_TYPE',
+        '經理費率': 'MF_RATE',
+        '變動經理費率': 'VARIABLE_MF',
+        '保管費率': 'SF_RATE',
+        '分銷費率': 'CF_RATE',
+        '其他費用率': 'OF_RATE',
+        '募集方式': 'OFFERING_TYPE',
+        '投資區域': 'AREA_TYPE',
+        '幣別': 'CURRENCY_NO',
+        '級別': 'SHARE_CLASS',
+        '風險收益等級': 'RISK_CATEGORY',
+        '基金種類2': 'FUND_TYPE',
+        '投資類型': 'INVESTMENT_TYPE',
+        '投信投顧公會基金類型': 'SITCA_FUND_TYPE',
+        '衛星基金': 'CORE_SATELLITE',
+        '收益分配設定': 'DIVIDEND_FREQ',
+        '基金淨值日設定': 'CALENDAR_CODE',
+        '基金交易日設定': 'TX_CALENDAR_CODE',
+        '成立日': 'INCEPTION_DATE',
+        '開賣日': 'SALES_DATE',
+        '開始買回日': 'FIRST_RED_DATE',
+        '開放集保NAV上傳': 'TSCD_NAV_UPLOAD_TYPE',
+        '申購淨值日': 'PUR_NAV_DAY',
+        '買回淨值日': 'RED_NAV_DAY',
+        '買回付款日': 'PAY_DAY',
+        '記帳日落差天數': 'BEHIND_DAYS',
+        'EC交易日落差天數': 'EC_DIFF',
+        '買回基金主帳戶銀行': 'RED_BANK_NO',
+        '收益分配配息專戶銀行': 'DIVIDEND_BANK_NO',
+        '開放集保': 'IS_TDCC',
+        '手續費收取時點': 'SERVICE_CHARGE_TYPE',
+        '首次申購原幣下限': 'MIN_INITIAL_PURCHASE',
+        '再次申購原幣下限': 'MIN_AMOUNT',
+        '收益分配下限': 'DIVIDEND_MIN',
+        '結存原幣下限': 'MIN_BAL_AMOUNT',
+        '淨值小數位數': 'NAV_DECIMAL',
+        '價金小數位數': 'AMT_DECIMAL',
+        '單位數小數位數': 'SHARE_DECIMAL',
+        '單位數捨位方式': 'ROUNDING_SHARE',
+        '買回價金計算方式': 'REDEMPTION_RULE',
+        '客戶支付買回匯費': 'IS_WIRE_FEE',
+        '買回分行': 'RED_BRANCH_NO',
+        '受益分配分行': 'DIVIDEND_BRANCH_NO',
+        '扣款時間': 'TDCC_DEBIT_CUT_OFF',
+        '短線交易最小持有天數': 'EARLY_RED_MIN_DAYS',
+        '是否收取買回費用': 'FORMULA_RED_FEE',
+        '是否收取績效管理費': 'IS_PERFORMANCE_FEE',
+        '是否年化報酬率': 'ANNUALIZED_ROI',
+        '匯款/ATM銀行': 'BANK_NO',
+        '匯款分行代碼': 'BRANCH_NO',
+        '申購關帳時間': 'PUR_CUT_OFF',
+        '買回關帳時間': 'RED_CUT_OFF',
+        'EC及RSP申購關帳時間': 'EC_PUR_CUT_OFF',
+        'EC買回關帳時間': 'EC_RED_CUT_OFF',
+        '買回基金主帳戶': 'RED_AC_CODE',
+        '收益分配配息專戶': 'DIVIDEND_AC_CODE',
+        '匯款時間': 'TDCC_REMIT_CUT_OFF',
+        '開放投資型連結保單': 'INVESTMENT_LINK',
+        '開放申購': 'IS_PURCHASE',
+        '開放定期定額': 'IS_PERIODIC',
+        '開放語音交易': 'IS_VC',
+        '開放網路交易': 'IS_EC',
+        '開放網路申購': 'IS_EC_PURCHASE',
+        'EC變更書面RSP': 'RSP_CHANGE',
+        '開放網路轉申購': 'IS_EC_SWITCH_IN',
+        '開放網路RSP': 'IS_EC_PERIODIC',
+        '開放網路DRSP': 'IS_EC_DRSP',
+        '開放ATM轉帳': 'EC_ATM',
+        '開放網路買回': 'IS_EC_REDEMPTION',
+        '開放銀行扣款': 'EC_DEDUCTION',
+        '開放銀行匯款': 'EC_REMITTANCE',
+        '開放ROBO': 'IS_ROBO',
+        '匯費': 'BANK_WIRE_FEE',
+        '登錄代理人代號': 'SUBTA_NO',
+        '贖回時間': 'TDCC_RED_CUT_OFF',
+        '主基金': 'FUND_MASTER_NO',
+        '配息說明(前台查詢用)': 'DIVIDEND_DESC',
+        'No.': 'ORDINAL',
+        'EC及RSP申購': 'EC_RSP_NEW',
+        'EC及RSP更新': 'EC_RSP_UPDATE',
+    }
+    
+    # 先嘗試直接讀取，如果失敗則嘗試中文映射
+    value = d.get(k, '')
+    if not value and k in chinese_to_english.values():
+        # k 是英文，反向查找中文
+        for cn, en in chinese_to_english.items():
+            if en == k:
+                value = d.get(cn, '')
+                break
+    
+    return value.strip() if value else ''
 
 def yn_map(s):
     """將中文是/否轉換為 Y/N"""
@@ -180,14 +290,23 @@ def main():
         'CUSTODIAN': "'JPM J.P. Morgan SE, Luxembourg Branch'",
         'CO_NO': "'10'",
         'TERM_NO': "'01'",
+        'ID': "''",  # 總受益憑證ID 應該是空的
         'PAY_DAY': '5', # D18: 5
         'BEHIND_DAYS': '1',
-        'AC_DATE': "to_date('2024-11-15 00:00:00','YYYY-MM-DD HH24:MI:SS')",
+        'AC_DATE': "to_date('2025-12-31 00:00:00','YYYY-MM-DD HH24:MI:SS')",  # 結帳日統一為 2025/12/31
         'LAST_CER_NO': '0', # D18: 345, 但這是流水號，設為 0
         'LAST_S_STAT_NO': '0', # D18: 200522, 但這是流水號，設為 0
         'LAST_P_STAT_NO': '0', # D18: 124035, 但這是流水號，設為 0
         'IS_POSTED': "'P'", # D18: P (已過帳)
         'ORDINAL': 'null', # D18: 18, 但這是序號，維持 null
+        'VAT': 'null',  # VAT 應該是空的
+        'MAX_SHARE': 'null',  # MAX_SHARE 應該是空的
+        'MEDIA_NO': 'null',  # MEDIA_NO 應該是空的
+        'UWCB_FUND_NO': "''",  # UWCB_FUND_NO 應該是空的
+        'BANK_NO': "''",  # BANK_NO 應該是空的
+        'BRANCH_NO': "''",  # BRANCH_NO 應該是空的
+        'FEE_RATE': 'null',  # FEE_RATE 應該是空的
+        'EARLY_RED_FEE_RATE': 'null',  # EARLY_RED_FEE_RATE 應該是空的
         
         # 費率與小數位數
         'AMT_DECIMAL': '0', # D18: 0
@@ -202,15 +321,14 @@ def main():
         
         # 銀行資訊 (可從 CSV 讀取或使用預設值)
         'CUSTODIAN_BANK_NO': "'007'", # D18: 007
-        'BANK_NO': "'007'", # D18: 007
-        'BRANCH_NO': "'0937'", # D18: 0937
+        # BANK_NO, BRANCH_NO 已在前面設置為空
         'RED_BANK_NO': "'007'", # D18: 007
         
         # 文字欄位預設值
         'CUSTODIAN_FAX': "'2382-0511'", # D18 範例值
         'CUSTODIAN_RECIPIENT': "''", # 境外基金通常不需要聯絡人
         'EMP_NO': "'A00907'", # D18 範例值
-        'VAT': "'14692623A'", # D18 範例值
+        # VAT, MEDIA_NO, UWCB_FUND_NO, BANK_NO, BRANCH_NO, FEE_RATE, EARLY_RED_FEE_RATE 已在前面設置為空
         'STATUS': 'null', # 用戶要求設為 null
         'REVIEWED_BY': "'A01096'", # D18 範例審核人員
         'FUND_SET': "'05'", # D18: 05
@@ -218,13 +336,13 @@ def main():
         'REDEMPTION_RULE': "'C'", # D18: C
         'ROUNDING_SHARE': "'O'", # D18: O
         'T0_CODE': "''", # D18: 4F0DIO02, 但每檔不同，設為空
-        'UWCB_FUND_NO': "''", # D18: 34509, 但可能每檔不同
+        # UWCB_FUND_NO 已在前面設置為空
         'UWCB_AC_CODE': "''", # D18: 015016020912, 但可能每檔不同
         
         # 費率
         'TW_RATE': '0.0175', # D18: 0.0175
         'EARLY_RED_MIN_DAYS': '7', # D18: 7
-        'EARLY_RED_FEE_RATE': '0.001', # D18: 0.001
+        # EARLY_RED_FEE_RATE 已在前面設置為 null
         'IS_MAX_SHARE_RATE1': '0.6', # D18: 0.6
         'IS_MAX_SHARE_RATE2': '0.7', # D18: 0.7
         
@@ -237,7 +355,7 @@ def main():
         'BEL_YEAR': '0',
         'BEL_EXG_DAY': '0',
         'MAX_CHANGE': '7', # D18: 7
-        'MAX_SHARE': '999999999', # 最大發行單位數預設值
+        # MAX_SHARE 已在前面設置為 null
         
         # Y/N 布林欄位 (依 D18 範例設定)
         'IS_PERIODIC': "'Y'", # D18: Y
@@ -294,13 +412,13 @@ def main():
                 vals[col_idx[k]] = v
         
         # 準備資料 (使用新表頭)
-        fund_no = f'C{i+1}'
+        fund_no = col(r, 'FUND_NO') or f'G{i+1}'  # 從 CSV 的「基金代號」讀取
         name = esc(col(r, 'NAME')) # 基金中文名稱
         sname = esc(col(r, 'SNAME')) # 基金簡稱
         ename = esc(col(r, 'ENAME')) # 基金英文名稱
         ssname = esc(col(r, 'SSNAME')) # 基金簡簡稱
         div_desc = esc(col(r, 'DIVIDEND_DESC')) # 配息說明
-        fid = esc(col(r, 'ID')) # Fund Code
+        # ID (總受益憑證ID) 應該是空的，不使用 Fund Code
         isin = esc(col(r, 'ISIN_CODE')) # ISIN Code
         inception = parse_date(col(r, 'INCEPTION_DATE')) # 成立日
         mf_rate = col(r, 'MF_RATE') or '0'
@@ -321,8 +439,8 @@ def main():
         behind_days = col(r, 'BEHIND_DAYS') or '1'
         early_red_min = col(r, 'EARLY_RED_MIN_DAYS') or '7'
         
-        # 修正: SHARE_CLASS 需去除括號並嘗試對應代碼
-        share_class = share_class_map(col(r, 'SHARE_CLASS')) 
+        # SHARE_CLASS 直接使用 CSV 的原始值（級別欄位），例如 B, Bgdm, Bh 等
+        share_class = esc(col(r, 'SHARE_CLASS')) 
         
         # 修正: CALENDAR_CODE 應對應 'CALENDAR_CODE' (基金淨值日設定)
         cal_code = esc(col(r, 'CALENDAR_CODE'))
@@ -375,14 +493,11 @@ def main():
         set_val('ENAME', f"N'{ename}'")
         set_val('SSNAME', f"N'{ssname}'")
         
-        # ID 截斷修正
-        if fid and len(fid) > 10:
-             fid = fid[:10]
-        set_val('ID', f"'{fid}'")
+        # ID (總受益憑證ID) 保持為空，不設置值
         
         set_val('INCEPTION_DATE', inception)
         set_val('MF_RATE', mf_rate)
-        set_val('FEE_RATE', fee_rate)
+        # FEE_RATE 保持為 null，不設置值
         set_val('SF_RATE', sf_rate)
         set_val('CF_RATE', sf_rate)  # CF_RATE 使用與 SF_RATE 相同的值
         set_val('OF_RATE', of_rate)
@@ -462,8 +577,7 @@ def main():
             if amc_no and amc_no.isdigit():
                 amc_no = amc_no.zfill(2)
             set_val('AMC_NO', f"'{amc_no}'")
-        if col(r, 'MAX_SHARE'):
-            set_val('MAX_SHARE', col(r, 'MAX_SHARE'))
+        # MAX_SHARE 保持為 null，不從 CSV 讀取
         if col(r, 'EC_DIFF'):
             ec_diff = col(r, 'EC_DIFF')
             set_val('EC_DIFF', ec_diff if ec_diff else '0')
@@ -471,10 +585,7 @@ def main():
             set_val('TDCC_CODE', f"'{col(r, 'TDCC_CODE')}'")
         if col(r, 'RED_NAV_DAY'):
             set_val('RED_NAV_DAY', col(r, 'RED_NAV_DAY'))
-        if col(r, 'BANK_NO'):
-            set_val('BANK_NO', f"'{col(r, 'BANK_NO')}'")
-        if col(r, 'BRANCH_NO'):
-            set_val('BRANCH_NO', f"'{col(r, 'BRANCH_NO')}'")
+        # BANK_NO, BRANCH_NO 保持為空，不從 CSV 讀取
         if col(r, 'RED_BRANCH_NO'):
             red_branch = col(r, 'RED_BRANCH_NO')
             # 修正: RED_BRANCH_NO 最大 4 字元，若超過則設為空
