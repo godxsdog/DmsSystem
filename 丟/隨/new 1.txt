@@ -1,0 +1,292 @@
+From: 張廣義 <jonny@bigfun.tw> 
+Sent: Monday, January 5, 2026 4:21 PM
+To: 黃凱章 Kent K Huang <Kent.K.Huang@eastspring.com>
+Cc: Eastspring TW IT Application <it.application.tw@eastspring.com>; 王國賢 William KH Wang <William.KH.Wang@eastspring.com>; Carol Lin （林鎂琁） <carol.lin@eastspring.com>; 蔡尚雯 Sylvia SW Tsai <Sylvia.SW.Tsai@eastspring.com>
+Subject: Re: 資產減損通知信 – 基金代碼 : 000102
+
+CAUTION: This is an external email. Please exercise caution when accessing links or attachments.
+
+Hi Kent,
+
+附件為資產減損通知信工時分配明細表，麻煩您確認一下。
+
+
+張廣義     Jonny Chang
+
+ 
+大方數位科技有限公司   
+BigFun digital tech Ltd. 
+
+
+
+黃凱章 Kent K Huang <Kent.K.Huang@eastspring.com> 於 2025年12月31日週三 下午3:09寫道：
+Hi Jonny
+        麻煩給我一份- 瀚亞投信_線上開戶和優化自主聲明書 分析表(一人天)
+方便後續流程，謝謝
+ 
+ 
+Best Regard
+Kent
+From: 張廣義 <jonny@bigfun.tw> 
+Sent: Tuesday, December 30, 2025 2:19 PM
+To: 黃凱章 Kent K Huang <Kent.K.Huang@eastspring.com>
+Cc: Eastspring TW IT Application <it.application.tw@eastspring.com>; 王國賢 William KH Wang <William.KH.Wang@eastspring.com>; Carol Lin （林鎂琁） <carol.lin@eastspring.com>; 蔡尚雯 Sylvia SW Tsai <Sylvia.SW.Tsai@eastspring.com>
+Subject: Re: 資產減損通知信 – 基金代碼 : 000102
+ 
+CAUTION: This is an external email. Please exercise caution when accessing links or attachments.
+ 
+Hi Kent,
+ 
+收到，修改資產減損通知檢核，包含修改程式及測試需要1個人/天。
+ 
+Regards,
+ 
+ 
+張廣義     Jonny Chang
+ 
+ 
+大方數位科技有限公司   
+BigFun digital tech Ltd. 
+ 
+ 
+ 
+黃凱章 Kent K Huang <Kent.K.Huang@eastspring.com> 於 2025年12月29日週一 上午10:37寫道：
+Hi Jonny
+        目前與User確認之後，只需要修改資產減損通知這個檢核，再請幫忙評估程式修改的人天。
+        另外聯絡窗口有更動，目前改由我來跟您聯絡，謝謝
+ 
+Thanks
+BR
+Kent
+ 
+From: 張廣義 <jonny@bigfun.tw> 
+Sent: Friday, December 26, 2025 10:21 AM
+To: Richard Hu （胡真豪） <richard.hu@eastspring.com>
+Cc: Eastspring TW IT Application <it.application.tw@eastspring.com>; 王國賢 William KH Wang <William.KH.Wang@eastspring.com>; Carol Lin （林鎂琁） <carol.lin@eastspring.com>; 蔡尚雯 Sylvia SW Tsai <Sylvia.SW.Tsai@eastspring.com>
+Subject: Re: 資產減損通知信 – 基金代碼 : 000102
+ 
+CAUTION: This is an external email. Please exercise caution when accessing links or attachments.
+ 
+Hi Richard,
+ 
+收到 ~ 
+和您確認最後的需求，是將所有的檢核包含以下四種：
+1.	鎖利
+2.	提前出場
+3.	資產減損通知
+4.	轉投資
+改為比對最近一日(含當日)的淨值。
+Ex 12/17 晚上21:00 寄發通知信 , 則投資國內外的基金皆須先尋找12/17當日是否有淨值 ,
+若有則以12/17日的淨值進行比對 , 若無則往前找到最近一日的淨值進行比對.
+ 
+以上包含程式修改、測試需要3個人天。
+
+
+ 
+ 
+張廣義     Jonny Chang
+ 
+ 
+大方數位科技有限公司   
+BigFun digital tech Ltd. 
+ 
+ 
+ 
+Richard Hu （胡真豪） <richard.hu@eastspring.com> 於 2025年12月23日週二 下午7:08寫道：
+Hi Jonny,
+ 
+因使用者有寄信時線上的需求  , 因此需要於信件寄發時 , 以最近日的淨值去做比對,
+Ex 12/17 晚上21:00 寄發通知信 , 則投資國內外的基金皆須先尋找12/17當日是否有淨值 , 
+若有則以12/17日的淨值進行比對 , 若無則往前找到最近一日的淨值進行比對.
+ 
+煩請協助修改. 謝謝.
+ 
+Best regards,
+Richard
+============	 
+Richard Hu 胡真豪  	
+E: richard.hu@eastspring.com
+
+瀚亞證券投資信託股份有限公司 	
+Eastspring Securities Investment Trust Co. Ltd	
+D: (+886) 2 8758 6688 #1613 	
+F: (+886) 2 8780 8061	
+eastspring.com.tw
+
+ 
+ 
+From: 張廣義 <jonny@bigfun.tw> 
+Sent: Tuesday, December 23, 2025 11:29 AM
+To: Richard Hu （胡真豪） <richard.hu@eastspring.com>
+Cc: Eastspring TW IT Application <it.application.tw@eastspring.com>; 王國賢 William KH Wang <William.KH.Wang@eastspring.com>
+Subject: Re: 資產減損通知信 – 基金代碼 : 000102
+ 
+CAUTION: This is an external email. Please exercise caution when accessing links or attachments.
+ 
+Hi Richard,
+ 
+抱歉，現在才回覆你。
+預設抓取的淨值是N-1，也就是通知信寄發時間設定為 12/17晚上21:00，會抓取12/16的淨值。
+如果你是要抓12/17的淨值，那就要把觸發時間改在12/18 00:00之後。
+ 
+Regards,
+
+
+ 
+ 
+張廣義     Jonny Chang
+ 
+ 
+大方數位科技有限公司   
+BigFun digital tech Ltd. 
+ 
+ 
+ 
+Richard Hu （胡真豪） <richard.hu@eastspring.com> 於 2025年12月18日週四 上午10:50寫道：
+Hi Jonny,
+ 
+使用者測試目標到期債寄送通知信時 , 有一個情境想請問 ,
+就是基金的淨值會因國家地區或投資型態的不同 , 而有時差 ,
+Ex 以投資國外的基金 , 12/17日的淨值12/18下午18:00前會收到並更新入系統 ,
+但以投資國內的基金 , 12/17日的淨值 12/17下午18:00前 會收到並更新入系統.
+ 
+假設通知信寄發時間設定為 12/17晚上21:00 , 投資國外的基金會用前一日的淨值去做比較 ,
+那投資國內的基金是否會用最近一日的淨值(也就是12/17) 去做比較 ?
+ 
+Best regards,
+Richard
+============	 
+Richard Hu 胡真豪  	
+E: richard.hu@eastspring.com
+
+瀚亞證券投資信託股份有限公司 	
+Eastspring Securities Investment Trust Co. Ltd	
+D: (+886) 2 8758 6688 #1613 	
+F: (+886) 2 8780 8061	
+eastspring.com.tw
+
+ 
+ 
+From: Richard Hu （胡真豪） 
+Sent: Friday, November 21, 2025 1:42 PM
+To: 張廣義 <jonny@bigfun.tw>
+Cc: Eastspring TW IT Application <it.application.tw@eastspring.com>; 王國賢 William KH Wang <William.KH.Wang@eastspring.com>
+Subject: RE: 資產減損通知信 – 基金代碼 : 000102
+ 
+Hi jonny,
+ 
+經與使用這確認 , 煩請協助修改 [資產減損通知信] , 規則為達到條件才寄發. 謝謝.
+ 
+ 
+Best regards,
+Richard
+============	 
+Richard Hu 胡真豪  	
+E: richard.hu@eastspring.com
+
+瀚亞證券投資信託股份有限公司 	
+Eastspring Securities Investment Trust Co. Ltd	
+D: (+886) 2 8758 6688 #1613 	
+F: (+886) 2 8780 8061	
+eastspring.com.tw
+
+ 
+ 
+From: Richard Hu （胡真豪） 
+Sent: Friday, November 21, 2025 1:41 PM
+To: 蔡尚雯 Sylvia SW Tsai <Sylvia.SW.Tsai@eastspring.com>
+Cc: Eastspring TW IT Application <it.application.tw@eastspring.com>; 王國賢 William KH Wang <William.KH.Wang@eastspring.com>; Carol Lin （林鎂琁） <carol.lin@eastspring.com>
+Subject: RE: 資產減損通知信 – 基金代碼 : 000102
+ 
+Hi Sylvia,
+ 
+將依據11/20電話討論結果 , 協請廠商修改程式為 [須為達標後寄出通知信] , 
+待廠商完成修改後 , 再行通知測試.
+ 
+Best regards,
+Richard
+============	 
+Richard Hu 胡真豪  	
+E: richard.hu@eastspring.com
+
+瀚亞證券投資信託股份有限公司 	
+Eastspring Securities Investment Trust Co. Ltd	
+D: (+886) 2 8758 6688 #1613 	
+F: (+886) 2 8780 8061	
+eastspring.com.tw
+
+ 
+ 
+From: Richard Hu （胡真豪） 
+Sent: Thursday, November 20, 2025 1:07 PM
+To: 蔡尚雯 Sylvia SW Tsai <Sylvia.SW.Tsai@eastspring.com>; Carol Lin （林鎂琁） <carol.lin@eastspring.com>
+Cc: Eastspring TW IT Application <it.application.tw@eastspring.com>; 王國賢 William KH Wang <William.KH.Wang@eastspring.com>
+Subject: RE: 資產減損通知信 – 基金代碼 : 000102
+ 
+Hi Sylvia and Carol,
+ 
+經與工程師確認該功能確實須為達標後寄出通知信 ,
+故未達標準亦會寄出通知信此為判斷條件須調整 , 廠商會盡速修改 , 
+ 
+但若要改為達標方可寄出 , 則有可能會發生因突發性的主機或系統程式異常 , 
+造成已達標但通知信卻無法寄出.
+ 
+想討論是否可以將條件調整為達標與否都寄送 , 但另外建立一個email群組 , 
+加入僅需要每日收到通知信的使用者 ?
+ 
+Best regards,
+Richard
+============	 
+Richard Hu 胡真豪  	
+E: richard.hu@eastspring.com
+
+瀚亞證券投資信託股份有限公司 	
+Eastspring Securities Investment Trust Co. Ltd	
+D: (+886) 2 8758 6688 #1613 	
+F: (+886) 2 8780 8061	
+eastspring.com.tw
+
+ 
+ 
+From: 蔡尚雯 Sylvia SW Tsai <Sylvia.SW.Tsai@eastspring.com> 
+Sent: Wednesday, November 19, 2025 9:00 AM
+To: Richard Hu （胡真豪） <richard.hu@eastspring.com>; Carol Lin （林鎂琁） <carol.lin@eastspring.com>
+Subject: FW: 資產減損通知信 – 基金代碼 : 000102
+ 
+Hi Richard,
+ 
+I assume the notice will be sent only when the set target is met (e.g. -20%)?
+ 
+@Carol Lin （林鎂琁）Could you kindly check for that?
+ 
+Thanks and Regards,
+Sylvia
+ 
+-----Original Message-----
+From: 鎖利系統管理者(自動發信) <it.application.tw@eastspring.com> 
+Sent: Tuesday, November 18, 2025 9:00 PM
+To: Eastspring TW Life Partnership <life.partnership.tw@eastspring.com>; 蔡尚雯 Sylvia SW Tsai <Sylvia.SW.Tsai@eastspring.com>
+Subject: 資產減損通知信 – 基金代碼 : 000102
+ 
+資產減損
+基金代碼 : 000102
+NAV 日期 : 2025-11-17
+NAV : 8.92
+比較日期 : 2025-11-18
+結果 : 未達條件，高於 (24.58%)
+---------------------------------------------------------------------- 
+Disclaimer 
+
+This email is governed by terms and conditions found on http://www.eastspring.com/email-terms-and-conditions which contain important disclaimers. 
+---------------------------------------------------------------------- 
+Disclaimer 
+
+This email is governed by terms and conditions found on http://www.eastspring.com/email-terms-and-conditions which contain important disclaimers. 
+---------------------------------------------------------------------- 
+Disclaimer 
+
+This email is governed by terms and conditions found on http://www.eastspring.com/email-terms-and-conditions which contain important disclaimers. 
+---------------------------------------------------------------------- 
+Disclaimer 
+
+This email is governed by terms and conditions found on http://www.eastspring.com/email-terms-and-conditions which contain important disclaimers. 
