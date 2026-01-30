@@ -1386,6 +1386,7 @@ if cbx_6.checked = true then
 		
 		// ========================================================
 		// 根據圖片字段對應關係，只讀取需要的欄位：
+		// 注意：所有百分比欄位需要除以 100 並四捨五入至小數後 2 位
 		// ========================================================
 		
 		// 讀取 Fund Size (Column C) -> 對應 FUM
@@ -1393,20 +1394,24 @@ if cbx_6.checked = true then
 		ldec_fund_size = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
 		// 讀取 Limit 40% (Column E) -> 對應 LONG_POSITION (未沖銷多頭部位比率%)
+		// Excel 中是百分比數字，需除以 100 並四捨五入至小數後 2 位
 		OLE_MyExcel.Range("E" + string(ll_row)).Select
-		ldec_limit_40 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		ldec_limit_40 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) / 100, 2)
 		
 		// 讀取 Limit 100% (Column H) -> 對應 SHORT_POSITION (未沖銷空頭部位比率%)
+		// Excel 中是百分比數字，需除以 100 並四捨五入至小數後 2 位
 		OLE_MyExcel.Range("H" + string(ll_row)).Select
-		ldec_limit_100 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		ldec_limit_100 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) / 100, 2)
 		
 		// 讀取 Limit 50% (Column J) -> 對應 PCT_DOMESTIC (投資國內證券市場比率)
+		// Excel 中是百分比數字，需除以 100 並四捨五入至小數後 2 位
 		OLE_MyExcel.Range("J" + string(ll_row)).Select
-		ldec_limit_50 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		ldec_limit_50 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) / 100, 2)
 		
 		// 讀取 Limit 20% (Column L) -> 對應 PCT_CHINA (投資大陸地區證券市場比率)
+		// Excel 中是百分比數字，需除以 100 並四捨五入至小數後 2 位
 		OLE_MyExcel.Range("L" + string(ll_row)).Select
-		ldec_limit_20 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		ldec_limit_20 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) / 100, 2)
 		
 		// ========================================================
 		// 直接插入或更新資料到 FAS.FUND_INVESTMENT
