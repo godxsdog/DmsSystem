@@ -24,7 +24,7 @@ def col(d, k):
         '基金簡稱': 'SNAME',
         '基金英文名稱': 'ENAME',
         '基金簡簡稱': 'SSNAME',
-        'Fund Code': 'HSBC_CODE',  # Fund Code 映射到 HSBC_CODE
+        'Fund Code': 'ID',  # Fund Code 映射到 ID
         'ISIN Code': 'ISIN_CODE',
         '基金經理公司': 'AMC_NO',
         '基金專戶名稱': 'AC_NAME',
@@ -427,7 +427,7 @@ def main():
         ename = esc(col(r, 'ENAME')) # 基金英文名稱
         ssname = esc(col(r, 'SSNAME')) # 基金簡簡稱
         div_desc = esc(col(r, 'DIVIDEND_DESC')) # 配息說明
-        # ID (總受益憑證ID) 應該是空的，不使用 Fund Code
+        fund_code = esc(col(r, 'ID'))  # Fund Code (現在映射到 ID)
         isin = esc(col(r, 'ISIN_CODE')) # ISIN Code
         inception = parse_date(col(r, 'INCEPTION_DATE')) # 成立日
         mf_rate = col(r, 'MF_RATE') or '0'
@@ -502,7 +502,11 @@ def main():
         set_val('ENAME', f"N'{ename}'")
         set_val('SSNAME', f"N'{ssname}'")
         
-        # ID (總受益憑證ID) 保持為空，不設置值
+        # ID: 設置為 Fund Code
+        if fund_code:
+            set_val('ID', f"'{fund_code}'")
+        else:
+            set_val('ID', "''")
         
         set_val('INCEPTION_DATE', inception)
         set_val('MF_RATE', mf_rate)
@@ -583,12 +587,8 @@ def main():
         # ORDINAL: 根據索引從 1000 開始 (G1=1000, G2=1001, G3=1002...)
         set_val('ORDINAL', str(1000 + i))
         
-        # HSBC_CODE: 讀取 Fund Code
-        hsbc_code = esc(col(r, 'HSBC_CODE'))  # Fund Code
-        if hsbc_code:
-            set_val('HSBC_CODE', f"'{hsbc_code}'")
-        else:
-            set_val('HSBC_CODE', "null")
+        # HSBC_CODE: 保持為空字符串
+        set_val('HSBC_CODE', "''")
         
         if col(r, 'AMC_NO'):
             amc_no = col(r, 'AMC_NO')
