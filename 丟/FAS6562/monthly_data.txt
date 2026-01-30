@@ -1357,17 +1357,11 @@ if cbx_6.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		setnull(ls_fund_name)
-		ldec_fund_size = 0
-		ldec_derivative_enhance = 0
-		ldec_limit_40 = 0
-		ldec_derivative_hedge = 0
-		ldec_denominator = 0
-		ldec_limit_100 = 0
-		ldec_invest_taiwan = 0
-		ldec_limit_50 = 0
-		ldec_invest_china = 0
-		ldec_limit_20 = 0
+		ldec_fund_size = 0        // FDM: Fund Size (Column C)
+		ldec_limit_40 = 0         // LONG_POSITION: Limit 40% (Column E)
+		ldec_limit_100 = 0        // SHORT_POSITION: Limit 100% (Column H)
+		ldec_limit_50 = 0         // PCT_DOMESTIC: Limit 50% (Column J)
+		ldec_limit_20 = 0         // PCT_CHINA: Limit 20% (Column L)
 		
 		// 取得 ISIN CODE (Column A)
 		OLE_MyExcel.Range("A" + string(ll_row)).Select
@@ -1396,105 +1390,74 @@ if cbx_6.checked = true then
 			Continue
 		end if
 		
-		// 讀取 Fund Name (Column B)
-		OLE_MyExcel.Range("B" + string(ll_row)).Select
-		ls_fund_name = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		// ========================================================
+		// 根據圖片字段對應關係，只讀取需要的欄位：
+		// ========================================================
 		
-		// 讀取 Fund Size (Column C)
+		// 讀取 Fund Size (Column C) -> 對應 FDM
 		OLE_MyExcel.Range("C" + string(ll_row)).Select
 		ldec_fund_size = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
-		// 讀取 For enhancing performance (Column D)
-		OLE_MyExcel.Range("D" + string(ll_row)).Select
-		ldec_derivative_enhance = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Limit 40% (Column E)
+		// 讀取 Limit 40% (Column E) -> 對應 LONG_POSITION (未沖銷多頭部位比率%)
 		OLE_MyExcel.Range("E" + string(ll_row)).Select
 		ldec_limit_40 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
-		// 讀取 For hedging purpose (Column F)
-		OLE_MyExcel.Range("F" + string(ll_row)).Select
-		ldec_derivative_hedge = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Denominator (Column G)
-		OLE_MyExcel.Range("G" + string(ll_row)).Select
-		ldec_denominator = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Limit 100% (Column H)
+		// 讀取 Limit 100% (Column H) -> 對應 SHORT_POSITION (未沖銷空頭部位比率%)
 		OLE_MyExcel.Range("H" + string(ll_row)).Select
 		ldec_limit_100 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
-		// 讀取 Investments in Taiwan (Column I)
-		OLE_MyExcel.Range("I" + string(ll_row)).Select
-		ldec_invest_taiwan = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Limit 50% (Column J)
+		// 讀取 Limit 50% (Column J) -> 對應 PCT_DOMESTIC (投資國內證券市場比率)
 		OLE_MyExcel.Range("J" + string(ll_row)).Select
 		ldec_limit_50 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
-		// 讀取 Investments in China (Column K)
-		OLE_MyExcel.Range("K" + string(ll_row)).Select
-		ldec_invest_china = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Limit 20% (Column L)
+		// 讀取 Limit 20% (Column L) -> 對應 PCT_CHINA (投資大陸地區證券市場比率)
 		OLE_MyExcel.Range("L" + string(ll_row)).Select
 		ldec_limit_20 = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
-		// 插入或更新資料到 fas.new_agent_6562_temp1
-		// 注意：以下欄位名稱需要根據實際資料表結構調整
-		// 如果資料表尚未建立，請先執行 CREATE TABLE 語法
+		// ========================================================
+		// 直接插入或更新資料到 FAS.FUND_INVESTMENT
+		// 根據圖片字段對應關係：
+		// FDM = Fund Size (Column C)
+		// LONG_POSITION = Limit 40% (Column E) 
+		// SHORT_POSITION = Limit 100% (Column H)
+		// PCT_DOMESTIC = Limit 50% (Column J)
+		// PCT_CHINA = Limit 20% (Column L)
+		// TX_DATE = ld_tx_date
+		// ========================================================
 		ll_count = 0
 		SELECT count(*)
 		  INTO :ll_count
-		  FROM fas.new_agent_6562_temp1
-		 WHERE fund_no = :ls_fund_no
-		   AND tx_date = :ld_tx_date;
+		  FROM FAS.FUND_INVESTMENT
+		 WHERE FUND_NO = :ls_fund_no
+		   AND TX_DATE = :ld_tx_date;
 		
 		if ll_count = 0 then
-			INSERT INTO fas.new_agent_6562_temp1
-				( fund_no,
-				  tx_date,
-				  isin_code,
-				  fund_name,
-				  fund_size,
-				  derivative_enhance,
-				  limit_40_pct,
-				  derivative_hedge,
-				  denominator,
-				  limit_100_pct,
-				  invest_taiwan,
-				  limit_50_pct,
-				  invest_china,
-				  limit_20_pct )
+			// 新增記錄到 FAS.FUND_INVESTMENT
+			INSERT INTO FAS.FUND_INVESTMENT
+				( FUND_NO,
+				  TX_DATE,
+				  FDM,
+				  LONG_POSITION,
+				  SHORT_POSITION,
+				  PCT_DOMESTIC,
+				  PCT_CHINA )
 			VALUES ( :ls_fund_no,
 					 :ld_tx_date,
-					 :ls_isin_code,
-					 :ls_fund_name,
 					 :ldec_fund_size,
-					 :ldec_derivative_enhance,
 					 :ldec_limit_40,
-					 :ldec_derivative_hedge,
-					 :ldec_denominator,
 					 :ldec_limit_100,
-					 :ldec_invest_taiwan,
 					 :ldec_limit_50,
-					 :ldec_invest_china,
 					 :ldec_limit_20 );
 		else
-			UPDATE fas.new_agent_6562_temp1
-			   SET fund_name = :ls_fund_name,
-				   fund_size = :ldec_fund_size,
-				   derivative_enhance = :ldec_derivative_enhance,
-				   limit_40_pct = :ldec_limit_40,
-				   derivative_hedge = :ldec_derivative_hedge,
-				   denominator = :ldec_denominator,
-				   limit_100_pct = :ldec_limit_100,
-				   invest_taiwan = :ldec_invest_taiwan,
-				   limit_50_pct = :ldec_limit_50,
-				   invest_china = :ldec_invest_china,
-				   limit_20_pct = :ldec_limit_20
-			 WHERE fund_no = :ls_fund_no
-			   AND tx_date = :ld_tx_date;
+			// 更新已存在的記錄
+			UPDATE FAS.FUND_INVESTMENT
+			   SET FDM = :ldec_fund_size,
+				   LONG_POSITION = :ldec_limit_40,
+				   SHORT_POSITION = :ldec_limit_100,
+				   PCT_DOMESTIC = :ldec_limit_50,
+				   PCT_CHINA = :ldec_limit_20
+			 WHERE FUND_NO = :ls_fund_no
+			   AND TX_DATE = :ld_tx_date;
 		end if
 		
 		if f_sql_code() <> 0 then
@@ -1550,17 +1513,8 @@ if cbx_7.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		setnull(ls_fund_abbr)
-		setnull(ls_fund_name)
-		setnull(ls_fbc)
-		li_no = 0
-		ldec_fund_size_product_ccy = 0
-		ldec_fx_rate = 0
-		ldec_nav_reporting_ccy = 0
-		ldec_invest_amt_taiwan = 0
-		ldec_fund_size_by_share_class = 0
-		ldec_fund_size_global_aa = 0
-		ldec_invest_pct = 0
+		ldec_fund_size_global_aa = 0   // FDM_GLOBAL: Fund Size (USD) (Column K)
+		ldec_total_units = 0            // ISSUE_SHARES: Total Units of the Fund (Column M)
 		
 		// 取得 ISIN CODE (Column D)
 		OLE_MyExcel.Range("D" + string(ll_row)).Select
@@ -1589,105 +1543,49 @@ if cbx_7.checked = true then
 			Continue
 		end if
 		
-		// 讀取 Fund Abbr. (Column A)
-		OLE_MyExcel.Range("A" + string(ll_row)).Select
-		ls_fund_abbr = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		// ========================================================
+		// 根據圖片字段對應關係，只讀取需要的欄位：
+		// ========================================================
 		
-		// 讀取 NO (Column B)
-		OLE_MyExcel.Range("B" + string(ll_row)).Select
-		li_no = integer(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Fund Name (Column C)
-		OLE_MyExcel.Range("C" + string(ll_row)).Select
-		ls_fund_name = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
-		
-		// 讀取 FBC (Column E)
-		OLE_MyExcel.Range("E" + string(ll_row)).Select
-		ls_fbc = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
-		
-		// 讀取 Fund Size as of 31 October 2025 (Product ccy) (Column F)
-		OLE_MyExcel.Range("F" + string(ll_row)).Select
-		ldec_fund_size_product_ccy = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 FX Rate (Column G)
-		OLE_MyExcel.Range("G" + string(ll_row)).Select
-		ldec_fx_rate = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 NAV (in reporting ccy) (Column H)
-		OLE_MyExcel.Range("H" + string(ll_row)).Select
-		ldec_nav_reporting_ccy = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Investment Amount of Taiwan Investors (USD) (Column I)
-		OLE_MyExcel.Range("I" + string(ll_row)).Select
-		ldec_invest_amt_taiwan = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Fund Size as of 31 October 2025 (USD and by share class) (Column J)
-		OLE_MyExcel.Range("J" + string(ll_row)).Select
-		ldec_fund_size_by_share_class = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
-		
-		// 讀取 Fund Size as of 31 October 2025 (USD) 全球基金規模AA (Column K)
+		// 讀取 Fund Size as of 31 October 2025 (USD) (Column K) -> 對應 FDM_GLOBAL (全球基金規模)
 		OLE_MyExcel.Range("K" + string(ll_row)).Select
 		ldec_fund_size_global_aa = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
-		// 讀取 Investment Amount of Taiwan Investors/Fund Size (Column L)
-		OLE_MyExcel.Range("L" + string(ll_row)).Select
-		ldec_invest_pct = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		// 讀取 Total Units of the Fund (Column M) -> 對應 ISSUE_SHARES (已發行受益憑證數)
+		OLE_MyExcel.Range("M" + string(ll_row)).Select
+		ldec_total_units = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
-		// 插入或更新資料到 fas.new_agent_6562_temp2
-		// 注意：以下欄位名稱需要根據實際資料表結構調整
-		// 如果資料表尚未建立，請先執行 CREATE TABLE 語法
+		// ========================================================
+		// 更新 FAS.FUND_INVESTMENT 表
+		// 根據圖片字段對應關係：
+		// FDM_GLOBAL = Fund Size as of 31 October 2025 (USD) (Column K)
+		// ISSUE_SHARES = Total Units of the Fund (Column M)
+		// ========================================================
 		ll_count = 0
 		SELECT count(*)
 		  INTO :ll_count
-		  FROM fas.new_agent_6562_temp2
-		 WHERE fund_no = :ls_fund_no
-		   AND tx_date = :ld_tx_date;
+		  FROM FAS.FUND_INVESTMENT
+		 WHERE FUND_NO = :ls_fund_no
+		   AND TX_DATE = :ld_tx_date;
 		
 		if ll_count = 0 then
-			INSERT INTO fas.new_agent_6562_temp2
-				( fund_no,
-				  tx_date,
-				  fund_abbr,
-				  seq_no,
-				  fund_name,
-				  isin_code,
-				  fbc,
-				  fund_size_product_ccy,
-				  fx_rate,
-				  nav_reporting_ccy,
-				  invest_amt_taiwan_usd,
-				  fund_size_by_share_class,
-				  fund_size_global_aa,
-				  invest_pct )
+			// 新增記錄到 FAS.FUND_INVESTMENT
+			INSERT INTO FAS.FUND_INVESTMENT
+				( FUND_NO,
+				  TX_DATE,
+				  FDM_GLOBAL,
+				  ISSUE_SHARES )
 			VALUES ( :ls_fund_no,
 					 :ld_tx_date,
-					 :ls_fund_abbr,
-					 :li_no,
-					 :ls_fund_name,
-					 :ls_isin_code,
-					 :ls_fbc,
-					 :ldec_fund_size_product_ccy,
-					 :ldec_fx_rate,
-					 :ldec_nav_reporting_ccy,
-					 :ldec_invest_amt_taiwan,
-					 :ldec_fund_size_by_share_class,
 					 :ldec_fund_size_global_aa,
-					 :ldec_invest_pct );
+					 :ldec_total_units );
 		else
-			UPDATE fas.new_agent_6562_temp2
-			   SET fund_abbr = :ls_fund_abbr,
-				   seq_no = :li_no,
-				   fund_name = :ls_fund_name,
-				   fbc = :ls_fbc,
-				   fund_size_product_ccy = :ldec_fund_size_product_ccy,
-				   fx_rate = :ldec_fx_rate,
-				   nav_reporting_ccy = :ldec_nav_reporting_ccy,
-				   invest_amt_taiwan_usd = :ldec_invest_amt_taiwan,
-				   fund_size_by_share_class = :ldec_fund_size_by_share_class,
-				   fund_size_global_aa = :ldec_fund_size_global_aa,
-				   invest_pct = :ldec_invest_pct
-			 WHERE fund_no = :ls_fund_no
-			   AND tx_date = :ld_tx_date;
+			// 更新已存在的記錄（只更新 FDM_GLOBAL 和 ISSUE_SHARES，保留其他字段）
+			UPDATE FAS.FUND_INVESTMENT
+			   SET FDM_GLOBAL = :ldec_fund_size_global_aa,
+				   ISSUE_SHARES = :ldec_total_units
+			 WHERE FUND_NO = :ls_fund_no
+			   AND TX_DATE = :ld_tx_date;
 		end if
 		
 		if f_sql_code() <> 0 then
