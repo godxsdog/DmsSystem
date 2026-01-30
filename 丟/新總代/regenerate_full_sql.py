@@ -24,7 +24,7 @@ def col(d, k):
         '基金簡稱': 'SNAME',
         '基金英文名稱': 'ENAME',
         '基金簡簡稱': 'SSNAME',
-        'Fund Code': 'ID',
+        'Fund Code': 'HSBC_CODE',  # Fund Code 映射到 HSBC_CODE
         'ISIN Code': 'ISIN_CODE',
         '基金經理公司': 'AMC_NO',
         '基金專戶名稱': 'AC_NAME',
@@ -579,8 +579,17 @@ def main():
         
         # 補上其他從 CSV 讀取的欄位
         # 從 CSV 讀取數字欄位（如有值則覆蓋預設值）
-        if col(r, 'ORDINAL'):
-            set_val('ORDINAL', col(r, 'ORDINAL'))
+        
+        # ORDINAL: 根據索引從 1000 開始 (G1=1000, G2=1001, G3=1002...)
+        set_val('ORDINAL', str(1000 + i))
+        
+        # HSBC_CODE: 讀取 Fund Code
+        hsbc_code = esc(col(r, 'HSBC_CODE'))  # Fund Code
+        if hsbc_code:
+            set_val('HSBC_CODE', f"'{hsbc_code}'")
+        else:
+            set_val('HSBC_CODE', "null")
+        
         if col(r, 'AMC_NO'):
             amc_no = col(r, 'AMC_NO')
             if amc_no and amc_no.isdigit():
