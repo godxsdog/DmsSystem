@@ -320,7 +320,7 @@ def main():
         # 費率與小數位數
         'AMT_DECIMAL': '0', # D18: 0
         'NAV_DECIMAL': '2', # D18: 2
-        'FUND_CATEGORY': "'1'", # D18: 1 (境外股票型)
+        'FUND_CATEGORY': "'2'", # 境外基金 (修改為 2)
         'OFFERING_TYPE': "'1'", # D18: 1
         'MIN_RED_SHARE': '0',
         'MIN_BAL_SHARE': '300', # D18: 300
