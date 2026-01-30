@@ -2,19 +2,13 @@
 string ls_path, ls_tx_month, ls_subta_no
 string ls_file01, ls_file02, ls_file03, ls_file04, ls_file05   // 2016.03.28 新增MA境外轉入資料ls_file05 (Clamp Lin) 需求單：001997
 string ls_fund_no, ls_fund_master_no, ls_tmp_value, ls_isin_code, ls_crncy_cd, ls_bas_crncy, ls_global_currency
-string ls_fund_name, ls_fund_abbr, ls_fbc  // FILE06 & FILE07 使用
 date   ld_tx_date
 dec    ldec_g_shares, ldec_g_fum, ldec_shares, ldec_price, ldec_fum, ldec_holder_fum, ldec_exg_rate, ldec_bas_rate, ldec_shares_china
 dec    ldec_usd_rate, ldec_eur_rate
 dec    ldec_rate1, ldec_rate2, ldec_rate3, ldec_rate4, ldec_rate5
-dec    ldec_fund_size, ldec_derivative_enhance, ldec_limit_40  // FILE06 使用
-dec    ldec_derivative_hedge, ldec_denominator, ldec_limit_100  // FILE06 使用
-dec    ldec_invest_taiwan, ldec_limit_50, ldec_invest_china, ldec_limit_20  // FILE06 使用
-dec    ldec_fund_size_product_ccy, ldec_fx_rate, ldec_nav_reporting_ccy  // FILE07 使用
-dec    ldec_invest_amt_taiwan, ldec_fund_size_by_share_class  // FILE07 使用
-dec    ldec_fund_size_global_aa, ldec_invest_pct  // FILE07 使用
+dec    ldec_fund_size, ldec_limit_40, ldec_limit_100, ldec_limit_50, ldec_limit_20  // FILE06 使用 (FUM, LONG_POSITION, SHORT_POSITION, PCT_DOMESTIC, PCT_CHINA)
+dec    ldec_fund_size_global_aa, ldec_total_units  // FILE07 使用 (FUM_GLOBAL, ISSUE_SHARES)
 integer li_file_num, ll_row, ll_black_count, ll_count, ll_usd_count, ll_crncy_count, ll_v_count, ll_black_count2
-integer li_no  // FILE07 使用
 OLEObject OLE_MyExcel
 
 // 初始化路徑與月份
@@ -1357,7 +1351,7 @@ if cbx_6.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		ldec_fund_size = 0        // FDM: Fund Size (Column C)
+		ldec_fund_size = 0        // FUM: Fund Size (Column C)
 		ldec_limit_40 = 0         // LONG_POSITION: Limit 40% (Column E)
 		ldec_limit_100 = 0        // SHORT_POSITION: Limit 100% (Column H)
 		ldec_limit_50 = 0         // PCT_DOMESTIC: Limit 50% (Column J)
@@ -1394,7 +1388,7 @@ if cbx_6.checked = true then
 		// 根據圖片字段對應關係，只讀取需要的欄位：
 		// ========================================================
 		
-		// 讀取 Fund Size (Column C) -> 對應 FDM
+		// 讀取 Fund Size (Column C) -> 對應 FUM
 		OLE_MyExcel.Range("C" + string(ll_row)).Select
 		ldec_fund_size = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
@@ -1417,7 +1411,7 @@ if cbx_6.checked = true then
 		// ========================================================
 		// 直接插入或更新資料到 FAS.FUND_INVESTMENT
 		// 根據圖片字段對應關係：
-		// FDM = Fund Size (Column C)
+		// FUM = Fund Size (Column C)
 		// LONG_POSITION = Limit 40% (Column E) 
 		// SHORT_POSITION = Limit 100% (Column H)
 		// PCT_DOMESTIC = Limit 50% (Column J)
@@ -1436,7 +1430,7 @@ if cbx_6.checked = true then
 			INSERT INTO FAS.FUND_INVESTMENT
 				( FUND_NO,
 				  TX_DATE,
-				  FDM,
+				  FUM,
 				  LONG_POSITION,
 				  SHORT_POSITION,
 				  PCT_DOMESTIC,
@@ -1451,7 +1445,7 @@ if cbx_6.checked = true then
 		else
 			// 更新已存在的記錄
 			UPDATE FAS.FUND_INVESTMENT
-			   SET FDM = :ldec_fund_size,
+			   SET FUM = :ldec_fund_size,
 				   LONG_POSITION = :ldec_limit_40,
 				   SHORT_POSITION = :ldec_limit_100,
 				   PCT_DOMESTIC = :ldec_limit_50,
@@ -1513,7 +1507,7 @@ if cbx_7.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		ldec_fund_size_global_aa = 0   // FDM_GLOBAL: Fund Size (USD) (Column K)
+		ldec_fund_size_global_aa = 0   // FUM_GLOBAL: Fund Size (USD) (Column K)
 		ldec_total_units = 0            // ISSUE_SHARES: Total Units of the Fund (Column M)
 		
 		// 取得 ISIN CODE (Column D)
@@ -1547,7 +1541,7 @@ if cbx_7.checked = true then
 		// 根據圖片字段對應關係，只讀取需要的欄位：
 		// ========================================================
 		
-		// 讀取 Fund Size as of 31 October 2025 (USD) (Column K) -> 對應 FDM_GLOBAL (全球基金規模)
+		// 讀取 Fund Size as of 31 October 2025 (USD) (Column K) -> 對應 FUM_GLOBAL (全球基金規模)
 		OLE_MyExcel.Range("K" + string(ll_row)).Select
 		ldec_fund_size_global_aa = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
 		
@@ -1558,7 +1552,7 @@ if cbx_7.checked = true then
 		// ========================================================
 		// 更新 FAS.FUND_INVESTMENT 表
 		// 根據圖片字段對應關係：
-		// FDM_GLOBAL = Fund Size as of 31 October 2025 (USD) (Column K)
+		// FUM_GLOBAL = Fund Size as of 31 October 2025 (USD) (Column K)
 		// ISSUE_SHARES = Total Units of the Fund (Column M)
 		// ========================================================
 		ll_count = 0
@@ -1573,16 +1567,16 @@ if cbx_7.checked = true then
 			INSERT INTO FAS.FUND_INVESTMENT
 				( FUND_NO,
 				  TX_DATE,
-				  FDM_GLOBAL,
+				  FUM_GLOBAL,
 				  ISSUE_SHARES )
 			VALUES ( :ls_fund_no,
 					 :ld_tx_date,
 					 :ldec_fund_size_global_aa,
 					 :ldec_total_units );
 		else
-			// 更新已存在的記錄（只更新 FDM_GLOBAL 和 ISSUE_SHARES，保留其他字段）
+			// 更新已存在的記錄（只更新 FUM_GLOBAL 和 ISSUE_SHARES，保留其他字段）
 			UPDATE FAS.FUND_INVESTMENT
-			   SET FDM_GLOBAL = :ldec_fund_size_global_aa,
+			   SET FUM_GLOBAL = :ldec_fund_size_global_aa,
 				   ISSUE_SHARES = :ldec_total_units
 			 WHERE FUND_NO = :ls_fund_no
 			   AND TX_DATE = :ld_tx_date;
