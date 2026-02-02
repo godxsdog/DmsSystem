@@ -1521,8 +1521,8 @@ if cbx_7.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		ldec_fund_size_global_aa = 0   // FUM_GLOBAL: Fund Size (USD) (Column K)
-		ldec_total_units = 0            // ISSUE_SHARES: Total Units of the Fund (Column M)
+		ldec_total_units = 0            // ISSUE_SHARES: Total Units of the Fund (Column H)
+		ldec_fund_size_global_aa = 0   // FUM_GLOBAL: Fund Size (Column R)
 		
 		// 取得 ISIN CODE (Column D)
 		OLE_MyExcel.Range("D" + string(ll_row)).Select
@@ -1556,21 +1556,21 @@ if cbx_7.checked = true then
 		// 根據圖片字段對應關係，只讀取需要的欄位：
 		// ========================================================
 		
-		// 讀取 Fund Size as of 31 October 2025 (USD) (Column K) -> 對應 FUM_GLOBAL (全球基金規模)
+		// 讀取 Total Units of the Fund (Column H) -> 對應 ISSUE_SHARES (已發行受益憑證數)
 		// 使用 .Value 讀取公式的計算結果值
-		OLE_MyExcel.Range("K" + string(ll_row)).Select
-		ldec_fund_size_global_aa = dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0))
-		
-		// 讀取 Total Units of the Fund (Column M) -> 對應 ISSUE_SHARES (已發行受益憑證數)
-		// 使用 .Value 讀取公式的計算結果值
-		OLE_MyExcel.Range("M" + string(ll_row)).Select
+		OLE_MyExcel.Range("H" + string(ll_row)).Select
 		ldec_total_units = dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0))
+		
+		// 讀取 Fund Size (Column R) -> 對應 FUM_GLOBAL (全球基金規模)
+		// 使用 .Value 讀取公式的計算結果值
+		OLE_MyExcel.Range("R" + string(ll_row)).Select
+		ldec_fund_size_global_aa = dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0))
 		
 		// ========================================================
 		// 更新 FAS.FUND_INVESTMENT 表
 		// 根據圖片字段對應關係：
-		// FUM_GLOBAL = Fund Size as of 31 October 2025 (USD) (Column K)
-		// ISSUE_SHARES = Total Units of the Fund (Column M)
+		// ISSUE_SHARES = Total Units of the Fund (Column H)
+		// FUM_GLOBAL = Fund Size (Column R)
 		// ========================================================
 		ll_count = 0
 		SELECT count(*)
