@@ -1093,7 +1093,7 @@ if cbx_5.checked = true then
 		
 		// 取得 ISIN CODE (Column C)
 		OLE_MyExcel.Range("C" + string(ll_row)).Select
-		ls_isin_code = OLE_MyExcel.ActiveCell.Value
+		ls_isin_code = string(OLE_MyExcel.ActiveCell.Value)
 		
 		if isnull(ls_isin_code) or lena(trim(ls_isin_code)) - 2 <= 0 then
 			ll_black_count++
@@ -1135,7 +1135,7 @@ if cbx_5.checked = true then
 		
 		// 全球基金規模幣別 (Column T)
 		OLE_MyExcel.Range("T" + string(ll_row)).Select
-		ls_global_currency = OLE_MyExcel.ActiveCell.Value
+		ls_global_currency = string(OLE_MyExcel.ActiveCell.Value)
 		
 		// 已經發行基金單位數 (Column AH)
 		// 使用 .Value 讀取公式的計算結果值
@@ -1363,7 +1363,7 @@ if cbx_6.checked = true then
 		
 		// 取得 ISIN CODE (Column A)
 		OLE_MyExcel.Range("A" + string(ll_row)).Select
-		ls_isin_code = OLE_MyExcel.ActiveCell.Value
+		ls_isin_code = string(OLE_MyExcel.ActiveCell.Value)
 		if not isnull(ls_isin_code) then ls_isin_code = trim(ls_isin_code)
 		
 		if isnull(ls_isin_code) or len(trim(ls_isin_code)) <= 0 then
@@ -1526,7 +1526,7 @@ if cbx_7.checked = true then
 		
 		// 取得 ISIN CODE (Column D)
 		OLE_MyExcel.Range("D" + string(ll_row)).Select
-		ls_isin_code = OLE_MyExcel.ActiveCell.Value
+		ls_isin_code = string(OLE_MyExcel.ActiveCell.Value)
 		if not isnull(ls_isin_code) then ls_isin_code = trim(ls_isin_code)
 		
 		if isnull(ls_isin_code) or len(trim(ls_isin_code)) <= 0 then
