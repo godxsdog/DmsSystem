@@ -1355,11 +1355,13 @@ if cbx_6.checked = true then
 		// 初始化變數
 		setnull(ls_isin_code)
 		setnull(ls_fund_no)
-		ldec_fund_size = 0        // FUM: Fund Size (Column C)
+		setnull(ls_fund_master_no)
+		setnull(ls_global_currency)
 		ldec_limit_40 = 0         // LONG_POSITION: Limit 40% (Column E)
 		ldec_limit_100 = 0        // SHORT_POSITION: Limit 100% (Column H)
 		ldec_limit_50 = 0         // PCT_DOMESTIC: Limit 50% (Column J)
 		ldec_limit_20 = 0         // PCT_CHINA: Limit 20% (Column L)
+		ldec_holder_fum = 0       // FUM_TOTAL: 國內投資人持有基金規模
 		
 		// 取得 ISIN CODE (Column A)
 		OLE_MyExcel.Range("A" + string(ll_row)).Select
@@ -1375,9 +1377,9 @@ if cbx_6.checked = true then
 		
 		sle_status.text = 'File06 - ' + string(ll_row) + '-' + ls_isin_code + '-' + string(ll_black_count)
 		
-		// 查詢基金編號
-		select fund_no
-		  into :ls_fund_no
+		// 查詢母基金編號（ISIN CODE 對應的基金為母基金）
+		select fund_no, fund_master_no
+		  into :ls_fund_no, :ls_fund_master_no
 		  from fas.fund
 		 where isin_code = :ls_isin_code
 		   and (elimination_date is null or to_char(elimination_date, 'yyyy/mm') > to_char(:ld_tx_date, 'yyyy/mm'))
@@ -1389,14 +1391,21 @@ if cbx_6.checked = true then
 			Continue
 		end if
 		
+		// 取得母基金的 global_currency (對應 ORG_CURRENCY_NO)
+		select global_currency
+		  into :ls_global_currency
+		  from fas.fund
+		 where fund_no = :ls_fund_master_no;
+		
+		if f_sql_code() <> 0 then
+			f_error('FILE06-' + ls_isin_code + '-取得母基金計價幣別錯誤')
+			Continue
+		end if
+		
 		// ========================================================
 		// 根據圖片字段對應關係，只讀取需要的欄位：
-		// 注意：所有百分比欄位需要除以 100 並四捨五入至小數後 2 位
+		// 注意：所有百分比欄位需要乘以 100 並四捨五入至小數後 2 位
 		// ========================================================
-		
-		// 讀取 Fund Size (Column C) -> 對應 FUM
-		OLE_MyExcel.Range("C" + string(ll_row)).Select
-		ldec_fund_size = dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0))
 		
 		// 讀取 Limit 40% (Column E) -> 對應 LONG_POSITION (未沖銷多頭部位比率%)
 		// Excel 中是小數，需乘以 100 並四捨五入至小數後 2 位
@@ -1423,50 +1432,116 @@ if cbx_6.checked = true then
 		ldec_limit_20 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0)) * 100, 2)
 		
 		// ========================================================
-		// 直接插入或更新資料到 FAS.FUND_INVESTMENT
+		// 遍歷所有子基金並插入或更新資料到 FAS.FUND_INVESTMENT
 		// 根據圖片字段對應關係：
-		// FUM = Fund Size (Column C)
 		// LONG_POSITION = Limit 40% (Column E) 
 		// SHORT_POSITION = Limit 100% (Column H)
 		// PCT_DOMESTIC = Limit 50% (Column J)
 		// PCT_CHINA = Limit 20% (Column L)
+		// ORG_CURRENCY_NO = 母基金的 global_currency
+		// FUM_TOTAL = 按 FILE02 邏輯計算
 		// TX_DATE = ld_tx_date
 		// ========================================================
-		ll_count = 0
-		SELECT count(*)
-		  INTO :ll_count
-		  FROM FAS.FUND_INVESTMENT
-		 WHERE FUND_NO = :ls_fund_no
-		   AND TX_DATE = :ld_tx_date;
 		
-		if ll_count = 0 then
-			// 新增記錄到 FAS.FUND_INVESTMENT
-			INSERT INTO FAS.FUND_INVESTMENT
-				( FUND_NO,
-				  TX_DATE,
-				  FUM,
-				  LONG_POSITION,
-				  SHORT_POSITION,
-				  PCT_DOMESTIC,
-				  PCT_CHINA )
-			VALUES ( :ls_fund_no,
-					 :ld_tx_date,
-					 :ldec_fund_size,
-					 :ldec_limit_40,
-					 :ldec_limit_100,
-					 :ldec_limit_50,
-					 :ldec_limit_20 );
-		else
-			// 更新已存在的記錄
-			UPDATE FAS.FUND_INVESTMENT
-			   SET FUM = :ldec_fund_size,
-				   LONG_POSITION = :ldec_limit_40,
-				   SHORT_POSITION = :ldec_limit_100,
-				   PCT_DOMESTIC = :ldec_limit_50,
-				   PCT_CHINA = :ldec_limit_20
+		// 查詢所有子基金
+		DECLARE cs_sub_funds CURSOR FOR
+		SELECT fund_no
+		  FROM fas.fund
+		 WHERE fund_master_no = :ls_fund_master_no;
+		
+		OPEN cs_sub_funds;
+		FETCH cs_sub_funds INTO :ls_fund_no;
+		
+		do while f_sql_code() = 0
+			// 計算該子基金的 FUM_TOTAL (按照 FILE02 邏輯)
+			SELECT sum(A.sum_shares + A.shares_in + A.shares)
+			  INTO :ldec_shares_china
+			  FROM (
+				  SELECT nvl(sum(decode(tx_type, 'A', shares, 'B', 0 - shares)), 0) sum_shares, 0 shares_in, 0 shares
+					FROM fas.non_purchase
+				   WHERE tx_date <= :ld_tx_date
+					 AND fund_no = :ls_fund_no
+				   UNION ALL
+				  SELECT 0 sum_shares, shares_in, 0 shares
+					FROM fas.non_purchase
+				   WHERE tx_date <= :ld_tx_date
+					 AND fund_no_in = :ls_fund_no
+					 AND tx_type = 'C'
+				   UNION ALL
+				  SELECT 0 sum_shares, 0 share_in, 0 - shares
+					FROM fas.non_purchase
+				   WHERE tx_date <= :ld_tx_date
+					 AND fund_no = :ls_fund_no
+					 AND tx_type = 'C'
+			  ) A;
+			
+			ldec_shares_china = dec(f_nvl(ldec_shares_china, 0))
+			
+			// 取得國內投資人持有基金規模
+			SELECT round((sum(shares) + :ldec_shares_china) * max(b.nav), 0) * max(v.ex_rate) / max(v2.ex_rate)
+			  INTO :ldec_holder_fum
+			  FROM fas.certificate a,
+				   (select fund_no, nav from fas.nav where nav_date = :ld_tx_date) b,
+				   fas.fund f,
+				   (select fund_no, ex_rate from fas.v_currency_rate where tx_date = :ld_tx_date) v,
+				   (select fund_no, ex_rate from fas.v_currency_rate where tx_date = :ld_tx_date) v2,
+				   (select id from fas.holder where nvl(obu_valid, 'N') <> 'Y') h
+			 WHERE a.fund_no = f.fund_no
+			   AND a.fund_no = b.fund_no
+			   AND a.fund_no = v.fund_no
+			   AND a.id = h.id
+			   AND f.fund_no = :ls_fund_no
+			   AND v2.fund_no = :ls_fund_master_no
+			   AND a.issue_date <= :ld_tx_date
+			   AND (a.cancel_date > :ld_tx_date or a.cancel_date is null)
+			   AND a.shares > 0;
+			
+			ldec_holder_fum = dec(f_nvl(ldec_holder_fum, 0))
+			
+			// 檢查是否已存在記錄
+			ll_count = 0
+			SELECT count(*)
+			  INTO :ll_count
+			  FROM FAS.FUND_INVESTMENT
 			 WHERE FUND_NO = :ls_fund_no
 			   AND TX_DATE = :ld_tx_date;
-		end if
+			
+			if ll_count = 0 then
+				// 新增記錄到 FAS.FUND_INVESTMENT
+				INSERT INTO FAS.FUND_INVESTMENT
+					( FUND_NO,
+					  TX_DATE,
+					  LONG_POSITION,
+					  SHORT_POSITION,
+					  PCT_DOMESTIC,
+					  PCT_CHINA,
+					  ORG_CURRENCY_NO,
+					  FUM_TOTAL )
+				VALUES ( :ls_fund_no,
+						 :ld_tx_date,
+						 :ldec_limit_40,
+						 :ldec_limit_100,
+						 :ldec_limit_50,
+						 :ldec_limit_20,
+						 :ls_global_currency,
+						 :ldec_holder_fum );
+			else
+				// 更新已存在的記錄
+				UPDATE FAS.FUND_INVESTMENT
+				   SET LONG_POSITION = :ldec_limit_40,
+					   SHORT_POSITION = :ldec_limit_100,
+					   PCT_DOMESTIC = :ldec_limit_50,
+					   PCT_CHINA = :ldec_limit_20,
+					   ORG_CURRENCY_NO = :ls_global_currency,
+					   FUM_TOTAL = :ldec_holder_fum
+				 WHERE FUND_NO = :ls_fund_no
+				   AND TX_DATE = :ld_tx_date;
+			end if
+			
+			FETCH cs_sub_funds INTO :ls_fund_no;
+		loop
+		
+		CLOSE cs_sub_funds;
 		
 		if f_sql_code() <> 0 then
 			f_error('FILE06-' + '更新資料發生錯誤, 作業取消!')
