@@ -1093,7 +1093,7 @@ if cbx_5.checked = true then
 		
 		// 取得 ISIN CODE (Column C)
 		OLE_MyExcel.Range("C" + string(ll_row)).Select
-		ls_isin_code = OLE_MyExcel.ActiveCell.FormulaR1C1
+		ls_isin_code = OLE_MyExcel.ActiveCell.Value
 		
 		if isnull(ls_isin_code) or lena(trim(ls_isin_code)) - 2 <= 0 then
 			ll_black_count++
@@ -1129,20 +1129,23 @@ if cbx_5.checked = true then
 		ldec_g_fum = 0
 		
 		// 子基金規模 (Column E)
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("E" + string(ll_row)).Select
-		ldec_fum = dec(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		ldec_fum = dec(OLE_MyExcel.ActiveCell.Value)
 		
 		// 全球基金規模幣別 (Column T)
 		OLE_MyExcel.Range("T" + string(ll_row)).Select
-		ls_global_currency = OLE_MyExcel.ActiveCell.FormulaR1C1
+		ls_global_currency = OLE_MyExcel.ActiveCell.Value
 		
 		// 已經發行基金單位數 (Column AH)
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("AH" + string(ll_row)).Select
-		ldec_g_shares = dec(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		ldec_g_shares = dec(OLE_MyExcel.ActiveCell.Value)
 		
 		// 全球基金規模 (Column U)
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("U" + string(ll_row)).Select
-		ldec_g_fum = dec(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		ldec_g_fum = dec(OLE_MyExcel.ActiveCell.Value)
 		
 		// 初始化比率變數
 		ldec_rate1 = 0
@@ -1152,20 +1155,21 @@ if cbx_5.checked = true then
 		ldec_rate5 = 0
 		
 		// 讀取比率資料
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("V" + string(ll_row)).Select
-		ldec_rate1 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) * 100
+		ldec_rate1 = dec(OLE_MyExcel.ActiveCell.Value) * 100
 		
 		OLE_MyExcel.Range("W" + string(ll_row)).Select
-		ldec_rate2 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) * 100
+		ldec_rate2 = dec(OLE_MyExcel.ActiveCell.Value) * 100
 		
 		OLE_MyExcel.Range("Q" + string(ll_row)).Select
-		ldec_rate3 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) * 100
+		ldec_rate3 = dec(OLE_MyExcel.ActiveCell.Value) * 100
 		
 		OLE_MyExcel.Range("R" + string(ll_row)).Select
-		ldec_rate4 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) * 100
+		ldec_rate4 = dec(OLE_MyExcel.ActiveCell.Value) * 100
 		
 		OLE_MyExcel.Range("S" + string(ll_row)).Select
-		ldec_rate5 = dec(OLE_MyExcel.ActiveCell.FormulaR1C1) * 100
+		ldec_rate5 = dec(OLE_MyExcel.ActiveCell.Value) * 100
 		
 		// 子基金幣別匯率
 		SELECT "FAS"."CURRENCY_RATE"."EX_RATE"
@@ -1359,7 +1363,7 @@ if cbx_6.checked = true then
 		
 		// 取得 ISIN CODE (Column A)
 		OLE_MyExcel.Range("A" + string(ll_row)).Select
-		ls_isin_code = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		ls_isin_code = trim(OLE_MyExcel.ActiveCell.Value)
 		
 		if isnull(ls_isin_code) or len(trim(ls_isin_code)) <= 0 then
 			ll_black_count++
@@ -1391,27 +1395,31 @@ if cbx_6.checked = true then
 		
 		// 讀取 Fund Size (Column C) -> 對應 FUM
 		OLE_MyExcel.Range("C" + string(ll_row)).Select
-		ldec_fund_size = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		ldec_fund_size = dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0))
 		
 		// 讀取 Limit 40% (Column E) -> 對應 LONG_POSITION (未沖銷多頭部位比率%)
 		// Excel 中是小數，需乘以 100 並四捨五入至小數後 2 位
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("E" + string(ll_row)).Select
-		ldec_limit_40 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) * 100, 2)
+		ldec_limit_40 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0)) * 100, 2)
 		
 		// 讀取 Limit 100% (Column H) -> 對應 SHORT_POSITION (未沖銷空頭部位比率%)
 		// Excel 中是小數，需乘以 100 並四捨五入至小數後 2 位
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("H" + string(ll_row)).Select
-		ldec_limit_100 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) * 100, 2)
+		ldec_limit_100 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0)) * 100, 2)
 		
 		// 讀取 Limit 50% (Column J) -> 對應 PCT_DOMESTIC (投資國內證券市場比率)
 		// Excel 中是小數，需乘以 100 並四捨五入至小數後 2 位
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("J" + string(ll_row)).Select
-		ldec_limit_50 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) * 100, 2)
+		ldec_limit_50 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0)) * 100, 2)
 		
 		// 讀取 Limit 20% (Column L) -> 對應 PCT_CHINA (投資大陸地區證券市場比率)
 		// Excel 中是小數，需乘以 100 並四捨五入至小數後 2 位
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("L" + string(ll_row)).Select
-		ldec_limit_20 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0)) * 100, 2)
+		ldec_limit_20 = Round(dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0)) * 100, 2)
 		
 		// ========================================================
 		// 直接插入或更新資料到 FAS.FUND_INVESTMENT
@@ -1517,7 +1525,7 @@ if cbx_7.checked = true then
 		
 		// 取得 ISIN CODE (Column D)
 		OLE_MyExcel.Range("D" + string(ll_row)).Select
-		ls_isin_code = trim(OLE_MyExcel.ActiveCell.FormulaR1C1)
+		ls_isin_code = trim(OLE_MyExcel.ActiveCell.Value)
 		
 		if isnull(ls_isin_code) or len(trim(ls_isin_code)) <= 0 then
 			ll_black_count++
@@ -1547,12 +1555,14 @@ if cbx_7.checked = true then
 		// ========================================================
 		
 		// 讀取 Fund Size as of 31 October 2025 (USD) (Column K) -> 對應 FUM_GLOBAL (全球基金規模)
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("K" + string(ll_row)).Select
-		ldec_fund_size_global_aa = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		ldec_fund_size_global_aa = dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0))
 		
 		// 讀取 Total Units of the Fund (Column M) -> 對應 ISSUE_SHARES (已發行受益憑證數)
+		// 使用 .Value 讀取公式的計算結果值
 		OLE_MyExcel.Range("M" + string(ll_row)).Select
-		ldec_total_units = dec(f_nvl(OLE_MyExcel.ActiveCell.FormulaR1C1, 0))
+		ldec_total_units = dec(f_nvl(OLE_MyExcel.ActiveCell.Value, 0))
 		
 		// ========================================================
 		// 更新 FAS.FUND_INVESTMENT 表
