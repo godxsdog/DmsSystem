@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>533</string>
+	<string>534</string>
 	<key>AMApplicationVersion</key>
 	<string>2.10</string>
 	<key>AMDocumentVersion</key>
@@ -59,16 +59,25 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string># 1. 進入目錄 (路徑有空格必須加雙引號)
-cd "/Users/kaichanghuang/Documents/Phoenix Code/DmsSystem" || exit
+					<string># 1. 進入目錄 (修正後的路徑，補上了「配息相關文件」)
+TARGET_DIR="/Users/kaichanghuang/Documents/Phoenix Code/配息相關文件/DmsSystem"
 
-# 2. 取得目前時間 (格式: YYYYMMDD_HHMMSS)
-full_datetime=$(date +"%Y%m%d_%H%M%S")
+if cd "$TARGET_DIR"; then
+    # 2. 取得目前時間
+    full_datetime=$(date +"%Y%m%d_%H%M%S")
 
-# 3. 執行 Git 指令 (使用完整路徑預防環境變數問題)
-/usr/bin/git add .
-/usr/bin/git commit -m "$full_datetime"
-/usr/bin/git push -u origin main</string>
+    # 3. 執行 Git 指令
+    /usr/bin/git add .
+    /usr/bin/git commit -m "$full_datetime"
+    /usr/bin/git push -u origin main
+    
+    # 成功通知
+    osascript -e "display notification \"Successfully uploaded to Git\" with title \"Git Auto Upload\""
+else
+    # 失敗通知
+    osascript -e "display alert \"Error: Folder not found!\" message \"Please check your folder path.\""
+    exit 1
+fi</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -178,12 +187,10 @@ full_datetime=$(date +"%Y%m%d_%H%M%S")
 						<string>4</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
-				<string>309.000000:252.000000</string>
+				<string>309.000000:511.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
