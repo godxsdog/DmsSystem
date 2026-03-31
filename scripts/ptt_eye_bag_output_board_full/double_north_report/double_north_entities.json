@@ -1,0 +1,2354 @@
+[
+  {
+    "entity_type": "clinic",
+    "entity": "請問有人知道台生診所",
+    "recommended_count": 0,
+    "not_recommended_count": 1,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1710958084.A.37E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "有一個李醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 1,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1631539999.A.418"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "眼袋手術醫師",
+    "recommended_count": 4,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 3,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1626355988.A.693",
+      "https://www.pttweb.cc/bbs/facelift/M.1640591727.A.FB6",
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北眼袋手術推薦診所",
+    "recommended_count": 4,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598",
+      "https://www.pttweb.cc/bbs/facelift/M.1693985291.A.22C"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北診所",
+    "recommended_count": 3,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125",
+      "https://www.pttweb.cc/bbs/facelift/M.1748338627.A.B7E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "台北眼袋醫生",
+    "recommended_count": 3,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690",
+      "https://www.pttweb.cc/bbs/facelift/M.1731636764.A.946"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "眼袋醫美",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1764917191.A.65B"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "新北優質診所",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1764646570.A.83C"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "問台北醫美",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761892140.A.79B"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北除眼袋有沒有推薦台生以外的診所",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1759389991.A.54B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "袋手術的醫生",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1753961213.A.E61"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "溝推薦的醫生",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1749284377.A.7A5"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "內開眼袋醫生",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1710958084.A.37E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "二修手術醫生",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1703829056.A.C45"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "溝手術的醫生",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1698142851.A.BC2"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北下眼袋及中臉拉皮及前額拉皮診所",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1689580468.A.B01"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "淚溝手術醫師",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1649560185.A.83F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "薦大醫院",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1640591727.A.FB6"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "問開眼袋醫生",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1633002101.A.C2B"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "第一次做醫美",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1631372371.A.FE2"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "求推薦台北眼袋手術診所",
+    "recommended_count": 2,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1631372371.A.FE2"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "黃仁吳醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 2,
+    "thread_count": 3,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29",
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598",
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的診所和醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1632299340.A.038",
+      "https://www.pttweb.cc/bbs/facelift/M.1678870258.A.355"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "週二的韓院長",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1770624717.A.BE9"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "有推薦雙北地區非手術處理眼袋跟淚溝厲害的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1764917191.A.65B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "美感好的醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761892140.A.79B"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "想問台北有沒有推薦的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761892140.A.79B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "皮手術的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1760501256.A.575"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "想找做眼袋的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1759389991.A.54B"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "滿多人都推薦台生診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1759389991.A.54B"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "想問台北還有沒有其他除眼袋做得自然又穩的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1759389991.A.54B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "手術權威醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1754033321.A.E16"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "院或權威醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1754033321.A.E16"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北有推薦醫院",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1754033321.A.E16"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "有人推薦台北哪間診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1749108186.A.762"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "萬要慎選醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1749108186.A.762"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "眼袋手術一定要找案例多的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1749108186.A.762"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "有沒有熟台北的板友可以推薦一下診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1748338627.A.B7E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "陳啓傑醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1748338627.A.B7E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "陳信宏醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1744786117.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "推群英黃醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1744085579.A.08E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "長這塊的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1742270349.A.644"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "長這塊的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1742270349.A.644"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "看到有醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740560246.A.661"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的熊貓針醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740560246.A.661"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "的熊貓針醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740560246.A.661"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "台北哪位醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740040827.A.585"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "已經先上網爬文找了3家網友比較推薦的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740040827.A.585"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "價格比其他診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740040827.A.585"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "請問大家有在這幾家診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740040827.A.585"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "或是有沒有其他推薦的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740040827.A.585"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "有上網爬文蒐集一些診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1732177592.A.432"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "但沒做過醫美",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1732177592.A.432"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "如果有台北推薦的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1732177592.A.432"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的診所或醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "最近想要去醫美",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "有推薦台北的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "個月給蕭醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731636764.A.946"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "多找幾個醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1724037740.A.E7B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1724037740.A.E7B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "台北地區醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1717222586.A.FEC"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北美麗線診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1712945124.A.08A"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "已經爬文並線上諮詢了幾個診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1710958084.A.37E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "我給蔡醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1710958084.A.37E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "璞美荊醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1710958084.A.37E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "要找二修醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1703829056.A.C45"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北新北有推薦的醫美診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1701236605.A.3AC"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "因為沒做過醫美",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1701236605.A.3AC"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "台北眼袋醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1700914903.A.967"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "是當年老醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1700914903.A.967"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "麗線的黃醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1698114631.A.70E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "驗豐富的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1698114631.A.70E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "直接給醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1698114631.A.70E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "曼都給李院長",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1698114631.A.70E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "議診所及醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1697816579.A.3BF"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "台北眼袋手術建議診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1697816579.A.3BF"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "道找哪位醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1697816579.A.3BF"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "袋內開的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "薦的眼袋醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "薦的眼袋醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "華尚水蔡醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1692081312.A.780"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "但我覺得醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1692081312.A.780"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的傅如鵬醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1692081312.A.780"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的診所跟醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "求推薦眼袋手術的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "美博的詹院長",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "很兩極的醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1685100009.A.6A2"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "水的蔡醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1685100009.A.6A2"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "但是很吃醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1685100009.A.6A2"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "或推薦其他台北眼袋內開診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1667274446.A.57D"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "緻醫美杜醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "眼科專科醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "給蕭奕君醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "我是給極緻醫美",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "美診所及醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1660047112.A.16E"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "求有經驗的帥哥美女推薦醫美診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1660047112.A.16E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "給信任的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1660047112.A.16E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的張立平醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1660047112.A.16E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "想問醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "想請問醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "請問醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "想詢問醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "請問醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "想問醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "想請問醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "現在問醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "也想問醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "跟診所及醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "請問診所醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "詢問診所醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "想知道醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "請問醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "請問診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "現在問醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "價錢及診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "想詢問割眼袋價錢跟診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "想請問醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "想詢問診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1652692397.A.89F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "推薦哪位醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1651405224.A.6D9"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "一下其他醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1649560185.A.83F"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "一下其他醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1649560185.A.83F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "在如一蕭醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1649560185.A.83F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "雖然醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648541415.A.A95"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "眼袋醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648287684.A.B43"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "我是給李醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648287684.A.B43"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "極緻杜醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648287684.A.B43"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "大醫院的醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1640591727.A.FB6"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "但實在不太敢在診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1640591727.A.FB6"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "不知道有沒有人推薦台北大醫院",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1640591727.A.FB6"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "眼袋診所醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1640591727.A.FB6"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "借文想問推薦的台北眼袋診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1640591727.A.FB6"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "淚溝的醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1638883411.A.94B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "家推薦的醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1638883411.A.94B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "人放心的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "蕭奕君醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "人放心的醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "如一整形外科診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "詢了滿多醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1633002101.A.C2B"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "考慮好幾天也問了身邊比較常做醫美",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1633002101.A.C2B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "君綺陳院長",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1632813291.A.5E8"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "形外科陳醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1632813291.A.5E8"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "但我自己的經驗確實是找到值得信任的診所",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1632299340.A.038"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "星林敬鈞醫生",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1629376673.A.CF1"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": ", 14 F 諮詢看,診所在松江南京1號口",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1629376673.A.CF1"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "台北哪家醫師",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1626886480.A.335"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "對這邊醫美",
+    "recommended_count": 1,
+    "not_recommended_count": 0,
+    "unknown_count": 0,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1626355988.A.693"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "給余德毅醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 2,
+    "thread_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690",
+      "https://www.pttweb.cc/bbs/facelift/M.1709200843.A.BF3"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "找蔡宗岳醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1759389991.A.54B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "築美的浦醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1753961213.A.E61"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "估完覺得醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1750656338.A.AED"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "莊X揚醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1749284377.A.7A5"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "知道其他醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1749284377.A.7A5"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "不完全是醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740560246.A.661"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "淚溝太吃醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740560246.A.661"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "光澤診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740560246.A.661"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "蕭x隆醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740040827.A.585"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "找楊仕安醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1740040827.A.585"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "余德毅醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "鍾立人醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "沒有要聽醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731636764.A.946"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "漾國際錢醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731297598.A.600"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "和黃仁吳醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1724666584.A.054"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "價不錯的醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1724666584.A.054"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "如果醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1719979703.A.84F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "美麗線黃醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1712945124.A.08A"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "得這位女醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1712945124.A.08A"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "我自己跟家人在台生診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1710958084.A.37E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "麗舍的陳醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1710958084.A.37E"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "儷人的鍾醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1709200843.A.BF3"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "絕色給孫醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1709200843.A.BF3"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的李京軒醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1700914903.A.967"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "後也覺得醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1699060021.A.CDD"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "英洪章桂醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "一輪下來醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "慕顏周杰醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1695701510.A.690"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "給晶美陳院長",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1693985291.A.22C"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "所以想說先在第二間診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1692251416.A.5E9"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "解診所跟醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1692251416.A.5E9"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "想了解診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1692251416.A.5E9"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "貌似蠻吃醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "給張容輔醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "中山的晶華診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "確實很吃醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1691547424.A.598"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的楊國輝醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1689580468.A.B01"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "皮都給風x林醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1689580468.A.B01"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "然後覺得很不錯的診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1678870258.A.355"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "家有名的醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1671634979.A.247"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "中有一家醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1671634979.A.247"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "又很怕留疤太明顯， （該診所諮詢師提供的照片",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1671634979.A.247"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "找陳承謙醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1671634979.A.247"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "結果醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "近期又去了米蘭時尚診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1661419339.A.F29"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "給楊院長",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1649560185.A.83F"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "預約了楊醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648541415.A.A95"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "手術資訊如下 診所：粹究美學 醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648541415.A.A95"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "美學給蔡醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648541415.A.A95"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "割眼袋的醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648287684.A.B43"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "都不錯的醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648287684.A.B43"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "的費用和醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648287684.A.B43"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "覺得醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1648287684.A.B43"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "在台北的一棟大樓裡 診所裡面感覺上有點老",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1642391177.A.5DB"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "最近諮詢台北某醫美診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1638465425.A.C09"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "到現場後醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "真的就像醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "本來想說這間診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "回家前診所",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1635859153.A.A6D"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "術前跟醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1633002101.A.C2B"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "另外醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1632299340.A.038"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "去跟醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1631372371.A.FE2"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "應該跟醫師",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1631372371.A.FE2"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "得不錯的醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1627569863.A.7D2"
+    ]
+  },
+  {
+    "entity_type": "doctor",
+    "entity": "結果現在醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1627569863.A.7D2"
+    ]
+  },
+  {
+    "entity_type": "clinic",
+    "entity": "結果現在醫生",
+    "recommended_count": 0,
+    "not_recommended_count": 0,
+    "unknown_count": 1,
+    "thread_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1627569863.A.7D2"
+    ]
+  }
+]

@@ -1,0 +1,969 @@
+[
+  {
+    "entity": "[問題] 台北診所",
+    "doctors": [],
+    "clinics": [
+      "[問題] 台北診所"
+    ],
+    "cities": [
+      "台北"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity": "[問題] 熊貓針對黑眼圈有效嗎？求高雄診所",
+    "doctors": [],
+    "clinics": [
+      "[問題] 熊貓針對黑眼圈有效嗎？求高雄診所"
+    ],
+    "cities": [
+      "高雄"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1758698943.A.98D"
+    ]
+  },
+  {
+    "entity": "[問題] 打黑眼圈淚溝技術厲害的診所",
+    "doctors": [],
+    "clinics": [
+      "[問題] 打黑眼圈淚溝技術厲害的診所"
+    ],
+    "cities": [
+      "台中"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1760682338.A.3FA"
+    ]
+  },
+  {
+    "entity": "[問題] 眼袋or黑眼圈or淚溝 高雄診所",
+    "doctors": [],
+    "clinics": [
+      "[問題] 眼袋or黑眼圈or淚溝 高雄診所"
+    ],
+    "cities": [
+      "高雄"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761033227.A.1F4"
+    ]
+  },
+  {
+    "entity": "[問題] 黑眼圈與淚溝治療推薦 問台北醫美",
+    "doctors": [],
+    "clinics": [
+      "[問題] 黑眼圈與淚溝治療推薦 問台北醫美"
+    ],
+    "cities": [
+      "台北"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761892140.A.79B"
+    ]
+  },
+  {
+    "entity": "[問題] 關於眼袋手術的",
+    "doctors": [
+      "[問題] 關於眼袋手術的"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1762063033.A.B53"
+    ]
+  },
+  {
+    "entity": "[討論] 黑眼圈求助 請推新北優質診所",
+    "doctors": [],
+    "clinics": [
+      "[討論] 黑眼圈求助 請推新北優質診所"
+    ],
+    "cities": [
+      "新北"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1764646570.A.83C"
+    ]
+  },
+  {
+    "entity": "[問題] 雙北非手術，眼袋醫美",
+    "doctors": [],
+    "clinics": [
+      "[問題] 雙北非手術，眼袋醫美"
+    ],
+    "cities": [],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1764917191.A.65B"
+    ]
+  },
+  {
+    "entity": "[問題] 眼袋手術",
+    "doctors": [
+      "[問題] 眼袋手術"
+    ],
+    "clinics": [],
+    "cities": [
+      "高雄"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765351155.A.C53"
+    ]
+  },
+  {
+    "entity": "[問題] 台中割眼袋診所",
+    "doctors": [],
+    "clinics": [
+      "[問題] 台中割眼袋診所"
+    ],
+    "cities": [
+      "台中"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767012050.A.94C"
+    ]
+  },
+  {
+    "entity": "[問題] 眼袋手術 求內開外開心得與診所",
+    "doctors": [],
+    "clinics": [
+      "[問題] 眼袋手術 求內開外開心得與診所"
+    ],
+    "cities": [],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767066666.A.B14"
+    ]
+  },
+  {
+    "entity": "[討論] 叫人在淚溝補洢蓮絲的診所",
+    "doctors": [],
+    "clinics": [
+      "[討論] 叫人在淚溝補洢蓮絲的診所"
+    ],
+    "cities": [],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1768533163.A.7A6"
+    ]
+  },
+  {
+    "entity": "[閒聊] 朋友去諮詢淚溝",
+    "doctors": [
+      "[閒聊] 朋友去諮詢淚溝"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1771912544.A.C1B"
+    ]
+  },
+  {
+    "entity": "[問題] 台中淚溝|[問題] 台中淚溝醫生診所",
+    "doctors": [
+      "[問題] 台中淚溝"
+    ],
+    "clinics": [
+      "[問題] 台中淚溝醫生診所"
+    ],
+    "cities": [
+      "台中"
+    ],
+    "evidence_count": 2,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1772430145.A.B07"
+    ]
+  },
+  {
+    "entity": "實也不太確定啦可能要再問",
+    "doctors": [
+      "實也不太確定啦可能要再問"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1718599667.A.BE9"
+    ]
+  },
+  {
+    "entity": "以整體規劃 (有個可靠的|最後就是黑眼圈 或是考慮非侵入的眼袋醫美",
+    "doctors": [
+      "以整體規劃 (有個可靠的"
+    ],
+    "clinics": [
+      "最後就是黑眼圈 或是考慮非侵入的眼袋醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1724079003.A.D66"
+    ]
+  },
+  {
+    "entity": "黑眼圈我推銀河星辰的楊",
+    "doctors": [
+      "黑眼圈我推銀河星辰的楊"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1724079003.A.D66"
+    ]
+  },
+  {
+    "entity": "最近想要去醫美|有推薦台北的診所|有推薦台北的診所或",
+    "doctors": [
+      "有推薦台北的診所或"
+    ],
+    "clinics": [
+      "最近想要去醫美",
+      "有推薦台北的診所"
+    ],
+    "cities": [
+      "台北"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity": "我淚溝也深",
+    "doctors": [
+      "我淚溝也深"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity": "跟淚溝回填我一起給余德毅",
+    "doctors": [
+      "跟淚溝回填我一起給余德毅"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity": "給黃仁吳",
+    "doctors": [
+      "給黃仁吳"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity": "我找鍾立人",
+    "doctors": [
+      "我找鍾立人"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1731901954.A.125"
+    ]
+  },
+  {
+    "entity": "的需求——所以我就開始諮詢爬文網路上有名的診所|諮詢爬文網路上有名的診所",
+    "doctors": [
+      "諮詢爬文網路上有名的診所"
+    ],
+    "clinics": [
+      "的需求——所以我就開始諮詢爬文網路上有名的診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1742978243.A.175"
+    ]
+  },
+  {
+    "entity": "我是尚水美博診所|更新|更新醫生診所",
+    "doctors": [
+      "更新"
+    ],
+    "clinics": [
+      "我是尚水美博診所",
+      "更新醫生診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1742978243.A.175"
+    ]
+  },
+  {
+    "entity": "手術|手術醫生是詹東峻，診所|請問",
+    "doctors": [
+      "手術",
+      "請問"
+    ],
+    "clinics": [
+      "手術醫生是詹東峻，診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1742978243.A.175"
+    ]
+  },
+  {
+    "entity": "去諮詢下一間",
+    "doctors": [
+      "去諮詢下一間"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1745983526.A.150"
+    ]
+  },
+  {
+    "entity": "一開始想透過熊貓針或玻尿酸來改善，便開始搜尋玻尿酸黑眼圈、淚溝，也找了很多家診所|只能說醫美",
+    "doctors": [],
+    "clinics": [
+      "一開始想透過熊貓針或玻尿酸來改善，便開始搜尋玻尿酸黑眼圈、淚溝，也找了很多家診所",
+      "只能說醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1746090401.A.2EA"
+    ]
+  },
+  {
+    "entity": "雖然眼下偶爾還是有點乾燥，但已經比過往好太多了，果然眼袋手術醫美",
+    "doctors": [],
+    "clinics": [
+      "雖然眼下偶爾還是有點乾燥，但已經比過往好太多了，果然眼袋手術醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1746090401.A.2EA"
+    ]
+  },
+  {
+    "entity": "以前醫美",
+    "doctors": [],
+    "clinics": [
+      "以前醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1755659227.A.04F"
+    ]
+  },
+  {
+    "entity": "回診打雷射的時候 順便跟",
+    "doctors": [
+      "回診打雷射的時候 順便跟"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1756193002.A.5A2"
+    ]
+  },
+  {
+    "entity": "或是有推薦的診所",
+    "doctors": [],
+    "clinics": [
+      "或是有推薦的診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1756694086.A.D77"
+    ]
+  },
+  {
+    "entity": "打淚溝的話",
+    "doctors": [
+      "打淚溝的話"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1756694086.A.D77"
+    ]
+  },
+  {
+    "entity": "也可買起來共用比較划算 診所說是可以打這兩部",
+    "doctors": [],
+    "clinics": [
+      "也可買起來共用比較划算 診所說是可以打這兩部"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1758610380.A.74C"
+    ]
+  },
+  {
+    "entity": "不知有沒有高雄地區的板友實際做過，推薦的診所",
+    "doctors": [],
+    "clinics": [
+      "不知有沒有高雄地區的板友實際做過，推薦的診所"
+    ],
+    "cities": [
+      "高雄"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1758698943.A.98D"
+    ]
+  },
+  {
+    "entity": "台中有沒有技術厲害的|台中有沒有技術厲害的醫師或診所",
+    "doctors": [
+      "台中有沒有技術厲害的"
+    ],
+    "clinics": [
+      "台中有沒有技術厲害的醫師或診所"
+    ],
+    "cities": [
+      "台中"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1760682338.A.3FA"
+    ]
+  },
+  {
+    "entity": "頤森美學黃",
+    "doctors": [
+      "頤森美學黃"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761033227.A.1F4"
+    ]
+  },
+  {
+    "entity": "另外|後來我就開始瘋狂做功課，看了超多醫美|我去的是桃園好萊ㄨ診所|我去的是桃園好萊ㄨ診所，",
+    "doctors": [
+      "另外",
+      "我去的是桃園好萊ㄨ診所，"
+    ],
+    "clinics": [
+      "後來我就開始瘋狂做功課，看了超多醫美",
+      "我去的是桃園好萊ㄨ診所"
+    ],
+    "cities": [
+      "桃園"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761118788.A.D8E"
+    ]
+  },
+  {
+    "entity": "希望是美感好的|想問台北有沒有推薦的診所",
+    "doctors": [
+      "希望是美感好的"
+    ],
+    "clinics": [
+      "想問台北有沒有推薦的診所"
+    ],
+    "cities": [
+      "台北"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1761892140.A.79B"
+    ]
+  },
+  {
+    "entity": "我發現有兩位陳建璋|蠻多人推薦陳建璋",
+    "doctors": [
+      "我發現有兩位陳建璋",
+      "蠻多人推薦陳建璋"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1762063033.A.B53"
+    ]
+  },
+  {
+    "entity": "因為家人在巨X就有找過|所以我也鼓起勇氣問",
+    "doctors": [
+      "因為家人在巨X就有找過",
+      "所以我也鼓起勇氣問"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1762399478.A.473"
+    ]
+  },
+  {
+    "entity": "是不是該做個醫美",
+    "doctors": [],
+    "clinics": [
+      "是不是該做個醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1763025409.A.6AD"
+    ]
+  },
+  {
+    "entity": "發現超多診所",
+    "doctors": [],
+    "clinics": [
+      "發現超多診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1763362191.A.1C4"
+    ]
+  },
+  {
+    "entity": "想問各位有沒有推薦雙北地區非手術處理眼袋跟淚溝厲害的診所",
+    "doctors": [],
+    "clinics": [
+      "想問各位有沒有推薦雙北地區非手術處理眼袋跟淚溝厲害的診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1764917191.A.65B"
+    ]
+  },
+  {
+    "entity": "想請大家推薦高雄眼袋手術",
+    "doctors": [
+      "想請大家推薦高雄眼袋手術"
+    ],
+    "clinics": [],
+    "cities": [
+      "高雄"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765351155.A.C53"
+    ]
+  },
+  {
+    "entity": "巧天工孫",
+    "doctors": [
+      "巧天工孫"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765351155.A.C53"
+    ]
+  },
+  {
+    "entity": "麗式診所|麗式診所王",
+    "doctors": [
+      "麗式診所王"
+    ],
+    "clinics": [
+      "麗式診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765351155.A.C53"
+    ]
+  },
+  {
+    "entity": "掉 錢逸群",
+    "doctors": [
+      "掉 錢逸群"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765435293.A.0F7"
+    ]
+  },
+  {
+    "entity": "來是去找阮智楷",
+    "doctors": [
+      "來是去找阮智楷"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765435293.A.0F7"
+    ]
+  },
+  {
+    "entity": "原本還興致勃勃跟",
+    "doctors": [
+      "原本還興致勃勃跟"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765441304.A.101"
+    ]
+  },
+  {
+    "entity": "結果",
+    "doctors": [
+      "結果"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1765441304.A.101"
+    ]
+  },
+  {
+    "entity": "那為什麼台灣醫美",
+    "doctors": [],
+    "clinics": [
+      "那為什麼台灣醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1766110932.A.E57"
+    ]
+  },
+  {
+    "entity": "我諮詢過很多家診所",
+    "doctors": [],
+    "clinics": [
+      "我諮詢過很多家診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1766110932.A.E57"
+    ]
+  },
+  {
+    "entity": "不知道各位大大有推薦的診所",
+    "doctors": [],
+    "clinics": [
+      "不知道各位大大有推薦的診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767012050.A.94C"
+    ]
+  },
+  {
+    "entity": "是審美自然、不亂推項目的|求醫師/診所",
+    "doctors": [
+      "是審美自然、不亂推項目的"
+    ],
+    "clinics": [
+      "求醫師/診所"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767066666.A.B14"
+    ]
+  },
+  {
+    "entity": "單純填淚溝自然很多，推葉",
+    "doctors": [
+      "單純填淚溝自然很多，推葉"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767066666.A.B14"
+    ]
+  },
+  {
+    "entity": "我當初在名悅給邱大睿",
+    "doctors": [
+      "我當初在名悅給邱大睿"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767066666.A.B14"
+    ]
+  },
+  {
+    "entity": "分都是長輩才會外開。我的",
+    "doctors": [
+      "分都是長輩才會外開。我的"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767066666.A.B14"
+    ]
+  },
+  {
+    "entity": "前陣子去諮詢，問|前陣子去諮詢，問醫生黑眼圈能做什麼醫美",
+    "doctors": [
+      "前陣子去諮詢，問"
+    ],
+    "clinics": [
+      "前陣子去諮詢，問醫生黑眼圈能做什麼醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1767940072.A.330"
+    ]
+  },
+  {
+    "entity": "但怎麼還會有一堆|都忘了自己讀過的|難道那些",
+    "doctors": [
+      "但怎麼還會有一堆",
+      "都忘了自己讀過的",
+      "難道那些"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1768533163.A.7A6"
+    ]
+  },
+  {
+    "entity": "1. 佳x優-李|到馬上就可以進入診間看見|很快，而且也很有耐心。 診所也有附設停車場，|而且|進入診間後",
+    "doctors": [
+      "1. 佳x優-李",
+      "到馬上就可以進入診間看見",
+      "而且",
+      "進入診間後"
+    ],
+    "clinics": [
+      "很快，而且也很有耐心。 診所也有附設停車場，"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1768812083.A.6A7"
+    ]
+  },
+  {
+    "entity": "解為什麼大家喜歡給他做，|這位",
+    "doctors": [
+      "解為什麼大家喜歡給他做，",
+      "這位"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1768812083.A.6A7"
+    ]
+  },
+  {
+    "entity": ". 美x線 - 馮醫師 診所非常漂亮，高級到|3. 美x線 - 馮|在運動的關係脂肪比較少，|我也有看到|沒多久|進來診間，是所有",
+    "doctors": [
+      "3. 美x線 - 馮",
+      "在運動的關係脂肪比較少，",
+      "我也有看到",
+      "沒多久",
+      "進來診間，是所有"
+    ],
+    "clinics": [
+      ". 美x線 - 馮醫師 診所非常漂亮，高級到"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1768812083.A.6A7"
+    ]
+  },
+  {
+    "entity": "我說好，我先跟這位|我預約這位|看再來決定要不要和另一位|補蘋果肌就得參考他們別的",
+    "doctors": [
+      "我說好，我先跟這位",
+      "我預約這位",
+      "看再來決定要不要和另一位",
+      "補蘋果肌就得參考他們別的"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1768812083.A.6A7"
+    ]
+  },
+  {
+    "entity": "直到遇到",
+    "doctors": [
+      "直到遇到"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1768812083.A.6A7"
+    ]
+  },
+  {
+    "entity": "推薦台北韓娜斯週二的韓",
+    "doctors": [
+      "推薦台北韓娜斯週二的韓"
+    ],
+    "clinics": [],
+    "cities": [
+      "台北"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1770624717.A.BE9"
+    ]
+  },
+  {
+    "entity": "最近一直盧說覺得眼袋不好看，想要做醫美",
+    "doctors": [],
+    "clinics": [
+      "最近一直盧說覺得眼袋不好看，想要做醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1770886834.A.F91"
+    ]
+  },
+  {
+    "entity": "我看了兩家",
+    "doctors": [
+      "我看了兩家"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1771409014.A.88E"
+    ]
+  },
+  {
+    "entity": "先說 是在韓國 語言不通又不懂醫美|結果",
+    "doctors": [
+      "結果"
+    ],
+    "clinics": [
+      "先說 是在韓國 語言不通又不懂醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1771912544.A.C1B"
+    ]
+  },
+  {
+    "entity": "最近因為淚溝跟眼下細紋越來越明顯，去醫美",
+    "doctors": [],
+    "clinics": [
+      "最近因為淚溝跟眼下細紋越來越明顯，去醫美"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1772191421.A.340"
+    ]
+  },
+  {
+    "entity": "打小分子薇貝拉或精靈針 診所說他們蠻多客人都",
+    "doctors": [],
+    "clinics": [
+      "打小分子薇貝拉或精靈針 診所說他們蠻多客人都"
+    ],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1772191421.A.340"
+    ]
+  },
+  {
+    "entity": "1.教主 楊|2.耀媄 蔡|3.韓娜斯 韓|下 目前好像是看到有幾位|板友有推薦很會處理淚溝的",
+    "doctors": [
+      "1.教主 楊",
+      "2.耀媄 蔡",
+      "3.韓娜斯 韓",
+      "下 目前好像是看到有幾位",
+      "板友有推薦很會處理淚溝的"
+    ],
+    "clinics": [],
+    "cities": [
+      "台中"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1772430145.A.B07"
+    ]
+  },
+  {
+    "entity": "淚溝真的要好好挑",
+    "doctors": [
+      "淚溝真的要好好挑"
+    ],
+    "clinics": [],
+    "cities": [],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1772430145.A.B07"
+    ]
+  },
+  {
+    "entity": "如果有台中不錯的",
+    "doctors": [
+      "如果有台中不錯的"
+    ],
+    "clinics": [],
+    "cities": [
+      "台中"
+    ],
+    "evidence_count": 1,
+    "threads": [
+      "https://www.pttweb.cc/bbs/facelift/M.1773629543.A.45D"
+    ]
+  }
+]
